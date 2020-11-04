@@ -1,6 +1,6 @@
 require 'date'
 
-class LobbyController < ApplicationController
+class RoomController < ApplicationController
 
   def index
 
@@ -11,7 +11,7 @@ class LobbyController < ApplicationController
     unique_id = DateTime.now.strftime "%y%m%d%H%M%S"
 
     # TODO: Create new game
-    game = Game.create!(unique_id)
+    game = Room.create!(unique_id)
 
     # TODO: Redirect to new game
     redirect_to game_path(game)
