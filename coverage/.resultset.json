@@ -363,6 +363,13 @@
           null
         ]
       },
+      "/mnt/d/School/Fall 2020/SELT/Team5/Team5_SELT2020/spec/models/room_spec.rb": {
+        "lines": [
+          1,
+          null,
+          null
+        ]
+      },
       "/mnt/d/School/Fall 2020/SELT/Team5/Team5_SELT2020/app/models/room.rb": {
         "lines": [
           1,
@@ -371,6 +378,6 @@
         ]
       }
     },
-    "timestamp": 1604601699
+    "timestamp": 1604603809
   }
 }
