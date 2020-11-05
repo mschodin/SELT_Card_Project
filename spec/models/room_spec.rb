@@ -1,0 +1,3 @@
+describe Room do
+
+end
