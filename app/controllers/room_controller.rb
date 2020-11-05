@@ -15,8 +15,8 @@ class RoomController < ApplicationController
   end
 
   def show
-    @user1 = GameHand.new("user1")
     @deck = Deck.new
+    @user1 = GameHand.new("user1")
 
     @user1.draw_card(@deck, 5)
 

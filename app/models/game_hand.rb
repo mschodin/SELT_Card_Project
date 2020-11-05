@@ -14,13 +14,16 @@ class GameHand
     game_deck.shuffle!
   end
 
+  #Reminder to Change display implementation
+  def display_card
+
+  end
 
 
   #Using the draw method in RubyCards::Hand to draw from a specific deck for a specific amount
   def draw_card(game_deck, draw_amt)
     @hand.draw(game_deck, draw_amt)
     hand_correction
-
   end
 
   def hand_correction
