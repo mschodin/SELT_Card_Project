@@ -6,4 +6,14 @@ class CreateDecks < ActiveRecord::Migration[5.2]
       t.timestamps
     end
   end
+
+  def up
+    t.references :room
+
+    t.timestamps
+  end
+
+  def down
+    drop_table :decks
+  end
 end
