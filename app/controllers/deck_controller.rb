@@ -9,8 +9,12 @@ class DeckController < ApplicationController
   end
 
   def create
-    @decks ||= []
-    @decks << Deck.create_deck
+    @room = Room.find(params[:room_id])
+    deck_db = @room.decks.create({:room_id => params[:room_id]}) #create instead of build because only attribute is room_id
+    @deck = Deck.create_deck
+    @deck.each do |card|
+      deck_db.cards.create(card)
+    end
     # redirect_to room_path(params[:room_id])
   end
 

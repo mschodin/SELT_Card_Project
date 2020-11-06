@@ -7,16 +7,16 @@
   </tr>
   </thead>
   <tbody>
-    <% @decks.each do |deck| %>
-      <% deck.each do |card| %>
-      <tr><td>
-          <%= card[:rank] %>
-        </td>
-        <td>
-          <%= card[:suit] %>
-      </tr></td>
-      <%end %>
-    <% end %>
+    <%# @decks.each do |deck| %>
+    <% @deck.each do |card| %>
+    <tr><td>
+        <%= card[:rank] %>
+      </td>
+      <td>
+        <%= card[:suit] %>
+    </tr></td>
+    <%end %>
+    <%# end %>
   </tbody>
 </table>
 
