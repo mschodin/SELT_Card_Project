@@ -1,2 +1,19 @@
-<h1>Deck#draw</h1>
-<p>Find me in app/views/deck/draw.html.erb</p>
+<h1>Card Drawn:</h1>
+<table class="table table-striped col-md-12">
+  <thead>
+  <tr>
+    <td>Rank</td>
+    <td>Suit</td>
+  </tr>
+  </thead>
+  <tbody>
+  <%# @decks.each do |deck| %>
+    <tr><td>
+      <%= @draw_card[:rank] %>
+    </td>
+      <td>
+        <%= @draw_card[:suit] %>
+    </tr></td>
+  <%# end %>
+  </tbody>
+</table>
