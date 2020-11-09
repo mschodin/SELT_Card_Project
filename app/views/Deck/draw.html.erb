@@ -7,13 +7,13 @@
   </tr>
   </thead>
   <tbody>
-  <%# @decks.each do |deck| %>
     <tr><td>
       <%= @draw_card[:rank] %>
     </td>
       <td>
         <%= @draw_card[:suit] %>
     </tr></td>
-  <%# end %>
   </tbody>
 </table>
+<%= link_to "Return to Room", room_path(params[:room_id]) %>
+
