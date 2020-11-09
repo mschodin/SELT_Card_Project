@@ -1,9 +1,11 @@
 <h2>You are in a private room!</h2>
-<% if @room_items.empty?%>
+<div>
+  <%= button_to "New Deck", room_deck_index_path(params[:id]), :method => :post %>
+</div>
+<% unless @room_items.empty? %>
   <div>
-    <%= button_to "New Deck", room_deck_index_path(params[:id]), :method => :post %>
+    <%= button_to 'Draw 1 Card', room_deck_draw_path(params[:id], :deck_id => @room_items.keys[0]), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
   </div>
-<% else %>
   <div>
     <table class="table table-striped col-md-12">
       <thead>
@@ -25,6 +27,5 @@
       <% end %>
       </tbody>
     </table>
-    <%= button_to 'Draw 1 Card', room_deck_draw_path(params[:id], :deck_id => @room_items.keys[0]), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
   </div>
 <% end %>
