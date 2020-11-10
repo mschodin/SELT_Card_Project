@@ -4,9 +4,9 @@
 class DeckController < ApplicationController
   def draw
     @room = Room.find(session[:room_id])
-    items = @room.cards.where(session[:room_id])
+    items = @room.cards.all
     @room_items = {}
-    @room_items = get_room_items(items)
+    @room_items = get_room_items(items) unless items.empty?
     @draw_card = @room_items[params['deck_id'].to_i].first
     deck = Deck.find(params['deck_id'])
     deck.cards.find_by(suit: @draw_card[:suit], rank: @draw_card[:rank]).update(deck_id: nil)
