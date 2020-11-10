@@ -10,7 +10,8 @@ class DeckController < ApplicationController
     @draw_card = @room_items[params['deck_id'].to_i].first
     deck = Deck.find(params['deck_id'])
     del_card = deck.cards.find_by(suit: @draw_card[:suit], rank: @draw_card[:rank])
-    deck.cards.delete(del_card.id)
+    del_card.update('deck_id': nil )
+    #deck.cards.delete(del_card.id)
   end
 
   def show
@@ -22,7 +23,7 @@ class DeckController < ApplicationController
     @deck = Deck.create_deck
     @deck.shuffle!
     @deck.each do |card|
-      deck_db. .create(card)
+      deck_db.cards.create(card)
     end
     redirect_to room_path(params[:room_id])
   end
