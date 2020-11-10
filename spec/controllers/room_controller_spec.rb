@@ -20,4 +20,18 @@ describe RoomController do
       expect(created_room.id).to eq(unique_id.to_i)
     end
   end
+  describe 'showing a room and its contents' do
+    it 'should display the new deck button' do
+
+    end
+    it 'should show the draw card button if a deck exists' do
+
+    end
+    it 'should get all of the room items if they exist' do
+
+    end
+    it 'should not show the draw card button if no room items (deck) exist' do
+
+    end
+  end
 end

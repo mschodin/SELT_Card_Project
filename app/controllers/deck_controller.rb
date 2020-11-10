@@ -22,7 +22,7 @@ class DeckController < ApplicationController
     @deck = Deck.create_deck
     @deck.shuffle!
     @deck.each do |card|
-      deck_db.cards.create(card)
+      deck_db. .create(card)
     end
     redirect_to room_path(params[:room_id])
   end
