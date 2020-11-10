@@ -21,9 +21,9 @@ class RoomController < ApplicationController
     if @room.nil?
 
     else
-      items = @room.cards.where(params[:id])
+      items = @room.cards.all
       @room_items = {}
-      @room_items = get_room_items(items)
+      @room_items = get_room_items(items) unless items.empty?
     end
   end
 
