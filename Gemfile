@@ -5,8 +5,7 @@ ruby '2.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -42,6 +41,8 @@ group :development, :test do
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
   gem 'guard-rspec'
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 end
 
 group :development do
@@ -63,6 +64,12 @@ group :test do
   gem 'cucumber-rails', :require=>false
   gem 'database_cleaner'
   gem 'simplecov', :require=>false
+end
+
+group :production do
+  # for Heroku deployment
+  gem 'pg', '~> 0.21.0'
+  gem 'rails_12factor'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
