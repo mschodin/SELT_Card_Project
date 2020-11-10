@@ -4,35 +4,35 @@ RSpec.describe "Decks", type: :request do
 
   describe "GET /draw" do
     it "returns http success" do
-      get "/Deck/draw"
+      get "/deck/draw"
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /show" do
     it "returns http success" do
-      get "/Deck/show"
+      get "/deck/show"
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /create" do
     it "returns http success" do
-      get "/Deck/create"
+      get "/deck/create"
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /delete" do
     it "returns http success" do
-      get "/Deck/delete"
+      get "/deck/delete"
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /index" do
     it "returns http success" do
-      get "/Deck/index"
+      get "/deck/index"
       expect(response).to have_http_status(:success)
     end
   end
