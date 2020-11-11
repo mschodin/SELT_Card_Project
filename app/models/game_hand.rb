@@ -1,6 +1,7 @@
 require 'rubycards'
 include RubyCards
 
+
 class GameHand
   attr_accessor :hand, :name
 
