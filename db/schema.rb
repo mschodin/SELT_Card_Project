@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_11_002058) do
+ActiveRecord::Schema.define(version: 2020_11_11_045101) do
 
   create_table "cards", force: :cascade do |t|
     t.integer "deck_id"
@@ -29,7 +29,16 @@ ActiveRecord::Schema.define(version: 2020_11_11_002058) do
   end
 
   create_table "gamehands", force: :cascade do |t|
-    t.integer "owner_id"
+    t.integer "player_id"
+    t.index ["player_id"], name: "index_gamehands_on_player_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.integer "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_players_on_room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
