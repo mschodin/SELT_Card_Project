@@ -41,3 +41,20 @@ end
 Then(/^I should not see the Draw (\d+) Card button$/) do |arg|
   expect(page).not_to have_button('Draw 1 Card')
 end
+
+Given(/^I am on the draw card room home page$/) do
+  visit room_index_path
+  click_button('Create a game')
+  click_button('New Deck')
+  click_button("Draw 1 Card")
+end
+
+When(/^I click link Return to Room$/) do
+  click_link("Return to Room")
+end
+
+Then(/^I should see (\d+) less card in the deck$/) do |arg|
+  cards =  page.all('tr').map { |td| td.text }
+  cards.shift
+  expect(cards.length).to eq(RubyCards::Deck.new.count - 1)
+end
