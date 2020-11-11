@@ -12,6 +12,7 @@ describe DeckController do
     end
     it 'should have a deck of cards to draw from' do
       unique_id = 1
+      Room.create!([:id=>unique_id])
       deck = RubyCards::Deck.new
       get :create, params: {"room_id"=>unique_id}
       expect(assigns(:deck).count).to be(deck.count)
