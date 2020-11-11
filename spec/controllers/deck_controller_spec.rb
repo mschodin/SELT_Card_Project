@@ -43,12 +43,10 @@ describe DeckController do
       allow(controller).to receive(:get_room_items).with(cards)
       items = assigns(:room_items)
       draw_card = items[unique_id].first
-      deck = Deck.find(1)
       del_card = assigns(:del_card)
+      expect(del_card[:suit]).to eq(draw_card[:suit])
+      expect(del_card[:rank]).to eq(draw_card[:rank])
       expect(del_card.deck_id).to eq(nil)
-    end
-    it 'should remove the drawn card from the deck' do
-
     end
   end
 
