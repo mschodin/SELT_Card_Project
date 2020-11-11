@@ -2,7 +2,10 @@ require 'rubycards'
 include RubyCards
 
 
-class GameHand
+class GameHand < ActiveRecord
+  belongs_to :player
+  has_many :cards
+
   attr_accessor :hand, :name
 
   def initialize ()
