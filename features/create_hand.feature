@@ -5,6 +5,8 @@ Feature: Create a hand to store cards
   so that I can play games
 
 Scenario: A Player has been created
-  Given I am in a game room
-  When There is a hand in play
-  Then I should be able to get the contents of the hand
+  Given There is an empty hand in play
+  Then There should be an empty hand
+
+  Given There is non-empty hand in play
+  Then I should have a non-empty hand

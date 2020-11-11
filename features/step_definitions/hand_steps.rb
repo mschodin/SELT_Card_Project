@@ -1,12 +1,19 @@
-Given /^I am in a game room$/ do
-  visit room_index_path
-  click_button('Create a game')
+
+Given(/^There is an empty hand in play$/) do
+  @hand0 = GameHand.new()
 end
 
-When(/^There is a hand in play$/) do
-  pending
+
+Then(/^There should be an empty hand$/) do
+  expect(@hand1.empty?).to be_falsy?
 end
 
-Then(/^I should be able to get the contents of the hand$/) do
-  pending
+Given(/^There is non\-empty hand in play$/) do
+  @hand0 = GameHand.new()
+  @deck0 = RubyCards::Deck.new()
+  @hand0.draw_card(@deck0, 5)
+end
+
+Then(/^I should have a non\-empty hand$/) do
+  expect(@hand1.empty?).to be_truthy
 end
