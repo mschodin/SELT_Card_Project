@@ -8,6 +8,6 @@ end
 
 Then /^I should be placed in a new game room$/ do
   url = URI.parse(current_url)
-  unique_id = DateTime.now.strftime "%y%m%d%H%M%S"
+  unique_id = '1'
   expect(url.path).to eq('/room/' + unique_id)
 end

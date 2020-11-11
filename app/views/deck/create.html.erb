@@ -1,0 +1,22 @@
+<h1>Deck Created</h1>
+<table class="table table-striped col-md-12">
+  <thead>
+  <tr>
+    <td>Rank</td>
+    <td>Suit</td>
+  </tr>
+  </thead>
+  <tbody>
+    <%# @decks.each do |deck| %>
+    <% @deck.each do |card| %>
+    <tr><td>
+        <%= card[:rank] %>
+      </td>
+      <td>
+        <%= card[:suit] %>
+    </tr></td>
+    <%end %>
+    <%# end %>
+  </tbody>
+</table>
+
