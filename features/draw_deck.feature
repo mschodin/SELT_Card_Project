@@ -15,3 +15,8 @@ Feature: draw a card from a deck from the room page
     Given I am on the game room home page
     When I click create a new room
     Then I should not see the Draw 1 Card button
+
+  Scenario: The user clinks link to go back to room home page
+    Given I am on the draw card room home page
+    When I click link Return to Room
+    Then I should see 1 less card in the deck
