@@ -38,7 +38,6 @@ describe RoomController do
       cards = assigns(:items)
 
       items = controller.get_room_items(cards)
-      puts items.empty?
       items.each do |key,deck|
         expect(deck).to be_a(Array)
         deck.each do |cards|
