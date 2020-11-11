@@ -19,9 +19,9 @@ class RoomController < ApplicationController
     if @room.nil?
 
     else
-      items = @room.cards.all
+      @items = @room.cards.all
       @room_items = {}
-      @room_items = get_room_items(items) unless items.empty?
+      @room_items = get_room_items(@items) unless @items.empty?
     end
   end
 
