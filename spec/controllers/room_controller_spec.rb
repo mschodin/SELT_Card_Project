@@ -23,11 +23,23 @@ describe RoomController do
     end
   end
   describe 'showing a room and its contents' do
-    it 'should display the new deck button' do
+    it 'should get all of the room items as a hash' do
+      Room.create!
+      unique_id = 1
+      post :show, params: {:id=>unique_id}, session: {:room_id=>unique_id}
 
-    end
-    it 'should show the draw card button if a deck exists' do
+      allow(controller).to receive(:get_room)
+      room = Room.find(unique_id)
+      cards = room.cards.all
+      allow(controller).to receive(:get_room_items).with(cards)
 
+      items = assigns(:items)
+      items.each do |key,deck|
+        expect(deck).to be_a(Array)
+        deck.each do |cards|
+          expect(cards).to be_a(Hash)
+        end
+      end
     end
     it 'should get all of the room items if they exist' do
 
