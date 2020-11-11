@@ -6,12 +6,11 @@ class DeckController < ApplicationController
     @room = Room.find(session[:room_id])
     items = @room.cards.all
     @room_items = {}
-    @room_items = get_room_items(items) unless items.empty?
+    @room_items = self.get_room_items(items) unless items.empty?
     @draw_card = @room_items[params['deck_id'].to_i].first
     deck = Deck.find(params['deck_id'])
-    del_card = deck.cards.find_by(suit: @draw_card[:suit], rank: @draw_card[:rank])
-    del_card.update('deck_id': nil )
-    #deck.cards.delete(del_card.id)
+    @del_card = deck.cards.find_by(suit: @draw_card[:suit], rank: @draw_card[:rank])
+    @del_card.update('deck_id': nil )
   end
 
   def show
