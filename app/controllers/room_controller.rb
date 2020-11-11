@@ -7,12 +7,10 @@ class RoomController < ApplicationController
   end
 
   def new
-    unique_id = DateTime.now.strftime "%y%m%d%H%M%S"
     @room = Room.create!
     unique_id = @room.id
     session[:room_id] = unique_id
 
-    #@room = Room.create!([:id => unique_id.to_i])
     redirect_to room_path(unique_id.to_i)
   end
 
