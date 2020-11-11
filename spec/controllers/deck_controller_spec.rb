@@ -10,23 +10,42 @@ describe DeckController do
       get :create, params: {"room_id"=>unique_id}
       get :draw, params: {:deck_id=>"1", :room_id=>unique_id}, session: {:room_id=>unique_id}
     end
-    it 'should nullify the deck_id of the drawn card' do
-      # draw_card = double(:suit => 'Spades', :rank => '2')
-      # deck = Deck.new
-      # cards = {'deck_id'=>13, :room_id=>"201109132505", :rank=>'2', :suit=>'Spades'}
-      # card = double('Card', {'deck_id'=>13, :room_id=>"201109132505", :rank=>'2', :suit=>'Spades'})
-      # room = double('Room',:room_id=>"201109132505", :cards=>card)
-      #
-      # deck = double('Deck')
-      #
-      # allow(Room).to receive(:find).and_return(room)
-      # allow(card).to receive(:where).and_return([cards])
-      # allow(Deck).to receive(:find).and_return(deck)
-      # allow(deck).to receive(:find_by).and_return([cards])
-      # allow(DeckController).to receive(:get_room_items).and_return([])
+    it 'should have a deck of cards to draw from' do
+      unique_id = 1
+      room = Room.create!([:id=>unique_id])
+      deck = RubyCards::Deck.new
+      get :create, params: {"room_id"=>unique_id}
+      expect(assigns(:deck).count).to be(deck.count)
     end
-    it 'should get all of the items in a room as a hash' do
-
+    it 'return the room items as a hash' do
+      unique_id = 1
+      Room.create!([:id => unique_id])
+      get :create, params: {"room_id"=>unique_id}
+      room = Room.find(unique_id)
+      cards = room.cards.all
+      get :draw, params: {:deck_id=>"1", :room_id=>unique_id}, session: {:room_id=>unique_id}
+      allow(controller).to receive(:get_room_items).with(cards)
+      items = assigns(:room_items)
+      items.each do |key,deck|
+        expect(deck).to be_a(Array)
+        deck.each do |cards|
+          expect(cards).to be_a(Hash)
+        end
+      end
+    end
+    it 'should dereference the drawn card from the deck' do
+      unique_id = 1
+      Room.create!([:id => unique_id])
+      get :create, params: {"room_id"=>unique_id}
+      room = Room.find(unique_id)
+      cards = room.cards.all
+      get :draw, params: {:deck_id=>"1", :room_id=>unique_id}, session: {:room_id=>unique_id}
+      allow(controller).to receive(:get_room_items).with(cards)
+      items = assigns(:room_items)
+      draw_card = items[unique_id].first
+      deck = Deck.find(1)
+      del_card = assigns(:del_card)
+      expect(del_card.deck_id).to eq(nil)
     end
     it 'should remove the drawn card from the deck' do
 
