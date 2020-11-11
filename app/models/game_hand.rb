@@ -1,15 +1,13 @@
 require 'rubycards'
-include RubyCards
 
-
-class GameHand < ActiveRecord
+class GameHand < ApplicationRecord
   belongs_to :player
   has_many :cards
 
   attr_accessor :hand, :name
 
   def initialize ()
-    @hand = Hand.new
+    @hand = RubyCard::Hand.new
   end
 
   def deck_shuffle(game_deck)
