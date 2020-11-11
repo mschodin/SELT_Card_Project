@@ -1,4 +1,6 @@
 require 'date'
+require 'rubycards'
+include RubyCards
 
 class RoomController < ApplicationController
 
