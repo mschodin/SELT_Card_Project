@@ -1,8 +1,7 @@
-#Alec Cleofe
 require 'rubycards'
 include RubyCards
 
-class GameHand
+class GameHand 
   attr_accessor :hand, :name
 
   def initialize (name)
@@ -15,15 +14,14 @@ class GameHand
   end
 
   #Reminder to Change display implementation
-  def display_card
-
+  def display_cards
+    hand_correction
   end
 
 
   #Using the draw method in RubyCards::Hand to draw from a specific deck for a specific amount
   def draw_card(game_deck, draw_amt)
     @hand.draw(game_deck, draw_amt)
-    hand_correction
   end
 
   def hand_correction
@@ -32,19 +30,18 @@ class GameHand
       holder << [card.to_i,card.suit]
     end
     real_symbol(holder)
-    @hand = holder
   end
 
   def real_symbol(handy)
     handy.each do |card|
       if card[1].eql?("Diamonds")
-        card[1] = Card::DIAMOND
+        card[1] = RubyCards::Card::DIAMOND
       elsif card[1].eql?("Clubs")
-        card[1] = Card::CLUB
+        card[1] = RubyCards::Card::CLUB
       elsif card[1].eql?("Spades")
-        card[1] = Card::SPADE
+        card[1] = RubyCards::Card::SPADE
       elsif card[1].eql?("Hearts")
-        card[1] = Card::HEART
+        card[1] = RubyCards::Card::HEART
       end
     end
   end

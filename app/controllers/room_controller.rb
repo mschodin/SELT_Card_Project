@@ -15,9 +15,9 @@ class RoomController < ApplicationController
   end
 
   def show
-    @deck = Deck.new
+    @deck = RubyCards::Deck.new
     @user1 = GameHand.new("user1")
-
+    @deck.shuffle!
     @user1.draw_card(@deck, 5)
 
   end
