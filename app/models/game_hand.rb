@@ -4,9 +4,8 @@ include RubyCards
 class GameHand
   attr_accessor :hand, :name
 
-  def initialize (name)
+  def initialize ()
     @hand = Hand.new
-    @name = name
   end
 
   def deck_shuffle(game_deck)
