@@ -37,4 +37,9 @@ class RoomController < ApplicationController
     end
     @room_items
   end
+
+  def join
+    session[:room_id] = params[:room_id]
+    redirect_to(room_path(params[:room_id]))
+  end
 end
