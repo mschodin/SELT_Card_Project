@@ -8,9 +8,11 @@ class DeckController < ApplicationController
     @room_items = {}
     @room_items = get_room_items(items) unless items.empty?
     @draw_card = @room_items[params['deck_id'].to_i].first
-    deck = Deck.find(params['deck_id'])
+    deck = @room.decks.find(params['deck_id'])
     @del_card = deck.cards.find_by(suit: @draw_card[:suit], rank: @draw_card[:rank])
-    @del_card.update('deck_id': nil )
+    #TODO: add cards to player hand
+    #player = @room.players.find(session[:player_id])
+    @del_card.update('deck_id': nil)#, 'gamehand_id': player.game_hand.id)
   end
 
   def show
@@ -18,12 +20,7 @@ class DeckController < ApplicationController
 
   def create
     @room = Room.find(params[:room_id])
-    deck_db = @room.decks.create({:room_id => params[:room_id]}) #create instead of build because only attribute is room_id
-    @deck = Deck.create_deck
-    @deck.shuffle!
-    @deck.each do |card|
-      deck_db.cards.create(card)
-    end
+    @deck = @room.add_deck
     redirect_to room_path(params[:room_id])
   end
 
