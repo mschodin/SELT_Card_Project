@@ -5,9 +5,10 @@ class GameHand < ApplicationRecord
   has_many :cards
 
   attr_accessor :hand, :name
+  after_initialize :set_hand
 
-  def initialize ()
-    @hand = RubyCard::Hand.new
+  def set_hand
+    @hand = RubyCards::Hand.new
   end
 
   def deck_shuffle(game_deck)

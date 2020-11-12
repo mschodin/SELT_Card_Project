@@ -6,7 +6,16 @@ class Room < ActiveRecord::Base
 
   def add_player name
     player = self.players.create(:name => name)
-    player.hand.create
+    player.create_game_hand
     player
+  end
+
+  def add_deck
+    deck_db = self.decks.create #create instead of build because only attribute is room_id
+    deck = Deck.create_deck
+    deck.map { |card| card[:gamehand_id] = nil }
+    deck.shuffle!
+    added_cards = deck_db.cards.create(deck)
+    deck
   end
 end
