@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+room = Room.create
+player1 = room.add_player("Tommy")
+player2 = room.add_player("Dorothy")
+player3 = room.add_player("Sam")
+room.add_deck

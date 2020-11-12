@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_11_002058) do
+ActiveRecord::Schema.define(version: 2020_11_11_045101) do
 
   create_table "cards", force: :cascade do |t|
     t.integer "deck_id"
+    t.integer "gamehand_id"
     t.string "rank"
     t.string "suit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deck_id"], name: "index_cards_on_deck_id"
+    t.index ["gamehand_id"], name: "index_cards_on_gamehand_id"
   end
 
   create_table "decks", force: :cascade do |t|
@@ -28,8 +30,17 @@ ActiveRecord::Schema.define(version: 2020_11_11_002058) do
     t.index ["room_id"], name: "index_decks_on_room_id"
   end
 
-  create_table "gamehands", force: :cascade do |t|
-    t.integer "owner_id"
+  create_table "game_hands", force: :cascade do |t|
+    t.integer "player_id"
+    t.index ["player_id"], name: "index_game_hands_on_player_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.integer "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_players_on_room_id"
   end
 
   create_table "rooms", force: :cascade do |t|
