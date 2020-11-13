@@ -45,11 +45,10 @@ describe RoomController do
     # render_views
     before(:all) do
       Room.create!
+      Player.create!(:name=>"NameTaken", :room_id=>1)
     end
     it 'joins room with valid id' do
-      # post '/room/join', :params => { :name => "John", :room_id => "1"}
       post :join, :params => { :name => "John", :room_id => "1"}
-      # expect(response).to render_template('show')
       expect(response).to redirect_to(room_path(1))
     end
     it 'prevents join when invalid name is given' do
@@ -68,10 +67,9 @@ describe RoomController do
       post :join, :params => { :name => "John", :room_id => "9999999999"}
       expect(response).to_not redirect_to(room_path(1))
     end
-    # it 'prevents joining a room when selected player name is already in that given room' do
-    #   post :join, :params => { :name => "John", :room_id => "1"}
-    #   post :join, :params => { :name => "John", :room_id => "1"}
-    #   expect(response).to_not redirect_to(room_path(1))
-    # end
+    it 'prevents joining a room when selected player name is already in that given room' do
+      post :join, :params => { :name => "NameTaken", :room_id => "1"}
+      expect(response).to_not redirect_to(room_path(1))
+    end
   end
 end
