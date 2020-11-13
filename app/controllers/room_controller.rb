@@ -14,9 +14,8 @@ class RoomController < ApplicationController
       unique_id = @room.id
       session[:room_id] = unique_id
       session[:player] = @room.add_player(params[:name])
+      redirect_to room_path(unique_id.to_i)
     end
-
-    redirect_to room_path(unique_id.to_i)
   end
 
   def show

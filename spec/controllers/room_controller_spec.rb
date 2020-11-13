@@ -16,6 +16,14 @@ describe RoomController do
       expect(room_path(unique_id)).to eq('/room/' + unique_id)
       post :join, :params => { :name => "John", :room_id => "9999999999"}
     end
+    it 'should not allow creating a room with an invalid name' do
+      expect(Room).to_not receive(:create!)
+      post :create, :params => {:name => "John!@%!@"}
+    end
+    it 'should not allow creating a room with an empty name' do
+      expect(Room).to_not receive(:create!)
+      post :create, :params => {:name => ""}
+    end
   end
   describe 'showing a room and its contents' do
     it 'should get all of the room items as a hash' do
