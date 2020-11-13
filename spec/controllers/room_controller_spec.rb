@@ -74,5 +74,10 @@ describe RoomController do
       post :join, :params => { :name => "John", :room_id => "9999999999"}
       expect(response).to_not redirect_to(room_path(1))
     end
+    # it 'prevents joining a room when selected player name is already in that given room' do
+    #   post :join, :params => { :name => "John", :room_id => "1"}
+    #   post :join, :params => { :name => "John", :room_id => "1"}
+    #   expect(response).to_not redirect_to(room_path(1))
+    # end
   end
 end

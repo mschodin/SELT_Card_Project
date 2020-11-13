@@ -18,7 +18,7 @@ Then /^I should be placed in a new game room$/ do
 end
 
 When /^I click join a room with name "(.*?)" and room id "(.*?)"$/ do |name, id|
-  page.fill_in "name_box", :with => name
+  page.fill_in "join_name_box", :with => name
   page.fill_in 'room_id_box', :with => id
   click_button('Join Game')
 end
