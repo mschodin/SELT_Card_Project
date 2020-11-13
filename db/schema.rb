@@ -14,13 +14,13 @@ ActiveRecord::Schema.define(version: 2020_11_11_045101) do
 
   create_table "cards", force: :cascade do |t|
     t.integer "deck_id"
-    t.integer "gamehand_id"
+    t.integer "game_hand_id"
     t.string "rank"
     t.string "suit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deck_id"], name: "index_cards_on_deck_id"
-    t.index ["gamehand_id"], name: "index_cards_on_gamehand_id"
+    t.index ["game_hand_id"], name: "index_cards_on_game_hand_id"
   end
 
   create_table "decks", force: :cascade do |t|
