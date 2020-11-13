@@ -1,6 +1,7 @@
 class Room < ActiveRecord::Base
   has_many :players
-  has_many :decks
+  has_many :piles
+  has_many :decks, through: :piles
   has_many :game_hands, through: :players
   has_many :cards, through: :decks
 
