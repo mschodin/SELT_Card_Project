@@ -4,27 +4,22 @@ require 'spec_helper'
 describe RoomController do
   describe 'creating a room' do
     it 'should create a new room when new room controller path is called' do
-      unique_id = 1
-      expect(Room).to receive(:create!).with(no_args)
+      unique_id = Room.last.id
+      expect(Room).to receive(:create!)
       room = assigns(:room)
       allow(room).to receive(:id).and_return(unique_id)
-      get :new
+      allow(room).to receive(:add_player)
+      post :create, :params => {:name => "John"}
     end
     it 'should redirect to the newly created room when a new room is requested' do
-      unique_id = '1'
+      unique_id = Room.last.id.to_s
       expect(room_path(unique_id)).to eq('/room/' + unique_id)
-      get :new
-    end
-    it 'should create a new room with the correct id number created from current time' do
-      get :new
-      unique_id = 1
-      created_room = Room.find(unique_id)
-      expect(created_room.id).to eq(unique_id)
+      post :join, :params => { :name => "John", :room_id => "9999999999"}
     end
   end
   describe 'showing a room and its contents' do
     it 'should get all of the room items as a hash' do
-      get :new
+      post :create, :params => {:name => "John"}
       get :show, params: {:id=>1}, session: {:room_id=>1}
       allow(controller).to receive(:get_room)
 
@@ -50,7 +45,6 @@ describe RoomController do
     # render_views
     before(:all) do
       Room.create!
-
     end
     it 'joins room with valid id' do
       # post '/room/join', :params => { :name => "John", :room_id => "1"}

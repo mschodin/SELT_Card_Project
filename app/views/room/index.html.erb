@@ -8,9 +8,8 @@
   </div>
 <% end %>
 
-<%= button_to 'Create a game', new_room_path, method: :get, :class => 'btn btn-primary', id: 'create_game'%>
 <h3>Create a game</h3>
-<%= form_tag new_room_path, :method=>:post, :id=>'join_game_form' do %>
+<%= form_tag room_index_path, :method=>:post, :id=>'join_game_form' do %>
   <%= label_tag(:name, "Enter Name: ") %>
   <%= text_field_tag(:name, '', :id=>:create_name_box) %>
   <%= submit_tag('Create Game') %>

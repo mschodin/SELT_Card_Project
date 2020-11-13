@@ -6,10 +6,15 @@ class RoomController < ApplicationController
 
   end
 
-  def new
-    @room = Room.create!
-    unique_id = @room.id
-    session[:room_id] = unique_id
+  def create
+    if /\W/ =~ params[:name] || params[:name].length.eql?(0)
+      redirect_to room_index_path, notice: "Name is invalid, please try again"
+    else
+      @room = Room.create!
+      unique_id = @room.id
+      session[:room_id] = unique_id
+      session[:player] = @room.add_player(params[:name])
+    end
 
     redirect_to room_path(unique_id.to_i)
   end
