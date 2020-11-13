@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 2020_11_13_160628) do
   end
 
   create_table "decks", force: :cascade do |t|
-    t.integer "room_id"
+    t.integer "pile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_decks_on_room_id"
+    t.index ["pile_id"], name: "index_decks_on_pile_id"
   end
 
   create_table "game_hands", force: :cascade do |t|

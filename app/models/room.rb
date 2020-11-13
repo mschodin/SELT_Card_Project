@@ -12,7 +12,8 @@ class Room < ActiveRecord::Base
   end
 
   def add_deck
-    deck_db = self.decks.create #create instead of build because only attribute is room_id
+    pile_db = self.piles.create
+    deck_db = pile_db.decks.create #create instead of build because only attribute is room_id
     deck = Deck.create_deck
     deck.map { |card| card[:gamehand_id] = nil }
     deck.shuffle!
