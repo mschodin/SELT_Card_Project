@@ -1,6 +1,7 @@
 Given(/^I am in a room$/) do
   visit room_index_path
-  click_button('Create a game')
+  page.fill_in "create_name_box", :with => "UncommonName"
+  click_button('Create Game')
 end
 
 When(/^I click create a new deck$/) do
@@ -20,7 +21,8 @@ end
 
 Given(/^I am on the game room home page AND a deck has been created$/) do
   visit room_index_path
-  click_button('Create a game')
+  page.fill_in "create_name_box", :with => "UncommonName"
+  click_button('Create Game')
   click_button('New Deck')
 end
 
@@ -44,7 +46,8 @@ end
 
 Given(/^I am on the draw card room home page$/) do
   visit room_index_path
-  click_button('Create a game')
+  page.fill_in "create_name_box", :with => "UncommonName"
+  click_button('Create Game')
   click_button('New Deck')
   click_button("Draw 1 Card")
 end

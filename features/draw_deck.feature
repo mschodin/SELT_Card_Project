@@ -13,7 +13,7 @@ Feature: draw a card from a deck from the room page
   Scenario: The user does not click New Deck
 
     Given I am on the game room home page
-    When I click create a new room
+    When I click create a new room with name "John"
     Then I should not see the Draw 1 Card button
 
   Scenario: The user clinks link to go back to room home page

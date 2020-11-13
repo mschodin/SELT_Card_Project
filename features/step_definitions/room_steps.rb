@@ -4,17 +4,20 @@ end
 
 Given /^A room has been created$/ do
   visit room_index_path
-  click_button('Create a game')
+  page.fill_in "create_name_box", :with => "UncommonName"
+  click_button('Create Game')
 end
 
-When /^I click create a new room$/ do
-  click_button('Create a game')
+When /^I click create a new room with name "(.*?)"$/ do |name|
+  page.fill_in "create_name_box", :with => name
+  click_button('Create Game')
 end
 
-Then /^I should be placed in a new game room$/ do
+Then /^I should be placed in a new game room with name "(.*?)"$/ do |name|
   url = URI.parse(current_url)
   unique_id = Room.last.id.to_s
   expect(url.path).to eq('/room/' + unique_id)
+  page.should have_content('Player name: ' + name)
 end
 
 When /^I click join a room with name "(.*?)" and room id "(.*?)"$/ do |name, id|
