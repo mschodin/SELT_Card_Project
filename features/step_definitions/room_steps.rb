@@ -13,7 +13,7 @@ end
 
 Then /^I should be placed in a new game room$/ do
   url = URI.parse(current_url)
-  unique_id = '1'
+  unique_id = Room.last.id.to_s
   expect(url.path).to eq('/room/' + unique_id)
 end
 
@@ -25,7 +25,7 @@ end
 
 Then /^I should be placed in the game room with id "(.*?)"$/ do |id|
   url = URI.parse(current_url)
-  unique_id = '1'
+  unique_id = Room.last.id.to_s
   expect(url.path).to eq('/room/' + unique_id)
 end
 
