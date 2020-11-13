@@ -46,4 +46,7 @@ describe RoomController do
       end
     end
   end
+  describe 'join a room' do
+
+  end
 end
