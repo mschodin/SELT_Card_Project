@@ -25,8 +25,7 @@ end
 
 Then /^I should be placed in the game room with id "(.*?)"$/ do |id|
   url = URI.parse(current_url)
-  unique_id = Room.last.id.to_s
-  expect(url.path).to eq('/room/' + unique_id)
+  expect(url.path).to eq('/room/' + id)
 end
 
 Then /^The user is notified their name is invalid$/ do
