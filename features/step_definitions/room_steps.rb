@@ -8,6 +8,18 @@ Given /^A room has been created$/ do
   click_button('Create Game')
 end
 
+Given /^A room with id 1 has been created with player named "(.*?)" present$/ do |name|
+  visit room_index_path
+  if Room.last.id.eql?(0)
+    page.fill_in "create_name_box", :with => name
+    click_button('Create Game')
+  else
+    page.fill_in "join_name_box", :with => name
+    page.fill_in 'room_id_box', :with => 1
+    click_button('Join Game')
+  end
+end
+
 When /^I click create a new room with name "(.*?)"$/ do |name|
   page.fill_in "create_name_box", :with => name
   click_button('Create Game')
@@ -47,4 +59,10 @@ Then /^The user is notified the room does not exist$/ do
   url = URI.parse(current_url)
   expect(url.path).to eq('/room')
   page.should have_content('Room does not exist, please try again')
+end
+
+Then /^The user is notified a player with name "(.*?)" already exists$/ do |name|
+  url = URI.parse(current_url)
+  expect(url.path).to eq('/room')
+  page.should have_content("Player with name " + name + " already exists in room 1")
 end

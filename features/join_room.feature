@@ -31,3 +31,10 @@ Feature: join a room from the landing page
     And I am on the game room home page
     When I click join a room with name "John" and room id "9999999999999"
     Then The user is notified the room does not exist
+
+  Scenario: The user may not join a room with a duplicate name
+
+    Given A room with id 1 has been created with player named "John" present
+    And I am on the game room home page
+    When I click join a room with name "John" and room id "1"
+    Then The user is notified a player with name "John" already exists
