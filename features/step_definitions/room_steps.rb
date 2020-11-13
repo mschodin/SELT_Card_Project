@@ -31,17 +31,17 @@ end
 Then /^The user is notified their name is invalid$/ do
   url = URI.parse(current_url)
   expect(url.path).to eq('/room')
-  expect(flash[:notice]).to match(/Name is invalid, please try again/)
+  page.should have_content('Name is invalid, please try again')
 end
 
 Then /^The user is notified the room id is invalid$/ do
   url = URI.parse(current_url)
   expect(url.path).to eq('/room')
-  expect(flash[:notice]).to match(/Room id invalid, please try again/)
+  page.should have_content('Room id invalid, please try again')
 end
 
 Then /^The user is notified the room does not exist$/ do
   url = URI.parse(current_url)
   expect(url.path).to eq('/room')
-  expect(flash[:notice]).to match(/Room does not exist, please try again/)
+  page.should have_content('Room does not exist, please try again')
 end
