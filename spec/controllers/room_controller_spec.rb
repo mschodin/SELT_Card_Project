@@ -47,6 +47,8 @@ describe RoomController do
     end
   end
   describe 'join a room' do
+    it 'joins room with valid id' do
 
+    end
   end
 end

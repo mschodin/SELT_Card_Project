@@ -1,4 +1,13 @@
 <h2>Welcome to the lobby room</h2>
+
+<% if flash[:notice] %>
+  <div class="alert alert-danger">
+    <div class="flashMessage" id="notice">
+      <%= flash[:notice] %>
+    </div>
+  </div>
+<% end %>
+
 <%= button_to 'Create a game', new_room_path, method: :get, :class => 'btn btn-primary', id: 'create_game'%>
 
 <%= form_tag room_join_path, :method=>:post, :id=>'join_game_form' do %>

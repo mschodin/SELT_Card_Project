@@ -37,7 +37,15 @@ class RoomController < ApplicationController
   end
 
   def join
-    session[:room_id] = params[:room_id]
-    redirect_to(room_path(params[:room_id]))
+    if /\W/ =~ params[:name] || params[:name].length.eql?(0)
+      redirect_to room_index_path, notice: "Name is invalid, please try again"
+    elsif /\D/ =~ params[:room_id] || params[:room_id].length.eql?(0)
+      redirect_to room_index_path, notice: "Room id invalid, please try again"
+    elsif Room.exists?(id: params[:room_id])
+      session[:room_id] = params[:room_id]
+      redirect_to(room_path(params[:room_id]))
+    else
+      redirect_to room_index_path, notice: "Room does not exist, please try again"
+    end
   end
 end
