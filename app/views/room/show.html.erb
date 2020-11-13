@@ -7,6 +7,8 @@
     <%= button_to 'Draw 1 Card', room_deck_draw_path(params[:id], :deck_id => @room_items.keys[0]), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
   </div>
   <div>
+    <h3>DECK AMOUNT:</h3>
+    <%= @items.length %>
     <table class="table table-striped col-md-12">
       <thead>
       <tr>
