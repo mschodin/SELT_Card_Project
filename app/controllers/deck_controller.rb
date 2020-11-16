@@ -12,7 +12,11 @@ class DeckController < ApplicationController
     @del_card = deck.cards.find_by(suit: @draw_card[:suit], rank: @draw_card[:rank])
     #TODO: add cards to player hand
     #player = @room.players.find(session[:player_id])
+    #placeholder for single person display
+    @player1 = @room.players.first
+    @del_card.update('game_hand_id': @player1[params['game_hand_id']])
     @del_card.update('deck_id': nil)#, 'gamehand_id': player.game_hand.id)
+
   end
 
   def show

@@ -8,7 +8,10 @@ class GameHand < ApplicationRecord
   after_initialize :set_hand
 
   def set_hand
-    @hand = RubyCards::Hand.new
+    #@hand = RubyCards::Hand.new
+    rc_hand = RubyCards::Hand.new
+    rc_hand.each { |card| @hand << {  :rank => card.rank, :suit => card.suit } }
+
   end
 
   def deck_shuffle(game_deck)
@@ -19,6 +22,7 @@ class GameHand < ApplicationRecord
   def display_cards
     hand_correction
   end
+
 
 
   #Using the draw method in RubyCards::Hand to draw from a specific deck for a specific amount

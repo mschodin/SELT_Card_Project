@@ -21,6 +21,7 @@ class RoomController < ApplicationController
   def show
     @room = get_room
     @name = session[:player]['name']
+    @player1 = @room.players.first
     if @room.nil?
 
     else
