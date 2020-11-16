@@ -3,7 +3,7 @@ describe Room do
     room = Room.create
     num_decks = 5
 
-    num_decks.times { room.add_deck }
+    num_decks.times { room.add_deck(room.add_pile) }
     expect(room.decks.all.count).to be(num_decks)
   end
 
@@ -16,14 +16,16 @@ describe Room do
 
   it 'should be able to add deck to room' do
     room = Room.create
+    pile = room.add_pile
     initial_deck_count = room.decks.count
-    room.add_deck
+    room.add_deck(pile)
     expect(room.decks.count).to be(initial_deck_count + 1)
   end
 
   it 'should be' do
     room = Room.create
-    deck = room.add_deck
+    pile = room.add_pile
+    deck = room.add_deck(pile)
     expect(room.decks)
   end
 end
