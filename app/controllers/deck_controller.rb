@@ -14,7 +14,7 @@ class DeckController < ApplicationController
     #player = @room.players.find(session[:player_id])
     #placeholder for single person display
     @player1 = @room.players.first
-    @del_card.update('game_hand_id': @player1[params['game_hand_id']])
+    @del_card.update('game_hand_id': @room.game_hands.find(@player1[:id])[:id])
     @del_card.update('deck_id': nil)#, 'gamehand_id': player.game_hand.id)
 
   end

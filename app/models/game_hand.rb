@@ -17,7 +17,7 @@ class GameHand < ApplicationRecord
 
   #Reminder to Change display implementation
   def display_cards
-    #hand_correction
+    hand_correction
   end
 
   def display_hand
@@ -25,8 +25,7 @@ class GameHand < ApplicationRecord
     self.cards.all.each do |card|
       holder << [card[:Rank],card[:Suit]]
     end
-    holder
-    #real_symbol(holder)
+    real_symbol(holder)
   end
 
 
