@@ -10,7 +10,7 @@ Player name: <%= @name %>
   </div>
   <div>
     <h3>DECK AMOUNT: <%= @items.length %></h3>
-    <h3>Player <%= @player1[:name] %> : </h3>
+    <h3>Player <%= @player1[:name] %> : <%= @room.game_hands.find(@player1[:id]).display_hand %> </h3>
 
     <table class="table table-striped col-md-12">
       <thead>
