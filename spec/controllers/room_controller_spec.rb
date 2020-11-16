@@ -32,7 +32,8 @@ describe RoomController do
       allow(controller).to receive(:get_room)
 
       room = assigns(:room)
-      deck_db = room.decks.create({:room_id=>1})
+      pile = room.piles.create({:room_id=>1})
+      deck_db = pile.decks.create({:pile_id=>1})
       deck = Deck.create_deck
       deck.shuffle!
       deck.each do |card|
@@ -40,7 +41,7 @@ describe RoomController do
       end
       cards = assigns(:items)
 
-      items = controller.get_room_items(cards)
+      items = controller.get_room_items(room.piles.all)
       items.each do |key,deck|
         expect(deck).to be_a(Array)
         deck.each do |cards|
