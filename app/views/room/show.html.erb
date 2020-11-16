@@ -7,8 +7,6 @@ Player name: <%= @name %>
 <% unless @room_items.empty? %>
   <div>
     <%= button_to 'Draw 1 Card', room_deck_draw_path(params[:id], :deck_id => @room_items.keys[0]), method: :get,:class => 'btn btn-primary',   id: 'draw_card' %>
-    <% #@card.game_hand = @player1 %>
-    <% #@card.deck = nil %>
   </div>
   <div>
     <h3>DECK AMOUNT: <%= @items.length %></h3>
