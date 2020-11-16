@@ -28,7 +28,6 @@ class GameHand < ApplicationRecord
     real_symbol(holder)
   end
 
-
   #Using the draw method in RubyCards::Hand to draw from a specific deck for a specific amount
   def draw_card(game_deck, draw_amt)
     @hand.draw(game_deck, draw_amt)
