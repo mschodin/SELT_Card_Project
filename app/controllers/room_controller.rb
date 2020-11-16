@@ -36,15 +36,15 @@ class RoomController < ApplicationController
 
   def get_room_items(piles)
     piles.each do |pile|
-      @cards = pile.cards.all
-      @cards.each do |card| #gets all cards loose in the pile
+      pile_cards = pile.cards.all
+      pile_cards.each do |card| #gets all cards loose in the pile
         @room_items[card['deck_id']].nil? ? @room_items[card['deck_id']] = [{:suit => card['suit'],:rank=> card['rank']}] : @room_items[card['deck_id']] << {:suit => card['suit'],:rank => card['rank']}
       end
 
-      @decks = pile.decks.all
-      @decks.each do |deck| #gets all cards inside decks in the pile
-        @deck_cards = deck.cards.all
-        @deck_cards.each do |card|
+      decks = pile.decks.all
+      decks.each do |deck| #gets all cards inside decks in the pile
+        deck_cards = deck.cards.all
+        deck_cards.each do |card|
           @room_items[card['deck_id']].nil? ? @room_items[card['deck_id']] = [{:suit => card['suit'],:rank=> card['rank']}] : @room_items[card['deck_id']] << {:suit => card['suit'],:rank => card['rank']}
         end
       end
