@@ -13,7 +13,7 @@ class DeckController < ApplicationController
     #TODO: add cards to player hand
     #player = @room.players.find(session[:player_id])
     #placeholder for single person display
-    @player1 = @room.players.first
+    @player1 = @room.players.find(session[:player]['id'])
     @del_card.update('deck_id': nil, 'game_hand_id': @player1.game_hand.id)#, 'gamehand_id': player.game_hand.id)
 
 
