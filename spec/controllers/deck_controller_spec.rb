@@ -11,15 +11,15 @@ describe DeckController do
       get :draw, params: {:deck_id=>"1", :room_id=>unique_id}, session: {:room_id=>unique_id}
     end
     it 'should have a deck of cards to draw from' do
-      unique_id = 1
-      Room.create!([:id=>unique_id])
+      Room.create!
+      unique_id = Room.last.id.to_s
       deck = RubyCards::Deck.new
       get :create, params: {"room_id"=>unique_id}
       expect(assigns(:deck).count).to be(deck.count)
     end
     it 'return the room items as a hash' do
-      unique_id = 1
-      Room.create!([:id => unique_id])
+      Room.create!
+      unique_id = Room.last.id.to_s
       get :create, params: {"room_id"=>unique_id}
       room = Room.find(unique_id)
       cards = room.cards.all
@@ -34,15 +34,15 @@ describe DeckController do
       end
     end
     it 'should dereference the drawn card from the deck' do
-      unique_id = 1
-      Room.create!([:id => unique_id])
+      Room.create!
+      unique_id = Room.last.id
       get :create, params: {"room_id"=>unique_id}
       room = Room.find(unique_id)
       cards = room.cards.all
       get :draw, params: {:deck_id=>"1", :room_id=>unique_id}, session: {:room_id=>unique_id}
       allow(controller).to receive(:get_room_items).with(cards)
       items = assigns(:room_items)
-      draw_card = items[unique_id].first
+      draw_card = items[1].first
       del_card = assigns(:del_card)
       expect(del_card[:suit]).to eq(draw_card[:suit])
       expect(del_card[:rank]).to eq(draw_card[:rank])
@@ -56,22 +56,22 @@ describe DeckController do
     end
 
     it 'should redirect back to main room page' do
-      unique_id = 1
-      Room.create!([:id => unique_id])
+      Room.create!
+      unique_id = Room.last.id.to_s
       get :create, params: {"room_id"=>unique_id}
       expect(response).to redirect_to(room_path(unique_id))
     end
 
     it 'should find a room' do
-      unique_id = 1
-      testroom = Room.create!([:id => unique_id])
+      testroom = Room.create!
+      unique_id = Room.last.id
       get :create, params: {:room_id => unique_id}
       expect(assigns(:room)[:id]).to be(unique_id)
     end
 
     it 'should create a deck' do
-      unique_id = 1
-      testroom = Room.create!([:id => unique_id])
+      testroom = Room.create!
+      unique_id = Room.last.id.to_s
       deck = RubyCards::Deck.new
 
       get :create, params: {:room_id => unique_id}
@@ -79,8 +79,8 @@ describe DeckController do
     end
 
     it 'should add 52 cards to db' do
-      unique_id = 1
-      testroom = Room.create!([:id => unique_id])
+      testroom = Room.create!
+      unique_id = Room.last.id.to_s
       num_cards = Card.all.count
       deck = RubyCards::Deck.new
 

@@ -12,10 +12,10 @@ class Room < ActiveRecord::Base
   end
 
   def add_deck
-    pile_db = self.piles.create
+    pile_db = self.piles.create #create new hand
     deck_db = pile_db.decks.create #create instead of build because only attribute is room_id
     deck = Deck.create_deck
-    deck.map { |card| card[:gamehand_id] = nil }
+    deck.map { |card| card[:game_hand_id] = nil }
     deck.shuffle!
     added_cards = deck_db.cards.create(deck)
     deck

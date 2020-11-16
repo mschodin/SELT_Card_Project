@@ -2,7 +2,7 @@ class CreateCards < ActiveRecord::Migration[5.2]
   def change
     create_table :cards do |t|
       t.references :deck
-      t.references :gamehand
+      t.references :game_hand
       t.references :pile
       t.string :rank
       t.string :suit
@@ -13,7 +13,7 @@ class CreateCards < ActiveRecord::Migration[5.2]
   def up
     create_table :cards do |t|
       t.references :deck
-      t.references :gamehand
+      t.references :game_hand
       t.references :pile
       t.string :rank
       t.string :suit
