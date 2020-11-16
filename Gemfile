@@ -72,8 +72,8 @@ end
 
 group :production do
   # for Heroku deployment
-  #gem 'pg', '~> 0.21.0'
-  #gem 'rails_12factor'
+  gem 'pg', '~> 0.21.0'
+  gem 'rails_12factor'
 end
 
 # Windows does not include zoneinfo files, o bundle the tzinfo-data gem
