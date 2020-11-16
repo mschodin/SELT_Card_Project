@@ -11,5 +11,6 @@
   <div>
     <h3>DECK AMOUNT: <%= @items.length %></h3>
     <h3>Player <%= @player1[:name] %> : <%= @room.game_hands.find(@player1[:id]).display_hand %> </h3>
+    <h3>Amount of Cards in <%=@player1[:name] %>'s Hand: <%= @room.game_hands.find(@player1[:id]).card_amount %></h3>
   </div>
 <% end %>

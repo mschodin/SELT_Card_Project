@@ -20,6 +20,14 @@ class GameHand < ApplicationRecord
     hand_correction
   end
 
+  def card_amount
+    i = 0
+    cards.all.each do
+      i = i + 1
+    end
+    i
+  end
+
   def display_hand
     holder = []
     self.cards.all.each do |card|
