@@ -3,6 +3,7 @@ class CreateCards < ActiveRecord::Migration[5.2]
     create_table :cards do |t|
       t.references :deck
       t.references :gamehand
+      t.references :pile
       t.string :rank
       t.string :suit
       t.timestamps
@@ -13,6 +14,7 @@ class CreateCards < ActiveRecord::Migration[5.2]
     create_table :cards do |t|
       t.references :deck
       t.references :gamehand
+      t.references :pile
       t.string :rank
       t.string :suit
       t.timestamps

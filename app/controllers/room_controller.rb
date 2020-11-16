@@ -19,9 +19,9 @@ class RoomController < ApplicationController
     if @room.nil?
 
     else
-      @items = @room.cards.all
+      @piles = @room.piles.all
       @room_items = {}
-      @room_items = get_room_items(@items) unless @items.empty?
+      @room_items = get_room_items(@piles) unless @piles.empty?
     end
   end
 
@@ -29,9 +29,20 @@ class RoomController < ApplicationController
     @room = Room.find(session[:room_id])
   end
 
-  def get_room_items(items)
-    items.each do |card|
-      @room_items[card['deck_id']].nil? ? @room_items[card['deck_id']] = [{:suit => card['suit'],:rank=> card['rank']}] : @room_items[card['deck_id']] << {:suit => card['suit'],:rank => card['rank']}
+  def get_room_items(piles)
+    piles.each do |pile|
+      @cards = pile.cards.all
+      @cards.each do |card| #gets all cards loose in the pile
+        @room_items[card['deck_id']].nil? ? @room_items[card['deck_id']] = [{:suit => card['suit'],:rank=> card['rank']}] : @room_items[card['deck_id']] << {:suit => card['suit'],:rank => card['rank']}
+      end
+
+      @decks = pile.decks.all
+      @decks.each do |deck| #gets all cards inside decks in the pile
+        @deck_cards = deck.cards.all
+        @deck_cards.each do |card|
+          @room_items[card['deck_id']].nil? ? @room_items[card['deck_id']] = [{:suit => card['suit'],:rank=> card['rank']}] : @room_items[card['deck_id']] << {:suit => card['suit'],:rank => card['rank']}
+        end
+      end
     end
     @room_items
   end

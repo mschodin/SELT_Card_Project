@@ -15,12 +15,14 @@ ActiveRecord::Schema.define(version: 2020_11_13_160628) do
   create_table "cards", force: :cascade do |t|
     t.integer "deck_id"
     t.integer "gamehand_id"
+    t.integer "pile_id"
     t.string "rank"
     t.string "suit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deck_id"], name: "index_cards_on_deck_id"
     t.index ["gamehand_id"], name: "index_cards_on_gamehand_id"
+    t.index ["pile_id"], name: "index_cards_on_pile_id"
   end
 
   create_table "decks", force: :cascade do |t|

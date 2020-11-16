@@ -2,7 +2,6 @@ class CreatePiles < ActiveRecord::Migration[5.2]
   def change
     create_table :piles do |t|
       t.references :room
-
       t.timestamps
     end
   end
@@ -10,7 +9,6 @@ class CreatePiles < ActiveRecord::Migration[5.2]
   def up
     create_table :piles do |t|
       t.references :room
-
       t.timestamps
     end
   end
