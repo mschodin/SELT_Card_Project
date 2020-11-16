@@ -23,7 +23,7 @@ class GameHand < ApplicationRecord
   def display_hand
     holder = []
     self.cards.all.each do |card|
-      holder << [card[:Rank],card[:Suit]]
+      holder << [card.rank,card.suit]
     end
     real_symbol(holder)
   end
