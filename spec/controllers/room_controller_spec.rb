@@ -52,6 +52,7 @@ describe RoomController do
   end
   describe 'join a room' do
     before(:all) do
+      Player.destroy_all
       Room.create!
       Player.create!(:name=>"NameTaken", :room_id=>1)
     end
@@ -81,9 +82,9 @@ describe RoomController do
     end
   end
   describe 'leave a room' do
-    before(:all) do
+    before(:each) do
+      Player.destroy_all
       Room.create!
-      Player.find(1).destroy if Player.exists?(1)
       Player.create!(:id=>1, :name=>"John", :room_id=>"1")
     end
     it 'destroys player model when a player leaves' do
