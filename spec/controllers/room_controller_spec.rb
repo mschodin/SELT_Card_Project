@@ -5,8 +5,8 @@ describe RoomController do
   describe 'creating a room' do
     it 'should create a new room when new room controller path is called' do
       unique_id = Room.last.id
-      expect(Room).to receive(:create!)
       room = assigns(:room)
+      expect(Room).to receive(:create!)
       allow(room).to receive(:id).and_return(unique_id)
       allow(room).to receive(:add_player)
       post :create, :params => {:name => "John"}
@@ -51,7 +51,6 @@ describe RoomController do
     end
   end
   describe 'join a room' do
-    # render_views
     before(:all) do
       Room.create!
       Player.create!(:name=>"NameTaken", :room_id=>1)
@@ -79,6 +78,21 @@ describe RoomController do
     it 'prevents joining a room when selected player name is already in that given room' do
       post :join, :params => { :name => "NameTaken", :room_id => "1"}
       expect(response).to_not redirect_to(room_path(1))
+    end
+  end
+  describe 'leave a room' do
+    before(:all) do
+      Room.create!
+      Player.find(1).destroy if Player.exists?(1)
+      Player.create!(:id=>1, :name=>"John", :room_id=>"1")
+    end
+    it 'destroys player model when a player leaves' do
+      get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(Player.exists?(1)).to be_falsy
+    end
+    it 'redirects to the landing page when a player leaves' do
+      get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(response).to redirect_to(room_index_path)
     end
   end
 end
