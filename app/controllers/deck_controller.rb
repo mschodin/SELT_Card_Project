@@ -24,7 +24,8 @@ class DeckController < ApplicationController
 
   def create
     @room = Room.find(params[:room_id])
-    @deck = @room.add_deck
+    pile = Pile.find(params[:pile_id])
+    @deck = @room.add_deck(pile)
     redirect_to room_path(params[:room_id])
   end
 

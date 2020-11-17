@@ -1,6 +1,7 @@
 class Room < ActiveRecord::Base
   has_many :players
-  has_many :decks
+  has_many :piles
+  has_many :decks, through: :piles
   has_many :game_hands, through: :players
   has_many :cards, through: :decks
 
@@ -10,8 +11,13 @@ class Room < ActiveRecord::Base
     player
   end
 
-  def add_deck
-    deck_db = self.decks.create #create instead of build because only attribute is room_id
+  def add_pile
+    pile = self.piles.create #create new pile
+    pile
+  end
+
+  def add_deck(pile)
+    deck_db = pile.decks.create #create instead of build because only attribute is room_id
     deck = Deck.create_deck
     deck.map { |card| card[:game_hand_id] = nil }
     deck.shuffle!
