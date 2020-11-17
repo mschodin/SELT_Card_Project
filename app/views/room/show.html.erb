@@ -1,4 +1,4 @@
-<h2><%= @name %> is in private room #<%=session[:room_id] %>!</h2>
+<h2><%= session[:player]['name'] %> is in private room #<%=session[:room_id] %>!</h2>
 
 
 <% unless @piles.empty? %>
