@@ -15,17 +15,12 @@ class GameHand < ApplicationRecord
     game_deck.shuffle!
   end
 
-  #Reminder to Change display implementation
   def display_cards
     hand_correction
   end
 
   def card_amount
-    i = 0
-    cards.all.each do
-      i = i + 1
-    end
-    i
+    cards.all.length
   end
 
   def display_hand

@@ -12,11 +12,7 @@ class Deck < ApplicationRecord
     deck
   end
   def card_amount
-    i = 0
-    cards.each do
-      i = i + 1
-    end
-    i
+    cards.all.length
   end
 
   def draw_card
