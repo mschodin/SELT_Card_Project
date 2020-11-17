@@ -66,3 +66,12 @@ Then /^The user is notified a player with name "(.*?)" already exists$/ do |name
   expect(url.path).to eq('/room')
   page.should have_content("Player with name " + name + " already exists in room 1")
 end
+
+When /^I click the leave game button$/ do
+  click_button('Leave Game')
+end
+
+Then /^I should be redirected to the landing page$/ do
+  url = URI.parse(current_url)
+  expect(url.path).to eq('/room')
+end
