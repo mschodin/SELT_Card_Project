@@ -60,7 +60,5 @@ When(/^I click link Return to Room$/) do
 end
 
 Then(/^I should see (\d+) less card in the deck$/) do |arg|
-  cards =  page.all('tr').map { |td| td.text }
-  cards.shift
-  expect(cards.length).to eq(RubyCards::Deck.new.count - 1)
+  expect(page).to have_content("CARDS IN FIRST DECK: " + (RubyCards::Deck.new.count - 1).to_s)
 end

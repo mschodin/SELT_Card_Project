@@ -10,7 +10,7 @@ end
 
 Given /^A room with id 1 has been created with player named "(.*?)" present$/ do |name|
   visit room_index_path
-  if Room.last.id.eql?(0)
+  if Room.last.nil? || Room.last.id.eql?(0)
     page.fill_in "create_name_box", :with => name
     click_button('Create Game')
   else
