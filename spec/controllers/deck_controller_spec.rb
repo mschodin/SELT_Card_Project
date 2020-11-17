@@ -3,32 +3,35 @@ require 'spec_helper'
 
 describe DeckController do
   describe 'drawing one card' do
+    before(:each) do
+      Room.destroy_all
+      Pile.destroy_all
+      Player.destroy_all
+      @room = Room.create!
+      @unique_id = "1"
+    end
     it 'should redirect to drawing view' do
-      unique_id = DateTime.now.strftime "%y%m%d%H%M%S"
-      Room.create!([:id => unique_id.to_i])
-      Pile.create!({:room_id => unique_id})
+      Pile.create!({:room_id => @unique_id})
+      Player.create!({:room_id=>@unique_id, :name=>"UniqueName"})
+      GameHand.create!({:player_id=>1})
       pile_id = Pile.last.id.to_s
-      expect(room_deck_draw_path(:deck_id=>1, :room_id=>unique_id)).to eq('/room/' + unique_id + '/deck/1/draw')
-      get :create, params: {"room_id"=>unique_id, "pile_id"=>pile_id}
-      get :draw, params: {:deck_id=>"1", :room_id=>unique_id}, session: {:room_id=>unique_id}
+      expect(room_deck_draw_path(:deck_id=>1, :room_id=>@unique_id)).to eq('/room/' + @unique_id + '/deck/1/draw')
+      get :create, params: {"room_id"=>@unique_id, "pile_id"=>pile_id}
+      get :draw, params: {:deck_id=>"1", :room_id=>@unique_id}, session: {:room_id=>@unique_id, :player=>Player.find(1)}
     end
     it 'should have a deck of cards to draw from' do
-      Room.create!
-      unique_id = Room.last.id.to_s
-      Pile.create!({:room_id => unique_id})
+      Pile.create!({:room_id => @unique_id})
       pile_id = Pile.last.id.to_s
       deck = RubyCards::Deck.new
-      get :create, params: {"room_id"=>unique_id, "pile_id"=>pile_id}
+      get :create, params: {"room_id"=>@unique_id, "pile_id"=>pile_id}
       expect(assigns(:deck).count).to be(deck.count)
     end
     it 'return the room items as a hash' do
-      room = Room.create!
-      unique_id = Room.last.id.to_s
-      Pile.create!({:room_id => unique_id})
+      Pile.create!({:room_id => @unique_id})
       pile_id = Pile.last.id.to_s
-      get :create, params: {"room_id"=>unique_id, "pile_id"=>pile_id}
-      cards = room.cards.all
-      get :draw, params: {:deck_id=>"1", :room_id=>unique_id}, session: {:room_id=>unique_id}
+      get :create, params: {"room_id"=>@unique_id, "pile_id"=>pile_id}
+      cards = @room.cards.all
+      get :draw, params: {:deck_id=>"1", :room_id=>@unique_id}, session: {:room_id=>@unique_id}
       allow(controller).to receive(:get_room_items).with(cards)
       items = assigns(:room_items)
       items.each do |key,deck|
@@ -39,13 +42,11 @@ describe DeckController do
       end
     end
     it 'should dereference the drawn card from the deck' do
-      room = Room.create!
-      unique_id = Room.last.id
-      Pile.create!({:room_id => unique_id})
+      Pile.create!({:room_id => @unique_id})
       pile_id = Pile.last.id.to_s
-      get :create, params: {"room_id"=>unique_id, "pile_id"=>pile_id}
-      cards = room.cards.all
-      get :draw, params: {:deck_id=>"1", :room_id=>unique_id}, session: {:room_id=>unique_id}
+      get :create, params: {"room_id"=>@unique_id, "pile_id"=>pile_id}
+      cards = @room.cards.all
+      get :draw, params: {:deck_id=>"1", :room_id=>@unique_id}, session: {:room_id=>@unique_id}
       allow(controller).to receive(:get_room_items).with(cards)
       items = assigns(:room_items)
       draw_card = items[1].first
