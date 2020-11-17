@@ -1,5 +1,6 @@
 <h2>You are in a private room!</h2>
 Player name: <%= @name %>
+<%= button_to "Leave Game", room_leave_path, :method => :get %>
 
 <div>
   <%= button_to "New Deck", room_deck_index_path(params[:id]), :method => :post %>

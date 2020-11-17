@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   end
   root :to => redirect('/room')
   post 'room/join'
+  get 'room/leave'
 end

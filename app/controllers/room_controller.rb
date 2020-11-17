@@ -58,6 +58,10 @@ class RoomController < ApplicationController
     end
   end
 
+  def leave
+    session[:room_id] = nil
+    session[:player] = nil
+  end
 
 
 end
