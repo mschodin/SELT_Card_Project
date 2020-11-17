@@ -11,6 +11,14 @@ class Deck < ApplicationRecord
     rc_deck.each { |card| deck << {  :rank => card.rank, :suit => card.suit } }
     deck
   end
+  def card_amount
+    i = 0
+    cards.each do
+      i = i + 1
+    end
+    i
+  end
+
   def draw_card
     @card_hash.pop
   end
