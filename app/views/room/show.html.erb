@@ -11,7 +11,7 @@
       <%= button_to "New Deck in Pile #{pile.id}", room_pile_deck_path(params[:id],pile.id), :method => :post %>
       <% unless pile.decks.empty? %>
         <div>
-          <%= button_to "Draw 1 Card from Pile #{pile.id}", room_deck_draw_path(params[:id], :deck_id => @room_items.keys[0]), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
+          <%= button_to "Draw 1 Card from Pile #{pile.id}", room_deck_draw_path(params[:id], :deck_id => pile.decks.first.id), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
         </div>
         <div>
           <h3>DECK AMOUNT: <%= pile.decks.first.card_amount %></h3>
