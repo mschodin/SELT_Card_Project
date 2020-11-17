@@ -1,36 +1,22 @@
-<h2>You are in a private room!</h2>
-Player name: <%= @name %>
+<h2><%= session[:player]['name'] %> is in private room #<%=session[:room_id] %>!</h2>
 <%= button_to "Leave Game", {:room_id=>session[:room_id], :controller=>"room", :action=>"leave"}, :method => :get %>
+
 
 <% unless @piles.empty? %>
   <div>
+    <div>
+      <h3>Player <%= @player1[:name] %> : <%= @room.game_hands.find(@player1[:id]).display_hand %> </h3>
+      <h3>Amount of Cards in <%=@player1[:name] %>'s Hand: <%= @room.game_hands.find(@player1[:id]).card_amount %></h3>
+    </div>
     <% @piles.each do |pile|   %>
       <%= button_to "New Deck in Pile #{pile.id}", room_pile_deck_path(params[:id],pile.id), :method => :post %>
       <% unless pile.decks.empty? %>
         <div>
-          <%= button_to "Draw 1 Card from Pile #{pile.id}", room_deck_draw_path(params[:id], :deck_id => @room_items.keys[0]), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
+          <%= button_to "Draw 1 Card from Pile #{pile.id}", room_deck_draw_path(params[:id], :deck_id => pile.decks.first.id), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
         </div>
         <div>
-          <table class="table table-striped col-md-12">
-            <thead>
-            <tr>
-              <td>Rank</td>
-              <td>Suit</td>
-            </tr>
-            </thead>
-            <tbody>
-            <% @room_items.each do |key,deck|   %>
-              <% deck.each do |card| %>
-                <tr><td>
-                  <%= card[:rank] %>
-                </td>
-                  <td>
-                    <%= card[:suit] %>
-                </tr></td>
-              <%end %>
-            <% end %>
-            </tbody>
-          </table>
+          <h3>DECKS IN PILE: <%= pile.decks.all.length %></h3>
+          <h3>CARDS IN FIRST DECK: <%= pile.decks.first.card_amount %></h3>
         </div>
       <% end %>
     <% end %>
