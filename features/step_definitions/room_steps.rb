@@ -10,7 +10,7 @@ end
 
 Given /^A room with id 1 has been created with player named "(.*?)" present$/ do |name|
   visit room_index_path
-  if Room.last.id.eql?(0)
+  if Room.last.nil? || Room.last.id.eql?(0)
     page.fill_in "create_name_box", :with => name
     click_button('Create Game')
   else
@@ -29,7 +29,7 @@ Then /^I should be placed in a new game room with name "(.*?)"$/ do |name|
   url = URI.parse(current_url)
   unique_id = Room.last.id.to_s
   expect(url.path).to eq('/room/' + unique_id)
-  page.should have_content('Player name: ' + name)
+  page.should have_content(name + ' is in private room ')
 end
 
 When /^I click join a room with name "(.*?)" and room id "(.*?)"$/ do |name, id|
@@ -65,4 +65,13 @@ Then /^The user is notified a player with name "(.*?)" already exists$/ do |name
   url = URI.parse(current_url)
   expect(url.path).to eq('/room')
   page.should have_content("Player with name " + name + " already exists in room 1")
+end
+
+When /^I click the leave game button$/ do
+  click_button('Leave Game')
+end
+
+Then /^I should be redirected to the landing page$/ do
+  url = URI.parse(current_url)
+  expect(url.path).to eq('/room')
 end

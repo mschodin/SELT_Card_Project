@@ -70,6 +70,12 @@ class RoomController < ApplicationController
     end
   end
 
+  def leave
+    Player.find(session[:player]["id"]).destroy
+    session[:room_id] = nil
+    session[:player] = nil
+    redirect_to room_index_path
+  end
 
 
 end

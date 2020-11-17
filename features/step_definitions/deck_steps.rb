@@ -10,13 +10,7 @@ When(/^I click create a new deck$/) do
 end
 
 Then(/^I should see that a new deck is in the room$/) do
-  cards =  page.all('tr').map { |td| td.text }
-  expect(cards).to include match "Rank"
-  expect(cards).to include match "Suit"
-  expect(cards).to include match "Diamond"
-  expect(cards).to include match "Spades"
-  expect(cards).to include match "Hearts"
-  expect(cards).to include match "Club"
+  expect(page).to have_content("DECKS IN PILE: 1")
 end
 
 
@@ -60,7 +54,5 @@ When(/^I click link Return to Room$/) do
 end
 
 Then(/^I should see (\d+) less card in the deck$/) do |arg|
-  cards =  page.all('tr').map { |td| td.text }
-  cards.shift
-  expect(cards.length).to eq(RubyCards::Deck.new.count - 1)
+  expect(page).to have_content("CARDS IN FIRST DECK: " + (RubyCards::Deck.new.count - 1).to_s)
 end
