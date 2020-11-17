@@ -3,17 +3,21 @@ require 'spec_helper'
 
 describe RoomController do
   describe 'creating a room' do
+    before(:each) do
+      Room.destroy_all
+      Pile.destroy_all
+      Player.destroy_all
+      @unique_id = "1"
+    end
     it 'should create a new room when new room controller path is called' do
-      unique_id = Room.last.id
       room = assigns(:room)
       expect(Room).to receive(:create!)
-      allow(room).to receive(:id).and_return(unique_id)
+      allow(room).to receive(:id).and_return(@unique_id)
       allow(room).to receive(:add_player)
       post :create, :params => {:name => "John"}
     end
     it 'should redirect to the newly created room when a new room is requested' do
-      unique_id = Room.last.id.to_s
-      expect(room_path(unique_id)).to eq('/room/' + unique_id)
+      expect(room_path(@unique_id)).to eq('/room/' + @unique_id)
       post :join, :params => { :name => "John", :room_id => "9999999999"}
     end
     it 'should not allow creating a room with an invalid name' do
@@ -26,9 +30,16 @@ describe RoomController do
     end
   end
   describe 'showing a room and its contents' do
+    before(:each) do
+      Room.destroy_all
+      Player.destroy_all
+      Pile.destroy_all
+      Room.create!
+      Player.create!({:room_id=>"1", :name=>"UniqueName"})
+    end
     it 'should get all of the room items as a hash' do
-      post :create, :params => {:name => "John"}
-      get :show, params: {:id=>1}, session: {:room_id=>1}
+      # post :create, :params => {:name => "John"}
+      get :show, params: {:id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
       allow(controller).to receive(:get_room)
 
       room = assigns(:room)
@@ -52,6 +63,8 @@ describe RoomController do
   end
   describe 'join a room' do
     before(:all) do
+      Room.destroy_all
+      Pile.destroy_all
       Player.destroy_all
       Room.create!
       Player.create!(:name=>"NameTaken", :room_id=>1)
@@ -83,9 +96,11 @@ describe RoomController do
   end
   describe 'leave a room' do
     before(:each) do
+      Room.destroy_all
+      Pile.destroy_all
       Player.destroy_all
       Room.create!
-      Player.create!(:id=>1, :name=>"John", :room_id=>"1")
+      Player.create!(:id=>"1", :name=>"John", :room_id=>"1")
     end
     it 'destroys player model when a player leaves' do
       get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
