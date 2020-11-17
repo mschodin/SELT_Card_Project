@@ -14,7 +14,8 @@
           <%= button_to "Draw 1 Card from Pile #{pile.id}", room_deck_draw_path(params[:id], :deck_id => pile.decks.first.id), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
         </div>
         <div>
-          <h3>DECK AMOUNT: <%= pile.decks.first.card_amount %></h3>
+          <h3>DECKS IN PILE: <%= pile.decks.all.length %></h3>
+          <h3>CARDS IN FIRST DECK: <%= pile.decks.first.card_amount %></h3>
         </div>
       <% end %>
     <% end %>
