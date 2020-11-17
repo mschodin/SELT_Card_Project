@@ -10,13 +10,7 @@ When(/^I click create a new deck$/) do
 end
 
 Then(/^I should see that a new deck is in the room$/) do
-  cards =  page.all('tr').map { |td| td.text }
-  expect(cards).to include match "Rank"
-  expect(cards).to include match "Suit"
-  expect(cards).to include match "Diamond"
-  expect(cards).to include match "Spades"
-  expect(cards).to include match "Hearts"
-  expect(cards).to include match "Club"
+  expect(page).to have_content("DECKS IN PILE: 1")
 end
 
 
