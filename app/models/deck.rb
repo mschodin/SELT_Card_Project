@@ -3,6 +3,7 @@ require 'rubycards'
 class Deck < ApplicationRecord
   attr_accessor(:card_hash)
 
+  belongs_to :pile
   has_many :cards
   def self.create_deck
     deck = []
