@@ -29,7 +29,7 @@ Then /^I should be placed in a new game room with name "(.*?)"$/ do |name|
   url = URI.parse(current_url)
   unique_id = Room.last.id.to_s
   expect(url.path).to eq('/room/' + unique_id)
-  page.should have_content('Player name: ' + name)
+  page.should have_content(name + ' is in private room ')
 end
 
 When /^I click join a room with name "(.*?)" and room id "(.*?)"$/ do |name, id|
