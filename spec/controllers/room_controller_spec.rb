@@ -34,8 +34,8 @@ describe RoomController do
       Room.destroy_all
       Player.destroy_all
       Pile.destroy_all
-      Room.create!
-      Player.create!({:room_id=>"1", :name=>"UniqueName"})
+      Room.create!(:id=>1)
+      Player.create!({:id=>1, :room_id=>"1", :name=>"UniqueName"})
     end
     it 'should get all of the room items as a hash' do
       # post :create, :params => {:name => "John"}
@@ -62,11 +62,11 @@ describe RoomController do
     end
   end
   describe 'join a room' do
-    before(:all) do
+    before(:each) do
       Room.destroy_all
       Pile.destroy_all
       Player.destroy_all
-      Room.create!
+      Room.create!(:id=>1)
       Player.create!(:name=>"NameTaken", :room_id=>1)
     end
     it 'joins room with valid id' do
@@ -99,7 +99,7 @@ describe RoomController do
       Room.destroy_all
       Pile.destroy_all
       Player.destroy_all
-      Room.create!
+      Room.create!(:id=>1)
       Player.create!(:id=>"1", :name=>"John", :room_id=>"1")
     end
     it 'destroys player model when a player leaves' do

@@ -7,10 +7,10 @@ describe DeckController do
       Room.destroy_all
       Pile.destroy_all
       Player.destroy_all
-      @room = Room.create!
+      @room = Room.create!(:id=>1)
       @unique_id = "1"
       Pile.create!({:room_id => @unique_id})
-      Player.create!({:room_id=>@unique_id, :name=>"UniqueName"})
+      Player.create!({:id=>1, :room_id=>@unique_id, :name=>"UniqueName"})
       @pile_id = "1"
       GameHand.create!({:player_id=>1})
     end
