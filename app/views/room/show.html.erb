@@ -1,6 +1,6 @@
 <h2>You are in a private room!</h2>
 Player name: <%= @name %>
-<%= button_to "Leave Game", room_leave_path, :method => :get %>
+<%= button_to "Leave Game", {:room_id=>session[:room_id], :controller=>"room", :action=>"leave"}, :method => :get %>
 
 <% unless @piles.empty? %>
   <div>
