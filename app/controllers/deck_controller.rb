@@ -12,7 +12,11 @@ class DeckController < ApplicationController
     @del_card = deck.cards.find_by(suit: @draw_card[:suit], rank: @draw_card[:rank])
     #TODO: add cards to player hand
     #player = @room.players.find(session[:player_id])
-    @del_card.update('deck_id': nil)#, 'gamehand_id': player.game_hand.id)
+    #placeholder for single person display
+    @player1 = @room.players.find(session[:player]['id'])
+    @del_card.update('deck_id': nil, 'game_hand_id': @player1.game_hand.id)#, 'gamehand_id': player.game_hand.id)
+
+
   end
 
   def show
@@ -20,7 +24,8 @@ class DeckController < ApplicationController
 
   def create
     @room = Room.find(params[:room_id])
-    @deck = @room.add_deck
+    pile = Pile.find(params[:pile_id])
+    @deck = @room.add_deck(pile)
     redirect_to room_path(params[:room_id])
   end
 

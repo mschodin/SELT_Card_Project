@@ -7,3 +7,9 @@ Gemfile.lock
 db/*.sqlite3
 .bundle/
 db/schema.rb
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

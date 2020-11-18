@@ -1,27 +1,25 @@
 Given(/^I am in a room$/) do
   visit room_index_path
-  click_button('Create a game')
+  page.fill_in "create_name_box", :with => "UncommonName"
+  click_button('Create Game')
+  click_button('New Pile')
 end
 
 When(/^I click create a new deck$/) do
-  click_button('New Deck')
+  click_button('New Deck in Pile 1')
 end
 
 Then(/^I should see that a new deck is in the room$/) do
-  cards =  page.all('tr').map { |td| td.text }
-  expect(cards).to include match "Rank"
-  expect(cards).to include match "Suit"
-  expect(cards).to include match "Diamond"
-  expect(cards).to include match "Spades"
-  expect(cards).to include match "Hearts"
-  expect(cards).to include match "Club"
+  expect(page).to have_content("DECKS IN PILE: 1")
 end
 
 
 Given(/^I am on the game room home page AND a deck has been created$/) do
   visit room_index_path
-  click_button('Create a game')
-  click_button('New Deck')
+  page.fill_in "create_name_box", :with => "UncommonName"
+  click_button('Create Game')
+  click_button('New Pile')
+  click_button('New Deck in Pile 1')
 end
 
 When(/^I click Draw (\d+) Card$/) do |arg|
@@ -44,9 +42,11 @@ end
 
 Given(/^I am on the draw card room home page$/) do
   visit room_index_path
-  click_button('Create a game')
-  click_button('New Deck')
-  click_button("Draw 1 Card")
+  page.fill_in "create_name_box", :with => "UncommonName"
+  click_button('Create Game')
+  click_button('New Pile')
+  click_button('New Deck in Pile 1')
+  click_button("Draw 1 Card from Pile 1")
 end
 
 When(/^I click link Return to Room$/) do
@@ -54,7 +54,5 @@ When(/^I click link Return to Room$/) do
 end
 
 Then(/^I should see (\d+) less card in the deck$/) do |arg|
-  cards =  page.all('tr').map { |td| td.text }
-  cards.shift
-  expect(cards.length).to eq(RubyCards::Deck.new.count - 1)
+  expect(page).to have_content("CARDS IN FIRST DECK: " + (RubyCards::Deck.new.count - 1).to_s)
 end

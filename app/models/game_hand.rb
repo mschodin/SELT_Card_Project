@@ -15,11 +15,21 @@ class GameHand < ApplicationRecord
     game_deck.shuffle!
   end
 
-  #Reminder to Change display implementation
   def display_cards
     hand_correction
   end
 
+  def card_amount
+    cards.all.length
+  end
+
+  def display_hand
+    holder = []
+    self.cards.all.each do |card|
+      holder << [card.rank,card.suit]
+    end
+    real_symbol(holder)
+  end
 
   #Using the draw method in RubyCards::Hand to draw from a specific deck for a specific amount
   def draw_card(game_deck, draw_amt)
