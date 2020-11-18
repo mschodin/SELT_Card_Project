@@ -1,5 +1,6 @@
-<h2><%= session[:player]['name'] %> is in private room #<%=session[:room_id] %>!</h2>
-<%= react_component("HelloWorld", { greeting: "Hello from react-rails." }) %>
+<%= react_component("HelloWorld", { greeting: "#{session[:player]['name']} is in private room ##{session[:room_id]}!" }) %>
+<br>
+<br>
 <%= button_to "Leave Game", {:room_id=>session[:room_id], :controller=>"room", :action=>"leave"}, :method => :get %>
 
 
