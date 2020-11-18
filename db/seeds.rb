@@ -10,4 +10,5 @@ room = Room.create
 player1 = room.add_player("Tommy")
 player2 = room.add_player("Dorothy")
 player3 = room.add_player("Sam")
-room.add_deck
+pile = room.add_pile
+room.add_deck(pile)
