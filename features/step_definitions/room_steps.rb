@@ -86,3 +86,8 @@ And(/^I should NOT see the "(.*?)" in the list$/) do |name|
   table_list = page.all('table td:nth-child(1)').map{|td| td.text}
   expect(table_list).not to include(name)
 end
+
+Then(/^I should see the room with a an empty list of players$/) do
+  table_list = page.all('table td:nth-child(1)').map{|td| td.text}
+  expect(table_list).to be empty
+end
