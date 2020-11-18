@@ -25,7 +25,7 @@ class RoomController < ApplicationController
     @player_info = {}
     @room.players.ids.each do |player_id|
       name = @room.players.find(player_id).name
-      @player_info[name] = @room.players.find(player_id).game_hand.cards.length
+      @player_info[name] = @room.game_hands.find(player_id).card_amount
     end
     if @room.nil?
 
