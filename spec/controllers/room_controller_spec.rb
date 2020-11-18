@@ -78,7 +78,6 @@ describe RoomController do
         player_info[name] = room.game_hands.find(player_id).card_amount
       end
       expect(player_hash).to eq(player_info)
-
     end
   end
   describe 'join a room' do
