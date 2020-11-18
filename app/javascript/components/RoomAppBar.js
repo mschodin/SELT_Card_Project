@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import AppBar from '@material-ui/core/AppBar'
 import {Typography} from "@material-ui/core";
-class HelloWorld extends React.Component {
+class RoomAppBar extends React.Component {
   render () {
     return (
       <React.Fragment>
@@ -16,7 +16,7 @@ class HelloWorld extends React.Component {
   }
 }
 
-HelloWorld.propTypes = {
+RoomAppBar.propTypes = {
   greeting: PropTypes.string
 };
-export default HelloWorld
+export default RoomAppBar
