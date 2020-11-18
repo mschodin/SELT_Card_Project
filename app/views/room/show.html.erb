@@ -30,14 +30,17 @@
   <table class="table table-striped col-md-12">
     <tbody>
     <% @player_info.each do |name,count| %>
-      <tr><td>
-        <h3>Player ID: <%= name %> </h3>
-      </td>
-      <td>
-        <h3># Cards: <%= count %> </h3>
-      </td>
-      </tr>
-    <%end %>
+      <% unless @player1[:name].eql?(name) %>
+        <tr>
+          <td>
+            <h3>Player ID: <%=  name  %> </h3>
+          </td>
+          <td>
+            <h3># Cards: <%= count %> </h3>
+          </td>
+        </tr>
+      <%  end %>
+    <% end %>
     </tbody>
   </table>
 </div>
