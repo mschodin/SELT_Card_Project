@@ -34,8 +34,8 @@ describe RoomController do
       Room.destroy_all
       Player.destroy_all
       Pile.destroy_all
-      Room.create!(:id=>1)
-      Player.create!({:id=>1, :room_id=>"1", :name=>"UniqueName"})
+      room = Room.create!(:id=>1)
+      room.add_player("TestPlayer")
     end
     it 'should get all of the room items as a hash' do
       # post :create, :params => {:name => "John"}
@@ -59,6 +59,26 @@ describe RoomController do
           expect(cards).to be_a(Hash)
         end
       end
+    end
+    it 'should get all player names and card amounts' do
+      room = Room.find(1)
+      room.add_player("Tony")
+      room.add_player("Alyssa")
+      pile = room.piles.create({:room_id=>1})
+      deck_db = pile.decks.create({:pile_id=>1})
+      deck = Deck.create_deck
+      deck.shuffle!
+      deck.each do |card|
+        deck_db.cards.create(card)
+      end
+      player_info = {}
+      player_hash = {"Alyssa"=>0, "TestPlayer"=>0, "Tony"=>0}
+      room.players.ids.each do |player_id|
+        name = room.players.find(player_id).name
+        player_info[name] = room.game_hands.find(player_id).card_amount
+      end
+      expect(player_hash).to eq(player_info)
+
     end
   end
   describe 'join a room' do
