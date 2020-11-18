@@ -25,3 +25,22 @@
 <div>
   <%= button_to "New Pile", room_pile_index_path(params[:id]), :method => :post %>
 </div>
+<div>
+  <h2>Players in Game:</h2>
+  <table class="table table-striped col-md-12">
+    <tbody>
+    <% @player_info.each do |name,count| %>
+      <% unless @player1[:name].eql?(name) %>
+        <tr>
+          <td>
+            <h3>Player ID: <%=  name  %> </h3>
+          </td>
+          <td>
+            <h3># Cards: <%= count %> </h3>
+          </td>
+        </tr>
+      <%  end %>
+    <% end %>
+    </tbody>
+  </table>
+</div>

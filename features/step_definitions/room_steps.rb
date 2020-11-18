@@ -75,3 +75,22 @@ Then /^I should be redirected to the landing page$/ do
   url = URI.parse(current_url)
   expect(url.path).to eq('/room')
 end
+
+Then(/^I should see the room with a list of players and their hand size$/) do
+  table_list = page.all('table td:nth-child(2)').map{|td| td.text}
+  table_list = table_list.map {|x| x[/\d+/]}
+  expect(table_list.count).to be >= 1
+  table_list.uniq.each do |count|
+    expect(count.to_i).to eq(0)
+  end
+end
+
+And(/^I should NOT see the "(.*?)" in the list$/) do |name|
+  table_list = page.all('table td:nth-child(1)').map{|td| td.text}
+  expect(table_list).to_not include(name)
+end
+
+Then(/^I should see the room with a an empty list of players$/) do
+  table_list = page.all('table td:nth-child(1)').map{|td| td.text}
+  expect(table_list).to eq([])
+end
