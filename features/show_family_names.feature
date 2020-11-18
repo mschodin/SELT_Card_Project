@@ -11,3 +11,11 @@ Feature: see all player names in the room with their hand size
     When I click join a room with name "John" and room id "1"
     Then I should see the room with a list of players and their hand size
     And I should NOT see the "John" in the list
+
+  Scenario: The user is the first to join a game
+
+    Given A room has been created
+    And I am on the game room home page
+    When I click join a room with name "John" and room id "1"
+    Then I should see the room with a an empty list of players
+    And I should NOT see the "John" in the list
