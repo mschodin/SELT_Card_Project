@@ -1,6 +1,7 @@
 <%= react_component("RoomAppBar", { greeting: "#{session[:player]['name']} is in private room ##{session[:room_id]}!" }) %>
 <br>
 <br>
+<h3><%= "#{session[:player]['name']} is in private room ##{session[:room_id]}!" %></h3>
 <%= button_to "Leave Game", {:room_id=>session[:room_id], :controller=>"room", :action=>"leave"}, :method => :get %>
 
 <% unless @piles.empty? %>
