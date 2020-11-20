@@ -6,4 +6,10 @@ class Card < ApplicationRecord
   def move_to_pile(pile)
     self.update('deck_id': nil, 'game_hand_id': nil, 'pile_id': pile.id)
   end
+  def move_to_deck(deck)
+    self.update('deck_id': deck.id, 'game_hand_id': nil, 'pile_id': nil)
+  end
+  def move_to_hand(player)
+    self.update('deck_id': nil, 'game_hand_id': player.game_hand.id, 'pile_id': nil)
+  end
 end
