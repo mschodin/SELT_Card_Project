@@ -14,7 +14,8 @@ RSpec.describe Card, type: :model do
   end
   describe 'moving card to deck' do
     it 'should change foreign key' do
-      deck = Deck.create_deck
+      pile = Pile.create!({:room_id => 1})
+      deck = Deck.create!({:pile_id => pile.id})
       card = Card.create!({:rank=>"Ace", :suit=>"Spades"})
 
       card.move_to_deck(deck)
