@@ -6,7 +6,7 @@ RSpec.describe Card, type: :model do
       pile = Pile.create!({:room_id => 1})
       card = Card.create!({:rank=>"Ace", :suit=>"Spades"})
 
-      card.move_to_pile(pile)
+      card.move_to(pile)
       expect(card.deck_id).to be_nil
       expect(card.pile_id).to be(pile.id)
       expect(card.game_hand_id).to be_nil
@@ -18,7 +18,7 @@ RSpec.describe Card, type: :model do
       deck = Deck.create!({:pile_id => pile.id})
       card = Card.create!({:rank=>"Ace", :suit=>"Spades"})
 
-      card.move_to_deck(deck)
+      card.move_to(deck)
       expect(card.deck_id).to be(deck.id)
       expect(card.pile_id).to be_nil
       expect(card.game_hand_id).to be_nil
@@ -31,7 +31,7 @@ RSpec.describe Card, type: :model do
       GameHand.create!({:player_id=>1})
       card = Card.create!({:rank=>"Ace", :suit=>"Spades"})
 
-      card.move_to_hand(player)
+      card.move_to(player.game_hand)
       expect(card.deck_id).to be_nil
       expect(card.pile_id).to be_nil
       expect(card.game_hand_id).to be(player.game_hand.id)
