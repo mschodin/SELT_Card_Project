@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :model do
+  before(:each) do
+    Room.destroy_all
+    Player.destroy_all
+    Pile.destroy_all
+    @room = Room.create!(:id=>1)
+  end
   describe 'moving card to pile' do
     it 'should change foreign key' do
       pile = Pile.create!({:room_id => 1})
@@ -26,9 +32,7 @@ RSpec.describe Card, type: :model do
   end
   describe 'moving card to hand' do
     it 'should change foreign key' do
-      Player.destroy_all
-      player = Player.create!({:id=> 1, :room_id=> 1, :name=> "UniqueName"})
-      GameHand.create!({:player_id=>1})
+      player = @room.add_player("TestPlayer")
       card = Card.create!({:rank=>"Ace", :suit=>"Spades"})
 
       card.move_to(player.game_hand)
