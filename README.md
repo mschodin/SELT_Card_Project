@@ -21,7 +21,7 @@ Things you may want to cover:
 
 * Deployment instructions
 
-<h3>Commands to run in development</h3>
+### Commands to run in development
 1. When working with JavaScript we are using yarn to install our packages. Install Yarn with: 
 `curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -`\
 `echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list`\
