@@ -19,7 +19,9 @@ class GameCard extends React.Component {
 
 GameCard.propTypes = {
     cardId: PropTypes.string,
-    index: PropTypes.string
+    index: PropTypes.string,
+    face: PropTypes.string,
+    suit: PropTypes.string
 };
 
 export default GameCard
