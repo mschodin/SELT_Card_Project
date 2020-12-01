@@ -6,7 +6,6 @@ import GameCard from './GameCard'
 class GameHand extends React.Component {
 
     render () {
-        console.log(this.props.playerHand)
         return (
             <Droppable droppableId={this.props.handId} direction="horizontal">
                 {(provided, snapshot) => (
