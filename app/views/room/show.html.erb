@@ -49,5 +49,5 @@
 <h1>--------------------------------------------------------------</h1>
 <%= react_component("GameRoom", {
     handId: @room.game_hands.find(@player1[:id]).id,
-    playerHand: @room.game_hands.find(@player1[:id]).display_hand
+    playerHand: @room.game_hands.find(@player1[:id]).display_hand_with_id
 } ) %>

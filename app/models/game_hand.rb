@@ -31,6 +31,24 @@ class GameHand < ApplicationRecord
     real_symbol(holder)
   end
 
+  def display_hand_with_id
+    holder = []
+    self.cards.all.each do |card|
+      suit = 'S' if card.suit == 'Spades'
+      suit = 'C' if card.suit == 'Clubs'
+      suit = 'D' if card.suit == 'Diamonds'
+      suit = 'H' if card.suit == 'Hearts'
+      rank = card.rank
+      rank = 'T' if card.rank == '10'
+      rank = 'J' if card.rank == 'Jack'
+      rank = 'Q' if card.rank == 'Queen'
+      rank = 'K' if card.rank == 'King'
+      rank = 'A' if card.rank == 'Ace'
+      holder << [rank, suit, card.id]
+    end
+    real_symbol(holder)
+  end
+
   #Using the draw method in RubyCards::Hand to draw from a specific deck for a specific amount
   def draw_card(game_deck, draw_amt)
     @hand.draw(game_deck, draw_amt)
