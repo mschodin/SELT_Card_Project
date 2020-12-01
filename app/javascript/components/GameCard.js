@@ -3,13 +3,23 @@ import { Draggable } from 'react-beautiful-dnd'
 import PropTypes from "prop-types"
 import { Card } from 'react-casino'
 
+const cardStyle = (draggableStyle) => ({
+    padding: '2px',
+    height: '108px',
+    width: '75px',
+    display: 'inline-block',
+    ...draggableStyle,
+});
+
 class GameCard extends React.Component {
     render () {
         return (
-            <Draggable draggableId={this.props.cardId} key={this.props.cardId} index={this.props.index}>
+            <Draggable draggableId={this.props.cardId} key={this.props.cardId} index={this.props.index} >
                 {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <Card face={this.props.face} suit={this.props.suit} />
+                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={cardStyle(
+                        provided.draggableProps.style
+                    )}>
+                        <Card face={this.props.face} suit={this.props.suit} style={{width: "75px", height: "108px", display: 'inline-block'}} />
                     </div>
                 )}
             </Draggable>
