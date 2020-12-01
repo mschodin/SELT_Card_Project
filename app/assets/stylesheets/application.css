@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+div.pile {
+    border-style: solid;
+    width: 75px;
+    display: inline-block;
+    margin: 5px;
+}
