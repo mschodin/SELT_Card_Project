@@ -20,7 +20,6 @@ const theme = createMuiTheme({
         }
     },
     fontFamily: "Roboto",
-    fontVariant: 'all-small-caps'
 });
 
 export default class Home extends React.Component {
@@ -38,8 +37,7 @@ export default class Home extends React.Component {
         this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
         this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
-        this.handleName = this.handleName.bind(this);
-        this.handleRoomID = this.handleRoomID.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
     async handleClickShowPassword(){ this.setState({
         showPassword: !this.state.showPassword
@@ -47,27 +45,21 @@ export default class Home extends React.Component {
     async handleMouseDownPassword(){ this.setState({
         showPassword: !this.state.showPassword
     })};
+
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    }
     async handlePassword(event){
         let newPasscode = event.target.value;
         await this.setState({
             room_code: newPasscode,
             room_code_problem: false
         });}
-    async handleName(event){
-        let newName = event.target.value;
-        await this.setState({
-            name: newName,
-        });}
-    async handleRoomID(event){
-        let newRoomID = event.target.value;
-        await this.setState({
-            room_id: newRoomID,
-        });}
 
     render() {
         return(
             <ThemeProvider theme={theme}>
-            <div>
+            <div style={{backgroundColor: "oldlace"}}>
             <React.Fragment>
                 <HomeAppBar/>
                 <Grid justify="space-evenly" alignItems="center" container spacing={1}>
@@ -79,11 +71,12 @@ export default class Home extends React.Component {
                                 <Box pb={1} pt={1}>
                                     <TextField type= 'text'
                                                variant='outlined'
-                                               id="name"
+                                               name="name"
+                                               onClick={this.handleChange}
                                                placeholder= 'Enter Name' />
                                 </Box>
                                 <Box pb={1} pt={1}>
-                                    <Button fullwidth variant="contained" color='secondary' type='submit'>Create Game</Button>
+                                    <Button fullwidth={"true"} variant="contained" color='secondary' type='submit'>Create Game</Button>
                                 </Box>
                             </form>
                         </Box>
@@ -93,20 +86,20 @@ export default class Home extends React.Component {
                                 <Box pb={1} pt={1}>
                                 <TextField type= 'text'
                                            variant='outlined'
-                                           id="name"
-                                           onChange={this.handleName}
+                                           name="name"
+                                           onChange={this.handleChange}
                                            placeholder= 'Enter Name' />
                                 </Box>
                                 <Box pb={1} pt={1}>
                                 <TextField type= 'text'
                                            variant='outlined'
-                                           id="room_id"
-                                           onChange={this.handleRoomID}
+                                           name="room_id"
+                                           onChange={this.handleChange}
                                            placeholder= 'Enter Room #'/>
                                 </Box>
                                 <TextField
                                    variant='outlined'
-                                   id="room_code"
+                                   name="room_code"
                                    placeholder= 'Enter Room Passcode'
                                    onChange={this.handlePassword}
                                    type={this.state.showPassword ? "text" : "password"} // <-- This is where the magic happens
@@ -125,7 +118,7 @@ export default class Home extends React.Component {
                                    }}
                                 />
                                 <Box pb={1} pt={1}>
-                                    <Button fullwidth value="Post" variant="contained" color='secondary' type='submit'>Join Game</Button>
+                                    <Button fullwidth={"true"} variant="contained" color='secondary' type='submit'>Join Game</Button>
                                 </Box>
                          </form>
                         </Box>
