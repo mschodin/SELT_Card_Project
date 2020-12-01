@@ -47,8 +47,6 @@
   </table>
 </div>
 <h1>-------------------------------------------</h1>
-<%#= react_component("GameHand", { cards: @room.game_hands.find(@player1[:id]) } ) %>
-
-<%= react_component("GameHand", { cards: @room.game_hands.find(@player1[:id]).display_hand, piles: @piles } ) %>
-
-<%#= react_component("GameHand", { cards: "#{@room.game_hands.find(@player1[:id]).display_hand}" } ) %>
+<%#= react_component("GameHand", { cards: @room.game_hands.find(@player1[:id]).display_hand, piles: @piles } ) %>
+<%#= react_component("NewHand", { cards: @room.game_hands.find(@player1[:id]).display_hand, piles: @piles } ) %>
+<%= react_component("RoomPiles", { cards: @room.game_hands.find(@player1[:id]).display_hand, piles: @piles } ) %>

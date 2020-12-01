@@ -14,8 +14,6 @@ class GameHand extends React.Component {
 
 
     render () {
-        console.log(this.props.cards)
-        console.log(this.props.piles)
 
         return (
             <React.Fragment>
