@@ -16,7 +16,7 @@ class HomeAppBar extends React.Component {
                             <MouseRounded/>
                             <CasinoRounded/>
                         </IconButton>
-                        <Typography variant="h5" style={{alignSelf: "center"}}>
+                        <Typography variant="h4" style={{alignSelf: "center"}}>
                             Online Cards
                         </Typography>
                     </Toolbar>
