@@ -1,6 +1,7 @@
 import React from "react"
 import { Droppable } from 'react-beautiful-dnd'
 import PropTypes from "prop-types";
+import GameCard from "./GameCard";
 
 class GamePile extends React.Component {
 
@@ -9,7 +10,10 @@ class GamePile extends React.Component {
             <Droppable droppableId={this.props.pileId} isCombineEnable={true}>
                 {(provided, snapshot) => (
                     <div ref={provided.innerRef}>
-                    {/*  TODO: Create GameCard objects for each card in this pile  */}
+                        {this.props.pileCards.map((card, order) => (
+                            <GameCard face={card[0]} suit={card[1]} cardId={"card" + card[2]} index={order} key={"card" + card[2]}/>
+                        ))}
+                        {provided.placeholder}
                     </div>
                 )}
             </Droppable>
@@ -18,7 +22,8 @@ class GamePile extends React.Component {
 }
 
 GamePile.propTypes = {
-    pileId: PropTypes.string
+    pileId: PropTypes.string,
+    pileCards: PropTypes.array
 };
 
 export default GamePile

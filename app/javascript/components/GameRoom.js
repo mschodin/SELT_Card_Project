@@ -11,6 +11,7 @@ class GameRoom extends React.Component {
     };
 
     render () {
+        console.log(this.props.piles)
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <GameTable />
@@ -22,7 +23,8 @@ class GameRoom extends React.Component {
 
 GameRoom.propTypes = {
     handId: PropTypes.number,
-    playerHand: PropTypes.array
+    playerHand: PropTypes.array,
+    piles: PropTypes.array
 };
 
 export default GameRoom
