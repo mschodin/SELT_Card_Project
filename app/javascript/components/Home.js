@@ -22,7 +22,7 @@ const theme = createMuiTheme({
     fontFamily: "Roboto",
 });
 
-export default class Home extends React.Component {
+class Home extends React.Component {
      // Add these variables to your component to track the state
     constructor(props) {
         super(props);
@@ -50,13 +50,14 @@ export default class Home extends React.Component {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
             },
             body: body,
-        }).then((response) => {return response.json()})
+        }).then((response) => { window.location.href = response.url })
     }
 
     async handleJoinFormSubmit(){
+        console.log(this.state);
         console.log(this.state);
     }
 
@@ -152,3 +153,4 @@ export default class Home extends React.Component {
         );
     }
 }
+export default Home;
