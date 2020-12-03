@@ -38,7 +38,28 @@ export default class Home extends React.Component {
         this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleCreateFormSubmit = this.handleCreateFormSubmit.bind(this);
+        this.handleJoinFormSubmit = this.handleJoinFormSubmit.bind(this);
     }
+
+    async handleCreateFormSubmit(e){
+        e.preventDefault();
+        console.log(this.state);
+        let body = JSON.stringify({name: this.state.name})
+       fetch('room#create', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: body,
+        }).then((response) => {return response.json()})
+    }
+
+    async handleJoinFormSubmit(){
+        console.log(this.state);
+    }
+
     async handleClickShowPassword(){ this.setState({
         showPassword: !this.state.showPassword
     })};
@@ -59,7 +80,7 @@ export default class Home extends React.Component {
     render() {
         return(
             <ThemeProvider theme={theme}>
-            <div style={{backgroundColor: "oldlace"}}>
+            <div style={{backgroundColor: "floralwhite"}}>
             <React.Fragment>
                 <HomeAppBar/>
                 <Grid justify="space-evenly" alignItems="center" container spacing={1}>
@@ -67,7 +88,7 @@ export default class Home extends React.Component {
                     <Box pb={1} pt={3}>
                         <Typography variant={"h5"}>Create Game</Typography>
                         <Box pb={1} pt={1}>
-                            <form className='formStyle'>
+                            <form className='formStyle' method="post" onSubmit={this.handleCreateFormSubmit} >
                                 <Box pb={1} pt={1}>
                                     <TextField type= 'text'
                                                variant='outlined'
@@ -82,7 +103,7 @@ export default class Home extends React.Component {
                         </Box>
                         <Box pb={1} pt={5}>
                             <Typography variant={"h5"}>Join Game</Typography>
-                            <form className='formStyle'>
+                            <form className='formStyle' onSubmit={this.handleJoinFormSubmit}>
                                 <Box pb={1} pt={1}>
                                 <TextField type= 'text'
                                            variant='outlined'
