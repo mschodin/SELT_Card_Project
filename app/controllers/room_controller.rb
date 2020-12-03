@@ -1,10 +1,13 @@
 require 'date'
 require 'rubycards'
+
 class RoomController < ApplicationController
+  respond_to :json
+
   skip_before_action :verify_authenticity_token
 
   def index
-
+    # render component: 'Home', props: {}, class: 'Home'
   end
 
   def create
