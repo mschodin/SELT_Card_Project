@@ -30,8 +30,8 @@ Then(/^I should see the card that was drawn$/) do
   cards =  page.all('td').map { |td| td.text }
   expect(cards).to include match "Suit"
   expect(cards).to include match "Rank"
-  suits = %w[Diamonds Spades Clubs Hearts]
-  ranks = %w[2 3 4 5 6 7 8 9 10 Jack Queen King Ace]
+  suits = %w[D S C H]
+  ranks = %w[2 3 4 5 6 7 8 9 T J Q K A]
   expect(suits).to include cards[-1]
   expect(ranks).to include cards[2]
 end
