@@ -12,6 +12,7 @@ const cardStyle = (draggableStyle) => ({
 });
 
 class GameCard extends React.Component {
+
     render () {
         return (
             <Draggable draggableId={this.props.cardId} key={this.props.cardId} index={this.props.index} >
