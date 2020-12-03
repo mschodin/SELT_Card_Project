@@ -1,6 +1,7 @@
 require 'date'
 require 'rubycards'
 class RoomController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   def index
 
