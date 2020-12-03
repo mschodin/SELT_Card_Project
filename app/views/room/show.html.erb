@@ -45,4 +45,5 @@
     <% end %>
     </tbody>
   </table>
+  <%= button_to "End Game", {:room_id=>session[:room_id], :controller=>"room", :action=>"destroy"}, :method => :get %>
 </div>

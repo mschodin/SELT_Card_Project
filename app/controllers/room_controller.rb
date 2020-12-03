@@ -3,7 +3,8 @@ require 'rubycards'
 class RoomController < ApplicationController
 
   def index
-
+    session[:room_id] = nil
+    session[:player] = nil
   end
 
   def create
@@ -82,5 +83,9 @@ class RoomController < ApplicationController
     redirect_to room_index_path
   end
 
+  def destroy
+    redirect_to room_index_path
+    Room.find(session[:player]['room_id']).destroy
+  end
 
 end
