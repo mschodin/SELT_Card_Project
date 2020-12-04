@@ -13,9 +13,11 @@ import theme from '../styles/theme'
 class GameRoom extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { hand: props.playerHand }
+        this.state = {
+            hand: props.playerHand,
+            piles: props.piles
+        }
     }
-
 
     onDragEnd = (result) => {
         if(result.destination != null) {
@@ -27,6 +29,18 @@ class GameRoom extends React.Component {
                     hand: reorderedHand
                 })
             }
+            else if(result.source.droppableId.includes('hand') && result.destination.droppableId.includes('pile')){
+                console.log("discard");
+                console.log(result)
+            }
+            else if(result.source.droppableId.includes('pile') && result.destination.droppableId.includes('hand')){
+                console.log("draw card");
+                console.log(result)
+            }
+            else if(result.source.droppableId !== result.destination.droppableId && result.source.droppableId.includes('pile') && result.destination.droppableId.includes('pile')){
+                console.log("move card between pile");
+                console.log(result)//
+            }
         }
     };
 
@@ -36,7 +50,7 @@ class GameRoom extends React.Component {
                 <CssBaseline />
                 <React.Fragment>
                     <DragDropContext onDragEnd={this.onDragEnd}>
-                        <GameTable />
+                        <GameTable piles={this.props.piles}/>
                         <Typography component={"div"} className={"centered"}>
                             <Box className={"handStyle"} bgcolor={"primary.main"} boxShadow={5}>
                                 <GameHand handId={"hand" + this.props.handId} playerHand={this.state.hand} />
