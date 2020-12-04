@@ -85,11 +85,11 @@ describe RoomController do
       Room.destroy_all
       Pile.destroy_all
       Player.destroy_all
-      Room.create!(:id=>1)
+      Room.create!(:id=>1, :code=>"TEST")
       Player.create!(:name=>"NameTaken", :room_id=>1)
     end
     it 'joins room with valid id' do
-      post :join, :params => { :name => "John", :room_id => "1"}
+      post :join, :params => { :name => "John", :room_id => "1", :room_code => "TEST"}
       expect(response).to redirect_to(room_path(1))
     end
     it 'prevents join when invalid name is given' do
