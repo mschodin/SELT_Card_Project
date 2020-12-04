@@ -35,6 +35,9 @@ body {
     width: 75%;
 }
 
+.room{
+    padding-bottom: 5%;
+}
 .centered {
     display: flex;
     align-content: center;

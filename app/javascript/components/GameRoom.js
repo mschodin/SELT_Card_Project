@@ -15,8 +15,9 @@ class GameRoom extends React.Component {
         super(props);
         this.state = {
             hand: props.playerHand,
-            piles: props.piles
+            piles: {}
         }
+        this.props.piles.forEach(pile => this.state.piles[pile[0]]=pile[1])
     }
 
     onDragEnd = (result) => {
@@ -35,7 +36,15 @@ class GameRoom extends React.Component {
             }
             else if(result.source.droppableId.includes('pile') && result.destination.droppableId.includes('hand')){
                 console.log("draw card");
-                console.log(result)
+                // console.log(this.props.piles)
+                // console.log(this.state.piles)
+                const reorderedHand = Array.from(this.state.hand);
+                const pile_id = result.source.droppableId.split("pile")[1]
+                const [draw] = this.state.piles[pile_id].splice(0, 1)
+                reorderedHand.splice(result.destination.index, 0, draw);
+                this.setState({
+                    hand: reorderedHand,
+                })
             }
             else if(result.source.droppableId !== result.destination.droppableId && result.source.droppableId.includes('pile') && result.destination.droppableId.includes('pile')){
                 console.log("move card between pile");
@@ -49,14 +58,16 @@ class GameRoom extends React.Component {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <React.Fragment>
-                    <DragDropContext onDragEnd={this.onDragEnd}>
-                        <GameTable piles={this.props.piles}/>
-                        <Typography component={"div"} className={"centered"}>
-                            <Box className={"handStyle"} bgcolor={"primary.main"} boxShadow={5}>
-                                <GameHand handId={"hand" + this.props.handId} playerHand={this.state.hand} />
-                            </Box>
-                        </Typography>
-                    </DragDropContext>
+                    <Box className={'room'}>
+                        <DragDropContext onDragEnd={this.onDragEnd}>
+                            <GameTable piles={this.props.piles}/>
+                            <Typography component={"div"} className={"centered"}>
+                                <Box className={"handStyle"} bgcolor={"primary.main"} boxShadow={5}>
+                                    <GameHand handId={"hand" + this.props.handId} playerHand={this.state.hand} />
+                                </Box>
+                            </Typography>
+                        </DragDropContext>
+                    </Box>
                 </React.Fragment>
             </ThemeProvider>
         );
