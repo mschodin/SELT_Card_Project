@@ -20,20 +20,24 @@ class RoomController < ApplicationController
   end
 
   def show
-    @room = get_room
-    @name = session[:player]['name']
-    @player1 = @room.players.find(session[:player]['id'])
-    @player_info = {}
-    @room.players.ids.each do |player_id|
-      name = @room.players.find(player_id).name
-      @player_info[name] = @room.game_hands.find(player_id).card_amount
-    end
-    if @room.nil?
+    if Room.exists?(session[:room_id])
+      @room = get_room
+      @name = session[:player]['name']
+      @player1 = @room.players.find(session[:player]['id'])
+      @player_info = {}
+      @room.players.ids.each do |player_id|
+        name = @room.players.find(player_id).name
+        @player_info[name] = @room.game_hands.find(player_id).card_amount
+      end
+      if @room.nil?
 
+      else
+        @piles = @room.piles.all
+        @room_items = {}
+        @room_items = get_room_items(@piles) unless @piles.empty?
+      end
     else
-      @piles = @room.piles.all
-      @room_items = {}
-      @room_items = get_room_items(@piles) unless @piles.empty?
+      redirect_to room_index_path
     end
   end
 
