@@ -66,10 +66,14 @@ class RoomController < ApplicationController
     elsif Player.exists?(room_id: params[:room_id], name: params[:name])
       redirect_to room_index_path, notice: "Player with name " + params[:name] + " already exists in room " + params[:room_id]
     elsif Room.exists?(id: params[:room_id])
-      session[:room_id] = params[:room_id]
-      room = get_room
-      session[:player] = room.add_player(params[:name])
-      redirect_to(room_path(params[:room_id]))
+      if Room.exists?(code: params[:room_code])
+        session[:room_id] = params[:room_id]
+        room = get_room
+        session[:player] = room.add_player(params[:name])
+        redirect_to(room_path(params[:room_id]))
+      else
+        redirect_to room_index_path, notice: "Room code invalid, please try again"
+      end
     else
       redirect_to room_index_path, notice: "Room does not exist, please try again"
     end
