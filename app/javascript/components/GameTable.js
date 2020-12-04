@@ -8,7 +8,6 @@ import GamePile from "./GamePile";
 class GameTable extends React.Component {
 
     render () {
-        // console.log(this.props.piles)
         return (
             <Box
                 pb={10}
@@ -16,7 +15,7 @@ class GameTable extends React.Component {
             >
                 <Box className={"tableStyle"} bgcolor={"primary.main"} boxShadow={5}>
                     {this.props.piles.map((pile, idx) =>(
-                        <GamePile hidden={true} pileId={"pile" + pile[0]} key={"pile" + pile[0]} pileCards={pile[1]}/>
+                        <GamePile pileId={"pile" + pile[0]} key={"pile" + pile[0]} pileCards={pile[1]}/>
                     ))}
                 </Box>
             </Box>
