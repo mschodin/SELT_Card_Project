@@ -12,8 +12,8 @@ class GamePile extends React.Component {
         let first_card = this.props.pileCards[0]
         // console.log(first_card)
         return (
-            <Box className={"pileStyle"} variant={"outlined"}>
-                <Droppable droppableId={"pile" + this.props.pileId} isCombineEnabled key={"pile" + this.props.pileId}>
+            <Box className={"pileStyle"} variant={"outlined"} boxShadow={5}>
+                <Droppable droppableId={this.props.pileId} isCombineEnabled key={this.props.pileId}>
                     {(provided, snapshot) => (
                         <div ref={provided.innerRef}>
                             {/*{this.props.pileCards.map((card, order) => (*/}
