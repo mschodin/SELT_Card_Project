@@ -10,12 +10,7 @@ class RoomController < ApplicationController
     if /\W/ =~ params[:name] || params[:name].length.eql?(0)
       redirect_to room_index_path, notice: "Name is invalid, please try again"
     else
-      code = ""
-      loop do
-        code = SecureRandom.alphanumeric(4)
-        break unless Room.exists?(code: code)
-      end
-      @room = Room.create!(code: code)
+      @room = Room.create!
       unique_id = @room.id
       session[:room_id] = unique_id
       session[:player] = @room.add_player(params[:name])

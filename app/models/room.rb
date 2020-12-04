@@ -5,6 +5,14 @@ class Room < ActiveRecord::Base
   has_many :game_hands, through: :players
   has_many :cards, through: :decks
 
+  before_create do
+    code = SecureRandom.alphanumeric(4)
+    while Room.exists?(code: code)
+      code = SecureRandom.alphanumeric(4)
+    end
+    self.code = code
+  end
+
   def add_player name
     player = self.players.create(:name => name)
     player.create_game_hand
