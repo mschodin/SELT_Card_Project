@@ -14,8 +14,10 @@ Given /^A room with id 1 has been created with player named "(.*?)" present$/ do
     page.fill_in "create_name_box", :with => name
     click_button('Create Game')
   else
+    code = Room.exists?(id) ? Room.find(id).code : ""
     page.fill_in "join_name_box", :with => name
     page.fill_in 'room_id_box', :with => 1
+    page.fill_in 'room_code_box', :with => code
     click_button('Join Game')
   end
 end
@@ -33,8 +35,10 @@ Then /^I should be placed in a new game room with name "(.*?)"$/ do |name|
 end
 
 When /^I click join a room with name "(.*?)" and room id "(.*?)"$/ do |name, id|
+  code = Room.exists?(id) ? Room.find(id).code : ""
   page.fill_in "join_name_box", :with => name
   page.fill_in 'room_id_box', :with => id
+  page.fill_in 'room_code_box', :with => code
   click_button('Join Game')
 end
 
