@@ -32,12 +32,15 @@ class GameRoom extends React.Component {
             }
             else if(result.source.droppableId.includes('hand') && result.destination.droppableId.includes('pile')){
                 console.log("discard");
-                console.log(result)
-            }
+                const reorderedHand = Array.from(this.state.hand);
+                const pile_id = result.destination.droppableId.split("pile")[1]
+                const [removed] = reorderedHand.splice(result.source.index, 1);
+                this.state.piles[pile_id].splice(0, 0, removed);
+                this.setState({
+                    hand: reorderedHand,
+                })            }
             else if(result.source.droppableId.includes('pile') && result.destination.droppableId.includes('hand')){
                 console.log("draw card");
-                // console.log(this.props.piles)
-                // console.log(this.state.piles)
                 const reorderedHand = Array.from(this.state.hand);
                 const pile_id = result.source.droppableId.split("pile")[1]
                 const [draw] = this.state.piles[pile_id].splice(0, 1)
