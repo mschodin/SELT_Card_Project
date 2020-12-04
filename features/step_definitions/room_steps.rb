@@ -94,3 +94,7 @@ Then(/^I should see the room with a an empty list of players$/) do
   table_list = page.all('table td:nth-child(1)').map{|td| td.text}
   expect(table_list).to eq([])
 end
+
+When(/^I click End Game$/) do
+  click_button('End Game')
+end
