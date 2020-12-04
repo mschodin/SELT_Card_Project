@@ -93,23 +93,29 @@ describe RoomController do
       expect(response).to redirect_to(room_path(1))
     end
     it 'prevents join when invalid name is given' do
-      post :join, :params => { :name => "John#^#&", :room_id => "1"}
+      post :join, :params => { :name => "John#^#&", :room_id => "1", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
-      post :join, :params => { :name => "", :room_id => "1"}
+      post :join, :params => { :name => "", :room_id => "1", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
     end
     it 'prevents join when invalid room id is given' do
-      post :join, :params => { :name => "John", :room_id => "roomid"}
+      post :join, :params => { :name => "John", :room_id => "roomid", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
       post :join, :params => { :name => "John", :room_id => ""}
       expect(response).to_not redirect_to(room_path(1))
     end
+    it 'prevents join when invalid room code is given' do
+      post :join, :params => { :name => "John", :room_id => "1", :room_code => ""}
+      expect(response).to_not redirect_to(room_path(1))
+      post :join, :params => { :name => "John", :room_id => "1", :room_code => "INCORRECT"}
+      expect(response).to_not redirect_to(room_path(1))
+    end
     it 'prevents join when room id given does not exist' do
-      post :join, :params => { :name => "John", :room_id => "9999999999"}
+      post :join, :params => { :name => "John", :room_id => "9999999999", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
     end
     it 'prevents joining a room when selected player name is already in that given room' do
-      post :join, :params => { :name => "NameTaken", :room_id => "1"}
+      post :join, :params => { :name => "NameTaken", :room_id => "1", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
     end
   end

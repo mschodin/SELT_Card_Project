@@ -98,3 +98,16 @@ Then(/^I should see the room with a an empty list of players$/) do
   table_list = page.all('table td:nth-child(1)').map{|td| td.text}
   expect(table_list).to eq([])
 end
+
+When /^I click join a room with name "(.*?)", room id "(.*?)", and room code "(.*?)"$/ do |name, id, code|
+  page.fill_in "join_name_box", :with => name
+  page.fill_in 'room_id_box', :with => id
+  page.fill_in 'room_code_box', :with => code
+  click_button('Join Game')
+end
+
+Then /^The user is notified the room code is invalid$/ do
+  url = URI.parse(current_url)
+  expect(url.path).to eq('/room')
+  page.should have_content('Room code invalid, please try again')
+end
