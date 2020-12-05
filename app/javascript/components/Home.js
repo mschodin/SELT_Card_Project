@@ -29,7 +29,8 @@ class Home extends React.Component {
         this.state = {
             showPassword: false,
             setShowPassword: false,
-            name: '',
+            create_name: '',
+            join_name: '',
             room_code: '',
             room_id: null,
             room_code_problem: false,
@@ -46,7 +47,7 @@ class Home extends React.Component {
     async handleCreateFormSubmit(e){
         e.preventDefault();
         console.log(this.state);
-        let body = JSON.stringify({name: this.state.name})
+        let body = JSON.stringify({name: this.state.create_name})
        fetch('room#create', {
             method: 'post',
             headers: {
@@ -93,12 +94,12 @@ class Home extends React.Component {
                                 <Box pb={1} pt={1}>
                                     <TextField type= 'text'
                                                variant='outlined'
-                                               name="name"
+                                               name="create_name"
                                                onClick={this.handleChange}
                                                placeholder= 'Enter Name' />
                                 </Box>
                                 <Box pb={1} pt={1}>
-                                    <Button disabled={!this.state.name} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Create Game</Button>
+                                    <Button disabled={!this.state.create_name} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Create Game</Button>
                                 </Box>
                             </form>
                         </Box>
@@ -108,7 +109,7 @@ class Home extends React.Component {
                                 <Box pb={1} pt={1}>
                                 <TextField type= 'text'
                                            variant='outlined'
-                                           name="name"
+                                           name="join_name"
                                            onChange={this.handleChange}
                                            placeholder= 'Enter Name' />
                                 </Box>
@@ -140,7 +141,7 @@ class Home extends React.Component {
                                    }}
                                 />
                                 <Box pb={1} pt={1}>
-                                    <Button fullwidth={"true"} variant="contained" color='secondary' type='submit'>Join Game</Button>
+                                    <Button disabled={!(this.state.join_name && this.state.room_id && this.state.room_code)} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Join Game</Button>
                                 </Box>
                          </form>
                         </Box>
