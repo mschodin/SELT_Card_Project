@@ -9,3 +9,4 @@ Scenario: The user has arrived at the landing page
   Given I am on the game room home page
   When I click create a new room with name "John"
   Then I should be placed in a new game room with name "John"
+  And I should see the room code

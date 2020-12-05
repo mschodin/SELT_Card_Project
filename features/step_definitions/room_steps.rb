@@ -111,3 +111,9 @@ Then /^The user is notified the room code is invalid$/ do
   expect(url.path).to eq('/room')
   page.should have_content('Room code invalid, please try again')
 end
+
+And /^I should see the room code$/ do
+  code = Room.last.code
+  div = find('[data-react-class="RoomAppBar"]') #gets react component RoomAppBar
+  div[:'data-react-props'].should have_content('Room-code: ' + code)
+end
