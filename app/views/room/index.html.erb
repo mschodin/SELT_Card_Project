@@ -1,24 +1,24 @@
-<%= react_component('Home') %>
-<% if flash[:notice] %>
-  <div class="alert alert-danger">
-    <div class="flashMessage" id="notice">
-      <%= flash[:notice] %>
-    </div>
-  </div>
-<% end %>
+<%= react_component('Home', {room_join: room_join_url, room_create: room_index_url}) %>
+<%# if flash[:notice] %>
+<!--  <div class="alert alert-danger">-->
+<!--    <div class="flashMessage" id="notice">-->
+      <%#= flash[:notice] %>
+<!--    </div>-->
+<!--  </div>-->
+<%# end %>
 
-<h3>Create a game</h3>
-<%= form_tag room_index_path, :method=>:post, :id=>'join_game_form' do %>
-  <%= label_tag(:name, "Enter Name: ") %>
-  <%= text_field_tag(:name, '', :id=>:create_name_box) %>
-  <%= submit_tag('Create Game') %>
-<% end %>
+<!--<h3>Create a game</h3>-->
+<%#= form_tag room_index_path, :method=>:post, :id=>'join_game_form' do %>
+  <%#= label_tag(:name, "Enter Name: ") %>
+  <%#= text_field_tag(:name, '', :id=>:create_name_box) %>
+  <%#= submit_tag('Create Game') %>
+<%# end %>
 
-<h3>Join a game</h3>
-<%= form_tag room_join_path, :method=>:post, :id=>'join_game_form' do %>
-  <%= label_tag(:name, "Enter Name: ") %>
-  <%= text_field_tag(:name, '', :id=>:join_name_box) %>
-  <%= label_tag(:room_id, "Enter Room Number: ") %>
-  <%= text_field_tag(:room_id, '', :id=>:room_id_box) %>
-  <%= submit_tag('Join Game') %>
-<% end %>
+<!--<h3>Join a game</h3>-->
+<%#= form_tag room_join_path, :method=>:post, :id=>'join_game_form' do %>
+  <%#= label_tag(:name, "Enter Name: ") %>
+  <%#= text_field_tag(:name, '', :id=>:join_name_box) %>
+  <%#= label_tag(:room_id, "Enter Room Number: ") %>
+  <%#= text_field_tag(:room_id, '', :id=>:room_id_box) %>
+  <%#= submit_tag('Join Game') %>
+<%# end %>
