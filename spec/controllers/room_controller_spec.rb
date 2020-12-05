@@ -79,6 +79,38 @@ describe RoomController do
       end
       expect(player_hash).to eq(player_info)
     end
+    it 'gets all piles in room' do
+      room = Room.find(1)
+      room.piles.create({:room_id=>1})
+      room.piles.create({:room_id=>1})
+      expect(room.get_piles_and_cards.length).to eq(2)
+    end
+    it 'gets all piles and contents' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1})
+      deck_db = pile.decks.create({:pile_id=>1})
+      deck = Deck.create_deck
+      deck.shuffle!
+      deck.each do |card|
+        deck_db.cards.create(card)
+      end
+      expect(room.get_piles_and_cards[0][1].length).to eq(52)
+    end
+    it 'gets piles with card arrays organized' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1})
+      deck_db = pile.decks.create({:pile_id=>1})
+      deck_db.cards.create({:rank=>"2", :suit=>"C"})
+      piles_arr = [[1, [["2", "C", 1]]]]
+      expect(room.get_piles_and_cards).to eq(piles_arr)
+    end
+    it 'gets cards from piles without decks' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1})
+      pile.cards.create({:rank=>"2", :suit=>"C"})
+      piles_arr = [[1, [["2", "C", 1]]]]
+      expect(room.get_piles_and_cards).to eq(piles_arr)
+    end
   end
   describe 'join a room' do
     before(:each) do
