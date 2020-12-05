@@ -32,7 +32,8 @@ class Home extends React.Component {
             name: '',
             room_code: '',
             room_id: null,
-            room_code_problem: false
+            room_code_problem: false,
+            submit_enabled: false
         };
         this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
         this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
@@ -57,7 +58,6 @@ class Home extends React.Component {
     }
 
     async handleJoinFormSubmit(){
-        console.log(this.state);
         console.log(this.state);
     }
 
@@ -98,7 +98,7 @@ class Home extends React.Component {
                                                placeholder= 'Enter Name' />
                                 </Box>
                                 <Box pb={1} pt={1}>
-                                    <Button fullwidth={"true"} variant="contained" color='secondary' type='submit'>Create Game</Button>
+                                    <Button disabled={!this.state.name} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Create Game</Button>
                                 </Box>
                             </form>
                         </Box>
