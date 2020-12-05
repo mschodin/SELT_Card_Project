@@ -47,8 +47,9 @@ class Home extends React.Component {
     async handleCreateFormSubmit(e){
         e.preventDefault();
         console.log(this.state);
+        console.log(this.props.room_create)
         let body = JSON.stringify({name: this.state.create_name})
-       fetch('room#create', {
+       fetch(this.props.room_create, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -60,19 +61,21 @@ class Home extends React.Component {
 
     async handleJoinFormSubmit(e){
         e.preventDefault();
+        console.log(this.state)
+        console.log(this.props.room_join)
         let body = JSON.stringify(
-            { name: this.state.create_name,
+            { name: this.state.join_name,
                    room_id: this.state.room_id,
                    room_code: this.state.room_code
         })
-        fetch('room/join', {
+        fetch(this.props.room_join, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
             },
             body: body,
-        }).then((response) => { console.log(response); })//window.location.href = response.url })
+        }).then((response) => { console.log(response); window.location.href = response.url})//window.location.href = response.url })
     }
 
     async handleClickShowPassword(){ this.setState({
