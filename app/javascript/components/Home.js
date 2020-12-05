@@ -58,8 +58,21 @@ class Home extends React.Component {
         }).then((response) => { window.location.href = response.url })
     }
 
-    async handleJoinFormSubmit(){
-        console.log(this.state);
+    async handleJoinFormSubmit(e){
+        e.preventDefault();
+        let body = JSON.stringify(
+            { name: this.state.create_name,
+                   room_id: this.state.room_id,
+                   room_code: this.state.room_code
+        })
+        fetch('room/join', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+            },
+            body: body,
+        }).then((response) => { console.log(response); })//window.location.href = response.url })
     }
 
     async handleClickShowPassword(){ this.setState({
