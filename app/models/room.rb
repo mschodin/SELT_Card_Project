@@ -24,4 +24,22 @@ class Room < ActiveRecord::Base
     added_cards = deck_db.cards.create(deck)
     deck
   end
+
+  def get_piles_and_cards
+    all_piles = []
+    self.piles.all.each do |pile|
+      cards_arr = []
+      pile.cards.all.each do |card|
+        cards_arr << [card.rank, card.suit, card.id]
+      end
+      pile.decks.all.each do |deck|
+        deck.cards.all.each do |card|
+          cards_arr << [card.rank, card.suit, card.id]
+        end
+      end
+      all_piles << [pile.id, cards_arr]
+    end
+    all_piles
+  end
+
 end
