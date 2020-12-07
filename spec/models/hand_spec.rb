@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'rubycards'
+include RubyCards
 
 RSpec.describe Deck, type: :model do
   describe 'getting hand contents' do
@@ -44,6 +46,16 @@ RSpec.describe Deck, type: :model do
       expect(deck).to eq(deck2)
       hand.deck_shuffle(deck)
       expect(deck).to_not eq(deck2)
+    end
+  end
+
+  describe 'obtain real card symbol for each card' do
+    it 'should return a hash of the hand with eh corrected symbols' do
+      hand1 = GameHand.new
+      deck = RubyCards::Deck.new
+      hand1.draw_card(deck, 2)
+      expect(hand1.hand_correction[0]).to eq([2,RubyCards::Card::CLUB])
+      expect(hand1.hand_correction[1]).to eq([2,RubyCards::Card::DIAMOND])
     end
 
   end
