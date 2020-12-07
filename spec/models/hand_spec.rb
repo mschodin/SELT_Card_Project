@@ -72,7 +72,6 @@ RSpec.describe Deck, type: :model do
       hand1 = GameHand.new
       deck = RubyCards::Deck.new
       hand1.draw_card(deck, 4)
-      puts hand1.display_hand
       expect(hand1.display_hand).to eq([['2',RubyCards::Card::CLUB], ['2',RubyCards::Card::DIAMOND], ['2',RubyCards::Card::HEART], ['2',RubyCards::Card::SPADE]])
     end
 
