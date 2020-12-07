@@ -10,7 +10,7 @@ class HomeAppBar extends React.Component {
     render () {
         return (
             <React.Fragment>
-                <AppBar position="static" style={{ margin: 0}}>
+                <AppBar position="relative" style={{ margin: 0}}>
                     <Toolbar>
                         <IconButton edge="start" color="inherit">
                             <MouseRounded/>
