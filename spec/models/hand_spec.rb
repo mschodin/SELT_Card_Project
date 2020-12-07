@@ -28,7 +28,6 @@ RSpec.describe Deck, type: :model do
       expect(hand.display_hand_with_id).to eq([["2", "S", 1]])
     end
   end
-
   describe 'shuffle a chosen deck' do
     before(:each) do
       Room.destroy_all
@@ -48,7 +47,6 @@ RSpec.describe Deck, type: :model do
       expect(deck).to_not eq(deck2)
     end
   end
-
   describe 'obtain real card symbol for each card' do
     it 'should return a hash of the hand with eh corrected symbols' do
       hand1 = GameHand.new
@@ -57,6 +55,17 @@ RSpec.describe Deck, type: :model do
       expect(hand1.hand_correction[0]).to eq([2,RubyCards::Card::CLUB])
       expect(hand1.hand_correction[1]).to eq([2,RubyCards::Card::DIAMOND])
     end
-
   end
+  describe 'draw cards from a Deck' do
+    it 'should increase hand size' do
+      hand1 = GameHand.new
+      deck = RubyCards::Deck.new
+      expect(hand1.hand.cards.length).to eq(0)
+      hand1.draw_card(deck, 5)
+      expect(hand1.hand.cards.length).to eq(5)
+      hand1.draw_card(deck, 5)
+      expect(hand1.hand.cards.length).to eq(10)
+    end
+  end
+
 end
