@@ -52,7 +52,7 @@ RSpec.describe Deck, type: :model do
       hand1 = GameHand.new
       deck = RubyCards::Deck.new
       hand1.draw_card(deck, 2)
-      expect(hand1.hand_correction[0]).to eq([2,RubyCards::Card::CLUB])
+      expect(hand1.display_cards[0]).to eq([2,RubyCards::Card::CLUB])
       expect(hand1.hand_correction[1]).to eq([2,RubyCards::Card::DIAMOND])
     end
   end
@@ -66,6 +66,16 @@ RSpec.describe Deck, type: :model do
       hand1.draw_card(deck, 5)
       expect(hand1.hand.cards.length).to eq(10)
     end
+  end
+  describe 'get all cards from the hand' do
+    it 'should display hand of cards' do
+      hand1 = GameHand.new
+      deck = RubyCards::Deck.new
+      hand1.draw_card(deck, 4)
+      puts hand1.display_hand
+      expect(hand1.display_hand).to eq([['2',RubyCards::Card::CLUB], ['2',RubyCards::Card::DIAMOND], ['2',RubyCards::Card::HEART], ['2',RubyCards::Card::SPADE]])
+    end
+
   end
 
 end
