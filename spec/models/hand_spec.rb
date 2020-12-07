@@ -26,4 +26,25 @@ RSpec.describe Deck, type: :model do
       expect(hand.display_hand_with_id).to eq([["2", "S", 1]])
     end
   end
+
+  describe 'shuffle a chosen deck' do
+    before(:each) do
+      Room.destroy_all
+      Pile.destroy_all
+      Player.destroy_all
+      Room.create!(:id=>1)
+      Player.create!(:name=>"NameTaken", :room_id=>1)
+    end
+    it 'should shuffle the order of the deck' do
+      room = Room.find(1)
+      GameHand.create!({:player_id=>1})
+      deck = Deck.create_deck
+      deck2 = Deck.create_deck
+      hand = room.game_hands.find(1)
+      expect(deck).to eq(deck2)
+      hand.deck_shuffle(deck)
+      expect(deck).to_not eq(deck2)
+    end
+
+  end
 end
