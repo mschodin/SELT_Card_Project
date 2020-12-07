@@ -1,21 +1,25 @@
-<div class="container">
+<!--<div class="container">-->
   <%# flash.each do |key, value| %>
     <%# puts flash %>
-  <% if flash[:notice] %>
-    <%= react_component('FlashMessage', {alert: flash[:notice] }) %>
-  <% end %>
+  <%# if flash[:notice] %>
+    <%#= flash[:notice] %>
+    <%#= react_component('FlashMessage', {flash_message: flash_messages }) %>
+  <%# end %>
     <%# unless flash[:notice].nil?%>
-</div>
+<!--</div>-->
 
-<%= react_component('Home', {room_join: room_join_url, room_create: room_index_url}) %>
-<%# if flash[:notice] %>
-<!--  <div class="alert alert-danger">-->
-<!--    <div class="flashMessage" id="notice">-->
-      <%#= flash[:notice] %>
+<%= react_component('Home', {room_join: room_join_url, room_create: room_index_url, flash_message: flash[:notice]}) %>
+<!--<div class="flash">-->
+  <%# if flash[:notice] %>
+<!--    <div class="alert alert-danger">-->
+<!--      <div class="flashMessage" id="notice">-->
+<!--        <p>TEXT ARE YOU EVEN SHOWING?!</p>-->
+        <%#= flash[:notice] %>
+<!--      </div>-->
 <!--    </div>-->
-<!--  </div>-->
-<%# end %>
-
+<!--    <div className="flash"></div>-->
+  <%# end %>
+<!--</div>-->
 <!--<h3>Create a game</h3>-->
 <%#= form_tag room_index_path, :method=>:post, :id=>'join_game_form' do %>
   <%#= label_tag(:name, "Enter Name: ") %>
