@@ -9,6 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import HomeAppBar from "./HomeAppBar";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import "fontsource-roboto"
+import CssBaseline from "@material-ui/core/CssBaseline";
+import FlashMessage from "./FlashMessage";
 
 const theme = createMuiTheme({
     palette: {
@@ -17,6 +19,9 @@ const theme = createMuiTheme({
         },
         secondary: {
             main: "#aed581" // greenish
+        },
+        background: {
+            default: "floralwhite"
         }
     },
     fontFamily: "Roboto",
@@ -34,7 +39,7 @@ class Home extends React.Component {
             room_code: '',
             room_id: null,
             room_code_problem: false,
-            submit_enabled: false
+            submit_enabled: false,
         };
         this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
         this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
@@ -75,7 +80,15 @@ class Home extends React.Component {
                 'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
             },
             body: body,
-        }).then((response) => { console.log(response); window.location.href = response.url})//window.location.href = response.url })
+        }).then((response) => {
+            console.log(this.props.flash_message);
+            console.log(response);
+            window.location.href = response.url
+            //window.location.reload(true)
+        }).catch(error => {
+            console.log(error.response.data.message);
+            this.setState({error_message: error.response.data.message});
+        })
     }
 
     async handleClickShowPassword(){ this.setState({
@@ -98,9 +111,10 @@ class Home extends React.Component {
     render() {
         return(
             <ThemeProvider theme={theme}>
-            <div style={{backgroundColor: "floralwhite"}}>
+            <CssBaseline />
             <React.Fragment>
                 <HomeAppBar/>
+                {!(this.props.flash_message==null)&&(<FlashMessage flash_message={this.props.flash_message}/>)}
                 <Grid justify="space-evenly" alignItems="center" container spacing={1}>
                     <Grid item>
                     <Box pb={1} pt={3}>
@@ -165,7 +179,6 @@ class Home extends React.Component {
                     </Grid>
                 </Grid>
             </React.Fragment>
-            </div>
             </ThemeProvider>
         );
     }
