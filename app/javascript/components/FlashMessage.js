@@ -7,11 +7,14 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
+    toolbar: theme.mixins.toolbar,
     root: {
         width: '100%',
         '& > * + *': {
             marginTop: theme.spacing(2),
         },
+        paddingTop: theme.spacing(0.25),
+        paddingBottom: theme.spacing(0.5)
     },
 }));
 
@@ -22,6 +25,7 @@ export default function FlashMessage(props){
             <div className={classes.root}>
                 <Collapse in={open}>
                     <Alert
+                        variant="filled" severity="warning"
                         action={
                             <IconButton
                                 aria-label="close"
@@ -35,7 +39,7 @@ export default function FlashMessage(props){
                             </IconButton>
                         }
                     >
-                        {props.alert}
+                        {props.flash_message}
                     </Alert>
                 </Collapse>
             </div>
@@ -44,5 +48,5 @@ export default function FlashMessage(props){
 }
 
 FlashMessage.propTypes = {
-    alert: PropTypes.string
+    //flash_message: PropTypes.string
 };
