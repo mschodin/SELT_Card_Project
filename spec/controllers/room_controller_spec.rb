@@ -79,37 +79,75 @@ describe RoomController do
       end
       expect(player_hash).to eq(player_info)
     end
+    it 'gets all piles in room' do
+      room = Room.find(1)
+      room.piles.create({:room_id=>1})
+      room.piles.create({:room_id=>1})
+      expect(room.get_piles_and_cards.length).to eq(2)
+    end
+    it 'gets all piles and contents' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1})
+      deck_db = pile.decks.create({:pile_id=>1})
+      deck = Deck.create_deck
+      deck.shuffle!
+      deck.each do |card|
+        deck_db.cards.create(card)
+      end
+      expect(room.get_piles_and_cards[0][1].length).to eq(52)
+    end
+    it 'gets piles with card arrays organized' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1})
+      deck_db = pile.decks.create({:pile_id=>1})
+      deck_db.cards.create({:rank=>"2", :suit=>"C"})
+      piles_arr = [[1, [["2", "C", 1]]]]
+      expect(room.get_piles_and_cards).to eq(piles_arr)
+    end
+    it 'gets cards from piles without decks' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1})
+      pile.cards.create({:rank=>"2", :suit=>"C"})
+      piles_arr = [[1, [["2", "C", 1]]]]
+      expect(room.get_piles_and_cards).to eq(piles_arr)
+    end
   end
   describe 'join a room' do
     before(:each) do
       Room.destroy_all
       Pile.destroy_all
       Player.destroy_all
-      Room.create!(:id=>1)
+      Room.create!(:id=>1, :code=>"TEST")
       Player.create!(:name=>"NameTaken", :room_id=>1)
     end
     it 'joins room with valid id' do
-      post :join, :params => { :name => "John", :room_id => "1"}
+      post :join, :params => { :name => "John", :room_id => "1", :room_code => "TEST"}
       expect(response).to redirect_to(room_path(1))
     end
     it 'prevents join when invalid name is given' do
-      post :join, :params => { :name => "John#^#&", :room_id => "1"}
+      post :join, :params => { :name => "John#^#&", :room_id => "1", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
-      post :join, :params => { :name => "", :room_id => "1"}
+      post :join, :params => { :name => "", :room_id => "1", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
     end
     it 'prevents join when invalid room id is given' do
-      post :join, :params => { :name => "John", :room_id => "roomid"}
+      post :join, :params => { :name => "John", :room_id => "roomid", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
       post :join, :params => { :name => "John", :room_id => ""}
       expect(response).to_not redirect_to(room_path(1))
     end
+    it 'prevents join when invalid room code is given' do
+      post :join, :params => { :name => "John", :room_id => "1", :room_code => ""}
+      expect(response).to_not redirect_to(room_path(1))
+      post :join, :params => { :name => "John", :room_id => "1", :room_code => "INCORRECT"}
+      expect(response).to_not redirect_to(room_path(1))
+    end
     it 'prevents join when room id given does not exist' do
-      post :join, :params => { :name => "John", :room_id => "9999999999"}
+      post :join, :params => { :name => "John", :room_id => "9999999999", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
     end
     it 'prevents joining a room when selected player name is already in that given room' do
-      post :join, :params => { :name => "NameTaken", :room_id => "1"}
+      post :join, :params => { :name => "NameTaken", :room_id => "1", :room_code => "TEST"}
       expect(response).to_not redirect_to(room_path(1))
     end
   end
