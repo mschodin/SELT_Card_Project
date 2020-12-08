@@ -1,0 +1,19 @@
+<h1>Card Drawn:</h1>
+<table class="table table-striped col-md-12">
+  <thead>
+  <tr>
+    <td>Rank</td>
+    <td>Suit</td>
+  </tr>
+  </thead>
+  <tbody>
+    <tr><td>
+      <%= @draw_card[:rank] %>
+    </td>
+      <td>
+        <%= @draw_card[:suit] %>
+    </tr></td>
+  </tbody>
+</table>
+<%= link_to "Return to Room", room_path(params[:room_id]) %>
+

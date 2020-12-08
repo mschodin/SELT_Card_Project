@@ -1,0 +1,48 @@
+<%= react_component("RoomAppBar", { greeting: "#{session[:player]['name']} is in private room ##{session[:room_id]}!" }) %>
+<br>
+<br>
+<h3><%= "#{session[:player]['name']} is in private room ##{session[:room_id]}!" %></h3>
+<%= button_to "Leave Game", {:room_id=>session[:room_id], :controller=>"room", :action=>"leave"}, :method => :get %>
+
+<% unless @piles.empty? %>
+  <div>
+    <div>
+      <h3>Player <%= @player1[:name] %> : <%= @room.game_hands.find(@player1[:id]).display_hand %> </h3>
+      <h3>Amount of Cards in <%=@player1[:name] %>'s Hand: <%= @room.game_hands.find(@player1[:id]).card_amount %></h3>
+    </div>
+    <% @piles.each do |pile|   %>
+      <%= button_to "New Deck in Pile #{pile.id}", room_pile_deck_path(params[:id],pile.id), :method => :post %>
+      <% unless pile.decks.empty? %>
+        <div>
+          <%= button_to "Draw 1 Card from Pile #{pile.id}", room_deck_draw_path(params[:id], :deck_id => pile.decks.first.id), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
+        </div>
+        <div>
+          <h3>DECKS IN PILE: <%= pile.decks.all.length %></h3>
+          <h3>CARDS IN FIRST DECK: <%= pile.decks.first.card_amount %></h3>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<div>
+  <%= button_to "New Pile", room_pile_index_path(params[:id]), :method => :post %>
+</div>
+<div>
+  <h2>Players in Game:</h2>
+  <table class="table table-striped col-md-12">
+    <tbody>
+    <% @player_info.each do |name,count| %>
+      <% unless @player1[:name].eql?(name) %>
+        <tr>
+          <td>
+            <h3>Player ID: <%=  name  %> </h3>
+          </td>
+          <td>
+            <h3># Cards: <%= count %> </h3>
+          </td>
+        </tr>
+      <%  end %>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,4 +1,4 @@
-<%= react_component("RoomAppBar", { greeting: "#{session[:player]['name']} is in private room ##{session[:room_id]}!" }) %>
+<%= react_component("RoomAppBar", { greeting: "#{session[:player]['name']} is in private room ##{session[:room_id]}! Room-code: #{@room.code}" }) %>
 <br>
 <br>
 <h3><%= "#{session[:player]['name']} is in private room ##{session[:room_id]}!" %></h3>
@@ -46,3 +46,9 @@
     </tbody>
   </table>
 </div>
+<h1>--------------------------------------------------------------</h1>
+<%= react_component("GameRoom", {
+    handId: @room.game_hands.find(@player1[:id]).id,
+    playerHand: @room.game_hands.find(@player1[:id]).display_hand_with_id,
+    piles: @room.get_piles_and_cards
+} ) %>
