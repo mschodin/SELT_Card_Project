@@ -235,6 +235,9 @@ GEM
       railties (>= 3.2)
       tilt
     regexp_parser (1.8.2)
+    responders (3.0.1)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -340,6 +343,7 @@ DEPENDENCIES
   rails-controller-testing
   rails_12factor
   react-rails
+  responders
   rspec (~> 3.5)
   rspec-expectations
   rspec-rails

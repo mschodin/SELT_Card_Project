@@ -38,3 +38,10 @@ Feature: join a room from the landing page
     And I am on the game room home page
     When I click join a room with name "John" and room id "1"
     Then The user is notified a player with name "John" already exists
+
+  Scenario: The user enters invalid room code
+
+    Given A room has been created
+    And I am on the game room home page
+    When I click join a room with name "John", room id "1", and room code "INCORRECT"
+    Then The user is notified the room code is invalid
