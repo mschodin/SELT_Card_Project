@@ -20,7 +20,11 @@ class GameCard extends React.Component {
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={cardStyle(
                         provided.draggableProps.style
                     )}>
-                        <Card face={this.props.face} suit={this.props.suit} style={{width: "75px", height: "108px", display: 'inline-block', padding: '2px'}} />
+                        { this.props.hidden
+                            ? <Card face={null} suit={null} style={{width: "75px", height: "108px", display: 'inline-block', padding: '2px'}} />
+                            : <Card face={this.props.face} suit={this.props.suit} style={{width: "75px", height: "108px", display: 'inline-block', padding: '2px'}} />
+
+                        }
                     </div>
                 )}
             </Draggable>

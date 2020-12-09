@@ -1,5 +1,29 @@
 body {
+    background-color: floralwhite;
+}
 
+.tableStyle{
+    padding-left: 7%;
+    padding-right: 7%;
+    min-height: 500px;
+    min-width: 500px;
+    width: 50%;
+    height: 50%;
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.pileStyle{
+    min-height: 125px;
+    min-width: 90px;
+    background-color: floralwhite;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .handStyle{
@@ -11,6 +35,9 @@ body {
     width: 75%;
 }
 
+.room{
+    padding-bottom: 5%;
+}
 .centered {
     display: flex;
     align-content: center;
