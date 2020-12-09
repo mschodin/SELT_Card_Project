@@ -28,13 +28,10 @@ class GamePile extends React.Component {
         let first_card = this.props.pileCards[0]
         // console.log(first_card)
         return (
-            <Box className={"pileStyle"} variant={"outlined"} boxShadow={5}>
+            <Box role="pile" className={"pileStyle"} variant={"outlined"} boxShadow={5}>
                 <Droppable droppableId={this.props.pileId} isCombineEnabled key={this.props.pileId} direction="horizontal">
                     {(provided, snapshot) => (
                         <div ref={provided.innerRef}>
-                            {/*{this.props.pileCards.map((card, order) => (*/}
-                            {/*    <GameCard face={card[0]} suit={card[1]} cardId={"card" + card[2]} index={order} key={"card" + card[2]}/>*/}
-                            {/*))}*/}
                             {Array.isArray(first_card) && <GameCard hidden={this.state.hidden} face={first_card[0]} suit={first_card[1]} cardId={"card" + first_card[2]} index={0} key={"card" + first_card[2]}/>}
                             {provided.placeholder}
                         </div>
