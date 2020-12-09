@@ -73,7 +73,6 @@ development:
       poll: true
       ignored: '**/node_modules/**'
 
-
 test:
   <<: *default
   compile: true
