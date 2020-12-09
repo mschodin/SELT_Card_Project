@@ -72,8 +72,6 @@ development:
     watch_options:
       poll: true
       ignored: '**/node_modules/**'
-      poll: true
-
 
 test:
   <<: *default
