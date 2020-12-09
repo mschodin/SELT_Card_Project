@@ -89,6 +89,6 @@ class RoomController < ApplicationController
     Player.find(session[:player]["id"]).destroy
     session[:room_id] = nil
     session[:player] = nil
-    redirect_to room_index_path
+    redirect_to room_index_path, notice: "Thank you for playing!"
   end
 end

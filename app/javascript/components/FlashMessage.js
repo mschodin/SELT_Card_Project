@@ -25,7 +25,7 @@ export default function FlashMessage(props){
             <div className={classes.root}>
                 <Collapse in={open}>
                     <Alert
-                        variant="filled" severity="warning"
+                        variant="filled" severity="info"
                         action={
                             <IconButton
                                 aria-label="close"
