@@ -19,5 +19,20 @@
   "devDependencies": {
     "jest": "^26.6.3",
     "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "roots": [
+      "spec/javascripts"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|png|jpg|jpeg|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/spec/javascripts/support/styleMock.js"
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "app/javascript"
+    ]
   }
 }
