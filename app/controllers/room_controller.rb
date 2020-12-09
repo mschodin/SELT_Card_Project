@@ -1,12 +1,17 @@
 require 'date'
 require 'rubycards'
+
 class RoomController < ApplicationController
+  respond_to :json, :js, :html
+  skip_before_action :verify_authenticity_token
 
   def index
-
+    flash.keep(:notice)
+    # render component: 'Home', props: {}, class: 'Home'
   end
 
   def create
+    flash.discard
     if /\W/ =~ params[:name] || params[:name].length.eql?(0)
       redirect_to room_index_path, notice: "Name is invalid, please try again"
     else
@@ -59,6 +64,7 @@ class RoomController < ApplicationController
   end
 
   def join
+    flash.discard
     if /\W/ =~ params[:name] || params[:name].length.eql?(0)
       redirect_to room_index_path, notice: "Name is invalid, please try again"
     elsif /\D/ =~ params[:room_id] || params[:room_id].length.eql?(0)
@@ -85,6 +91,4 @@ class RoomController < ApplicationController
     session[:player] = nil
     redirect_to room_index_path
   end
-
-
 end
