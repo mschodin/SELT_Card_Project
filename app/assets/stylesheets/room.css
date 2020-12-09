@@ -37,6 +37,7 @@ body {
 
 .room{
     padding-bottom: 5%;
+    justify-content: flex-start;
 }
 .centered {
     display: flex;
