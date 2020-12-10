@@ -1,7 +1,7 @@
 <%= react_component("RoomAppBar", { greeting: "#{session[:player]['name']} is in private room ##{session[:room_id]}! Room-code: #{@room.code}" }) %>
 <br>
 <br>
-<h3><%= "#{session[:player]['name']} is in private room ##{session[:room_id]}!" %></h3>
+<!--<h3><%#= "#{session[:player]['name']} is in private room ##{session[:room_id]}!" %></h3>-->
 <%= button_to "Leave Game", {:room_id=>session[:room_id], :controller=>"room", :action=>"leave"}, :method => :get %>
 
 <% unless @piles.empty? %>
@@ -50,5 +50,7 @@
 <%= react_component("GameRoom", {
     handId: @room.game_hands.find(@player1[:id]).id,
     playerHand: @room.game_hands.find(@player1[:id]).display_hand_with_id,
-    piles: @room.get_piles_and_cards
+    piles: @room.get_piles_and_cards,
+    create_deck_urls: room_pile_deck_url(session[:room_id], "__pile_id__"),
+    roomId: session[:room_id]
 } ) %>
