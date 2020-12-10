@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from '../styles/theme'
+import PlayerList from "./PlayerList";
+import Grid from "@material-ui/core/Grid";
 
 class GameRoom extends React.Component {
     constructor(props) {
@@ -63,7 +65,13 @@ class GameRoom extends React.Component {
                 <React.Fragment>
                     <Box className={'room'}>
                         <DragDropContext onDragEnd={this.onDragEnd}>
-                            <GameTable piles={this.props.piles}/>
+                            <Grid container spacing={3}>
+                                <Grid item xs={2}><PlayerList players={this.props.players}/></Grid>
+                                <Grid item xs={8}>
+                                    <GameTable piles={this.props.piles}/>
+                                </Grid>
+                                <Grid item xs={2}/>
+                            </Grid>
                             <Typography component={"div"} className={"centered"}>
                                 <Box className={"handStyle"} bgcolor={"primary.main"} boxShadow={5}>
                                     <GameHand handId={"hand" + this.props.handId} playerHand={this.state.hand} />
@@ -80,7 +88,9 @@ class GameRoom extends React.Component {
 GameRoom.propTypes = {
     handId: PropTypes.number,
     playerHand: PropTypes.array,
-    piles: PropTypes.array
+    piles: PropTypes.array,
+    players: PropTypes.object
+
 };
 
 export default GameRoom;
