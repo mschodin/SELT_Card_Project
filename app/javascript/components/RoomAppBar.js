@@ -8,6 +8,7 @@ import {CasinoRounded, MouseRounded} from "@material-ui/icons";
 import theme from "../styles/theme";
 import {ThemeProvider} from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 class RoomAppBar extends React.Component {
 
     constructor(props) {
@@ -33,17 +34,25 @@ class RoomAppBar extends React.Component {
             <React.Fragment>
                 <AppBar position="relative" style={{ margin: 0}}>
                     <Toolbar className={"toolbarStyle"}>
-                        <IconButton edge="start" color="inherit">
-                            <MouseRounded/>
-                            <CasinoRounded/>
-                        </IconButton>
-                        <Typography variant="h5" className="greetingStyle">
-                            {this.props.greeting}
-                        </Typography>
-                        <Typography variant="h5" className="roomCodeStyle">
-                            {this.props.room_passcode}
-                        </Typography>
-                        <Button variant="outlined" color='inherit' type='submit' className="leaveButtonStyle" onClick={this.handleLeaveGame}>Leave Game</Button>
+                        <Grid container spacing={3}>
+                            <Grid item xs={5} className="greetingStyle">
+                            <IconButton edge="start" color="inherit">
+                                <MouseRounded/>
+                                <CasinoRounded/>
+                            </IconButton>
+                            <Typography variant="h5">
+                                {this.props.greeting}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={4} className="greetingStyle">
+                            <Typography variant="h5">
+                                {this.props.room_passcode}
+                            </Typography>
+                        </Grid>
+                            <Grid item xs={4} className="leaveButtonStyle">
+                                <Button variant="outlined" color='inherit' type='submit' onClick={this.handleLeaveGame}>Leave Game</Button>
+                            </Grid>
+                        </Grid>
                     </Toolbar>
                 </AppBar>
             </React.Fragment>

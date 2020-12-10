@@ -49,27 +49,35 @@ body {
 
 .toolbarStyle {
     display: flex;
-    align-content: flex-start;
-    justify-content: flex-start;
-    flex: auto;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .greetingStyle{
     align-self: center;
-    justify-self: flex-start;
-    padding-right: 15px;
-    flex: 1;
+    justify-self: center;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
 }
 
 .roomCodeStyle{
-    padding-right: 150px;
-    padding-left: 15px;
-    flex: 1;
+
+    align-self: center;
+    justify-self: center;
 }
 
 .leaveButtonStyle{
-    align-content: flex-end;
-    padding-left: 15px;
+    align-self: center;
+    justify-self: flex-end;
+    justify-content: flex-end;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
     flex: 1;
 }
 
