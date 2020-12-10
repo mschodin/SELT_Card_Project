@@ -91,4 +91,13 @@ class RoomController < ApplicationController
     session[:player] = nil
     redirect_to room_index_path, notice: "Thank you for playing!"
   end
+
+  def move_card
+    card = Card.find(params[:card_id])
+    if params.has_key?(:deck_id) then card.move_to(Deck.find(params[:deck_id]))
+    elsif params.has_key?(:pile_id) then card.move_to(Pile.find(params[:pile_id]))
+    elsif params.has_key?(:gamehand_id) then card.move_to(GameHand.find(params[:gamehand_id]))
+    end
+    redirect_to room_path(params[:room_id])
+  end
 end
