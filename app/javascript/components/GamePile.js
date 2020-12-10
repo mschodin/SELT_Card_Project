@@ -15,6 +15,7 @@ class GamePile extends React.Component {
             hidden : true,
             showInfo: false,
             anchorEl: null,
+            showMenu: false,
         }
     }
 
@@ -34,19 +35,36 @@ class GamePile extends React.Component {
     //     })
     // }
     handlePopoverOpen = (event) => {
-        console.log("im in here!")
-        this.setState({
-            showInfo: true,
-            anchorEl: event.currentTarget,
-        })
+        if(this.state.showMenu === false){
+            this.setState({
+                showInfo: true,
+                anchorEl: event.currentTarget,
+            })
+        }
     }
 
     handlePopoverClose = () => {
-        console.log("im HEEER!")
-        this.setState({
-            showInfo: false,
-            anchorEl: null,
-        })
+        if(this.state.showMenu === false){
+            this.setState({
+                showInfo: false,
+                anchorEl: null,
+            })
+        }
+    }
+
+    handleClick = (event) => {
+        if(this.state.showMenu === false){
+            this.setState({
+                showInfo: false,
+                showMenu: true,
+                anchorEl: event.currentTarget,
+            })
+        } else {
+            this.setState({
+                showMenu: false,
+                anchorEl: null,
+            })
+        }
     }
 
     render () {
@@ -57,7 +75,7 @@ class GamePile extends React.Component {
                     <Box role="pile" className={"pileStyle"} variant={"outlined"} boxShadow={5} >
                         <Droppable droppableId={this.props.pileId} isCombineEnabled key={this.props.pileId} direction="horizontal" >
                             {(provided, snapshot) => (
-                                <div ref={provided.innerRef} onMouseEnter={this.handlePopoverOpen} onMouseLeave={this.handlePopoverClose} aria-haspopup={true}>
+                                <div ref={provided.innerRef} onMouseEnter={this.handlePopoverOpen} onMouseLeave={this.handlePopoverClose} aria-haspopup={true} onClick={this.handleClick}>
                                     {Array.isArray(first_card) && <GameCard hidden={this.state.hidden} face={first_card[0]} suit={first_card[1]} cardId={"card" + first_card[2]} index={0} key={"card" + first_card[2]}/>}
                                     {provided.placeholder}
                                 </div>
@@ -90,6 +108,35 @@ class GamePile extends React.Component {
                             </Typography>
                             <Typography>
                                 Click on deck to draw multiple cards
+                            </Typography>
+                        </div>
+                    </Popover>
+                    <Popover
+                        id="click-popover"
+                        style={{pointerEvents: 'none', padding: 100}}
+                        // className={classes.popover}
+                        // classes={{
+                        //     paper: classes.paper,
+                        // }}
+                        open={this.state.showMenu}
+                        anchorEl={this.state.anchorEl}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        onClose={this.handlePopoverClose}
+                        disableRestoreFocus
+                    >
+                        <div>
+                            <Typography>
+                                new menu
+                            </Typography>
+                            <Typography>
+                                lolol
                             </Typography>
                         </div>
                     </Popover>
