@@ -28,4 +28,10 @@ describe Room do
     deck = room.add_deck(pile)
     expect(room.decks)
   end
+
+  it 'should have a generated code' do
+    room = Room.create
+    expect(room.code).to_not be_nil
+    expect(room.code.length).to eq(4)
+  end
 end
