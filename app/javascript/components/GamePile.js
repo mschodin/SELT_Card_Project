@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import GameCard from "./GameCard";
 import Box from "@material-ui/core/Box";
 import Popover from '@material-ui/core/Popover';
-import {Typography} from "@material-ui/core";
+import { Typography, ButtonGroup, Button } from "@material-ui/core";
 import theme from "../styles/theme";
 import {ThemeProvider} from "@material-ui/core/styles";
 
@@ -16,6 +16,7 @@ class GamePile extends React.Component {
             showInfo: false,
             anchorEl: null,
             showMenu: false,
+            quantity: 0,
         }
     }
 
@@ -29,11 +30,6 @@ class GamePile extends React.Component {
 
     }
 
-    // setShowInfo = (val) => {
-    //     this.setState({
-    //         showInfo: val,
-    //     })
-    // }
     handlePopoverOpen = (event) => {
         if(this.state.showMenu === false){
             this.setState({
@@ -48,6 +44,22 @@ class GamePile extends React.Component {
             this.setState({
                 showInfo: false,
                 anchorEl: null,
+            })
+        }
+    }
+
+    handleIncrement = () => {
+        if(this.state.quantity < this.props.pileCards.length){
+            this.setState({
+                quantity: this.state.quantity+1,
+            })
+        }
+    }
+
+    handleDecrement = () => {
+        if(this.state.quantity > 0){
+            this.setState({
+                quantity: this.state.quantity-1,
             })
         }
     }
@@ -133,10 +145,15 @@ class GamePile extends React.Component {
                     >
                         <div>
                             <Typography>
-                                new menu
+                                Cards in Deck: {this.props.pileCards.length}
                             </Typography>
+                            <ButtonGroup size={"small"} aria-label="small outlined button group">
+                                <Button onClick={this.handleDecrement}>-</Button>
+                                <Button disabled>{this.state.quantity}</Button>
+                                <Button onClick={this.handleIncrement}>+</Button>
+                            </ButtonGroup>
                             <Typography>
-                                lolol
+                                Click again to close this menu
                             </Typography>
                         </div>
                     </Popover>
