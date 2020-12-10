@@ -5,6 +5,8 @@ import GameCard from "./GameCard";
 import Box from "@material-ui/core/Box";
 import Popover from '@material-ui/core/Popover';
 import {Typography} from "@material-ui/core";
+import theme from "../styles/theme";
+import {ThemeProvider} from "@material-ui/core/styles";
 
 class GamePile extends React.Component {
     constructor(props) {
@@ -50,45 +52,49 @@ class GamePile extends React.Component {
     render () {
         let first_card = this.props.pileCards[0]
         return (
-            <React.Fragment>
+            <ThemeProvider theme={theme}>
                 <div>
                     <Box role="pile" className={"pileStyle"} variant={"outlined"} boxShadow={5} >
                         <Droppable droppableId={this.props.pileId} isCombineEnabled key={this.props.pileId} direction="horizontal" >
                             {(provided, snapshot) => (
-                                <div ref={provided.innerRef} onMouseEnter={() => this.handlePopoverOpen} onMouseLeave={() => this.handlePopoverClose}>
+                                <div ref={provided.innerRef} onMouseEnter={this.handlePopoverOpen} onMouseLeave={this.handlePopoverClose} aria-haspopup={true}>
                                     {Array.isArray(first_card) && <GameCard hidden={this.state.hidden} face={first_card[0]} suit={first_card[1]} cardId={"card" + first_card[2]} index={0} key={"card" + first_card[2]}/>}
                                     {provided.placeholder}
                                 </div>
                             )}
                         </Droppable>
                     </Box>
-                    {/*{this.state.showInfo && (*/}
-                    {/*<Popover*/}
-                    {/*    id="mouse-over-popover"*/}
-                    {/*    // className={classes.popover}*/}
-                    {/*    // classes={{*/}
-                    {/*    //     paper: classes.paper,*/}
-                    {/*    // }}*/}
-                    {/*    open={this.state.showInfo}*/}
-                    {/*    anchorEl={this.state.anchorEl}*/}
-                    {/*    anchorOrigin={{*/}
-                    {/*        vertical: 'bottom',*/}
-                    {/*        horizontal: 'left',*/}
-                    {/*    }}*/}
-                    {/*    transformOrigin={{*/}
-                    {/*        vertical: 'top',*/}
-                    {/*        horizontal: 'left',*/}
-                    {/*    }}*/}
-                    {/*    onClose={this.handlePopoverClose}*/}
-                    {/*    disableRestoreFocus*/}
-                    {/*>*/}
-                    {/*    <Typography>*/}
-                    {/*        TEST TEXT*/}
-                    {/*    </Typography>*/}
-                    {/*</Popover>*/}
-                    {/*)}*/}
+                    <Popover
+                        id="mouse-over-popover"
+                        style={{pointerEvents: 'none', padding: 100}}
+                        // className={classes.popover}
+                        // classes={{
+                        //     paper: classes.paper,
+                        // }}
+                        open={this.state.showInfo}
+                        anchorEl={this.state.anchorEl}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        onClose={this.handlePopoverClose}
+                        disableRestoreFocus
+                    >
+                        <div>
+                            <Typography>
+                                Cards in Deck: {this.props.pileCards.length}
+                            </Typography>
+                            <Typography>
+                                Click on deck to draw multiple cards
+                            </Typography>
+                        </div>
+                    </Popover>
                 </div>
-            </React.Fragment>
+            </ThemeProvider>
         );
     }
 }
