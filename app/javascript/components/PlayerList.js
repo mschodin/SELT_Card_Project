@@ -24,7 +24,7 @@ function ListPlayers(props) {
             <ListItemIcon>
                 <PersonOutline />
             </ListItemIcon>
-            <ListItemText primary= {name.toString() + ": " + count.toString() + " cards"} />
+            <ListItemText primary= {name.toString() + ": " + count.toString() + " card(s)"} />
         </ListItem>
     );
     return <ul>{listItems}</ul>;
