@@ -14,7 +14,7 @@ class GameTable extends React.Component {
                 pb={10}
                 className={"centered"}
             >
-                <Box className={"tableStyle"} bgcolor={"primary.main"} boxShadow={5}>
+                <Box role="table" className={"tableStyle"} bgcolor={"primary.main"} boxShadow={5}>
                     {this.props.piles.map((pile, idx) =>(
                         <GamePile
                             pileId={"pile" + pile[0]}

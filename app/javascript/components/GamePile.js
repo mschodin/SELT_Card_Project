@@ -92,7 +92,7 @@ class GamePile extends React.Component {
                                         anchorEl: null
                                     })}
                                 ><AddBoxOutlined/></IconButton>
-                        }
+                            }
                             {provided.placeholder}
                         </div>
                     )}
