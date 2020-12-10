@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 function ListPlayers(props) {
     const players = props.players;
     const listItems = Object.entries(players).map(([name,count])=>
-        <ListItem>
+        <ListItem className="listItemStyle">
             <ListItemIcon>
                 <PersonOutline />
             </ListItemIcon>
@@ -34,8 +34,8 @@ export default function PlayerList(props) {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <List component="nav" aria-label="main list players">
+        <div className="multiListStyle">
+            <List className="listStyle" component="nav" aria-label="main list players">
                 <ListPlayers players={props.players}/>
             </List>
         </div>
