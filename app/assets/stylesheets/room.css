@@ -7,13 +7,14 @@ body {
     padding-right: 7%;
     min-height: 500px;
     min-width: 500px;
-    width: 50%;
+    width: 80%;
     height: 50%;
     border-radius: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    justify-self: center;
 }
 
 .pileStyle{
@@ -37,7 +38,8 @@ body {
 
 .room{
     padding-bottom: 5%;
-    justify-content: flex-start;
+    justify-content: center;
+    justify-self: center;
 }
 .centered {
     display: flex;
@@ -69,4 +71,25 @@ body {
     align-content: flex-end;
     padding-left: 15px;
     flex: 1;
+}
+
+.listItemStyle{
+    border-bottom: 3px solid #00695c;
+    max-width: max-content;
+    justify-content: flex-start;
+    justify-self: flex-start;
+}
+
+.listStyle{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.multiListStyle{
+    margin:0;
+    width: max-content;
+    justify-content: flex-start;
+    justify-self: flex-start;
+    display: flex;
+    flex-direction: column;
 }
