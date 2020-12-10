@@ -1,7 +1,6 @@
 import * as React from "react";
 import {render} from "@testing-library/react";
 import GameRoom from "../../app/javascript/components/GameRoom";
-import 'ignore-styles';
 
 test('Check that GameTable exists', () => {
     const test_piles =  [[0,[["A", "S", 0],["A", "C", 1],["A", "H", 2]]],[ 1, [["A", "S", 0],["A", "C", 1],["A", "H", 2]]]]
