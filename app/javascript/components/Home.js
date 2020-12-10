@@ -34,10 +34,10 @@ class Home extends React.Component {
         this.state = {
             showPassword: false,
             setShowPassword: false,
-            create_name: '',
-            join_name: '',
-            room_code: '',
-            room_id: null,
+            create_name: "",
+            join_name: "",
+            room_code: "",
+            room_id: "",
             room_code_problem: false,
             submit_enabled: false,
         };
@@ -109,6 +109,8 @@ class Home extends React.Component {
         });}
 
     render() {
+        const disable_create = !this.state.create_name.length;
+        const disable_join = !(this.state.join_name && this.state.room_code && this.state.room_id);
         return(
             <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -125,11 +127,11 @@ class Home extends React.Component {
                                     <TextField type= 'text'
                                                variant='outlined'
                                                name="create_name"
-                                               onClick={this.handleChange}
+                                               onChange={this.handleChange}
                                                placeholder= 'Enter Name' />
                                 </Box>
                                 <Box pb={1} pt={1}>
-                                    <Button disabled={!this.state.create_name} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Create Game</Button>
+                                    <Button disabled={disable_create} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Create Game</Button>
                                 </Box>
                             </form>
                         </Box>
@@ -171,7 +173,7 @@ class Home extends React.Component {
                                    }}
                                 />
                                 <Box pb={1} pt={1}>
-                                    <Button disabled={!(this.state.join_name && this.state.room_id && this.state.room_code)} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Join Game</Button>
+                                    <Button disabled={disable_join} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Join Game</Button>
                                 </Box>
                          </form>
                         </Box>
