@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import GameCard from "./GameCard";
 import Box from "@material-ui/core/Box";
 import Popover from '@material-ui/core/Popover';
-import { Typography, ButtonGroup, Button } from "@material-ui/core";
+import { Typography, ButtonGroup, Button, Dialog } from "@material-ui/core";
 import theme from "../styles/theme";
 import {ThemeProvider} from "@material-ui/core/styles";
 
@@ -21,7 +21,6 @@ class GamePile extends React.Component {
     }
 
     componentDidMount() {
-        // console.log(this.props.pileCards.isEmpty())
         if (this.props.pileCards.length == 0) {
             this.setState({
                 hidden: false
@@ -64,19 +63,16 @@ class GamePile extends React.Component {
         }
     }
 
-    handleClick = (event) => {
-        if(this.state.showMenu === false){
-            this.setState({
-                showInfo: false,
-                showMenu: true,
-                anchorEl: event.currentTarget,
-            })
-        } else {
-            this.setState({
-                showMenu: false,
-                anchorEl: null,
-            })
-        }
+    openDrawMenu = (event) => {
+        this.setState({
+            showInfo: false,
+            showMenu: true,
+            anchorEl: event.currentTarget,
+       })
+    }
+
+    closeDrawMenu = () => {
+        
     }
 
     render () {
@@ -87,7 +83,7 @@ class GamePile extends React.Component {
                     <Box role="pile" className={"pileStyle"} variant={"outlined"} boxShadow={5} >
                         <Droppable droppableId={this.props.pileId} isCombineEnabled key={this.props.pileId} direction="horizontal" >
                             {(provided, snapshot) => (
-                                <div ref={provided.innerRef} onMouseEnter={this.handlePopoverOpen} onMouseLeave={this.handlePopoverClose} aria-haspopup={true} onClick={this.handleClick}>
+                                <div ref={provided.innerRef} onMouseEnter={this.handlePopoverOpen} onMouseLeave={this.handlePopoverClose} aria-haspopup={true} onClick={this.openDrawMenu}>
                                     {Array.isArray(first_card) && <GameCard hidden={this.state.hidden} face={first_card[0]} suit={first_card[1]} cardId={"card" + first_card[2]} index={0} key={"card" + first_card[2]}/>}
                                     {provided.placeholder}
                                 </div>
@@ -123,13 +119,10 @@ class GamePile extends React.Component {
                             </Typography>
                         </div>
                     </Popover>
+
+
                     <Popover
-                        id="click-popover"
-                        style={{pointerEvents: 'none', padding: 100}}
-                        // className={classes.popover}
-                        // classes={{
-                        //     paper: classes.paper,
-                        // }}
+                        id="mouse-click-popover"
                         open={this.state.showMenu}
                         anchorEl={this.state.anchorEl}
                         anchorOrigin={{
@@ -140,21 +133,24 @@ class GamePile extends React.Component {
                             vertical: 'top',
                             horizontal: 'left',
                         }}
-                        onClose={this.handlePopoverClose}
-                        disableRestoreFocus
                     >
-                        <div>
-                            <Typography>
-                                Cards in Deck: {this.props.pileCards.length}
-                            </Typography>
-                            <ButtonGroup size={"small"} aria-label="small outlined button group">
-                                <Button onClick={this.handleDecrement}>-</Button>
-                                <Button disabled>{this.state.quantity}</Button>
-                                <Button onClick={this.handleIncrement}>+</Button>
-                            </ButtonGroup>
-                            <Typography>
-                                Click again to close this menu
-                            </Typography>
+                        <div style={{width: '200px'}}>
+                            <div style={{justifyContent: 'center', alignContent: 'center', display: 'flex'}}>
+                                <Typography>
+                                    Cards in Deck: {this.props.pileCards.length}
+                                </Typography>
+                            </div>
+                            <div style={{justifyContent: 'center', alignContent: 'center', display: 'flex'}}>
+                                <ButtonGroup>
+                                    <Button onClick={this.handleDecrement}>-</Button>
+                                    <Button disabled>{this.state.quantity}</Button>
+                                    <Button onClick={this.handleIncrement}>+</Button>
+                                </ButtonGroup>
+                            </div>
+                            <div>
+                                <Button style={{width: '50%'}}>Confirm</Button>
+                                <Button style={{width: '50%'}}>Cancel</Button>
+                            </div>
                         </div>
                     </Popover>
                 </div>
