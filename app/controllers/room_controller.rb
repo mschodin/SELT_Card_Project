@@ -89,7 +89,7 @@ class RoomController < ApplicationController
     room = get_room
     dump_pile = ''
     room.piles.each do |pile| # Check if there are any empty piles
-      if pile.decks.empty? then dump_pile = pile end
+      if pile.decks.empty? && pile.cards.empty? then dump_pile = pile end
     end
     if dump_pile.blank? then dump_pile = room.add_pile end # if there's no empty piles make a new pile
     Player.find(session[:player]["id"]).cards.each do |card| # dump player cards in the pile
