@@ -15,8 +15,6 @@ class DeckController < ApplicationController
     #placeholder for single person display
     @player1 = @room.players.find(session[:player]['id'])
     @del_card.update('deck_id': nil, 'game_hand_id': @player1.game_hand.id)#, 'gamehand_id': player.game_hand.id)
-
-
   end
 
   def show
