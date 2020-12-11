@@ -86,6 +86,11 @@ class RoomController < ApplicationController
   end
 
   def leave
+    pile = get_room.add_pile
+    Player.find(session[:player]["id"]).cards.each do |card|
+      card.move_to(pile)
+    end
+
     Player.find(session[:player]["id"]).destroy
     session[:room_id] = nil
     session[:player] = nil
