@@ -98,6 +98,5 @@ class RoomController < ApplicationController
     elsif params.has_key?(:pile_id) then card.move_to(Pile.find(params[:pile_id]))
     elsif params.has_key?(:gamehand_id) then card.move_to(GameHand.find(params[:gamehand_id]))
     end
-    redirect_to room_path(params[:room_id])
   end
 end

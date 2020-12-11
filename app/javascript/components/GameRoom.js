@@ -55,7 +55,6 @@ class GameRoom extends React.Component {
                     body: body,
                 }).then((response) => {
                     console.log(response)
-                    window.location.reload(true)
                 })
             }
             else if(result.source.droppableId.includes('pile') && result.destination.droppableId.includes('hand')){
