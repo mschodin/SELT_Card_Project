@@ -85,6 +85,7 @@ class GameRoom extends React.Component {
                     hand_id: hand_id
                 })
                 const url = window.location.href + "/card/" + card_id
+                console.log(url)
                 fetch(url, {
                     method: 'POST',
                     headers: {

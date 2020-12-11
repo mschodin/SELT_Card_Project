@@ -271,7 +271,8 @@ GamePile.propTypes = {
     pileId: PropTypes.string,
     numId: PropTypes.number,
     roomId: PropTypes.number,
-    isDragging: PropTypes.bool
+    isDragging: PropTypes.bool,
+    draw_multiple: PropTypes.string
     // pileCards: PropTypes.array
 };
 
