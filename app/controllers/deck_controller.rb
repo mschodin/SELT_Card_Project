@@ -15,6 +15,8 @@ class DeckController < ApplicationController
     #placeholder for single person display
     @player1 = @room.players.find(session[:player]['id'])
     @del_card.update('deck_id': nil, 'game_hand_id': @player1.game_hand.id)#, 'gamehand_id': player.game_hand.id)
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+
   end
 
   def show
@@ -24,6 +26,7 @@ class DeckController < ApplicationController
     @room = Room.find(params[:room_id])
     pile = Pile.find(params[:pile_id])
     @deck = @room.add_deck(pile)
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
     redirect_to room_path(params[:room_id])
   end
 
