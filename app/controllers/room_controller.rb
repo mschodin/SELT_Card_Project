@@ -83,6 +83,7 @@ class RoomController < ApplicationController
     else
       redirect_to room_index_path, notice: "Room does not exist, please try again"
     end
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
 
   def leave
@@ -117,5 +118,6 @@ class RoomController < ApplicationController
       card.move_to(GameHand.find(params[:handId]))
       counter += 1
     end
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
 end
