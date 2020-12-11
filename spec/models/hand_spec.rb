@@ -25,6 +25,15 @@ RSpec.describe Deck, type: :model do
       hand = room.game_hands.find(1)
       expect(hand.display_hand_with_id).to eq([["2", "S", 1]])
     end
+    it 'gets the correct card amount' do
+      room = Room.find(1)
+      GameHand.create!({:player_id=>1})
+      Card.create!({:game_hand_id=>"1", :rank=>"2", :suit=>"S"})
+      Card.create!({:game_hand_id=>"1", :rank=>"5", :suit=>"D"})
+      Card.create!({:game_hand_id=>"1", :rank=>"7", :suit=>"H"})
+      hand = room.game_hands.find(1)
+      expect(hand.card_amount).to eq(3)
+    end
     it 'returns the correct diamonds symbol' do
       card = Card.create!(:rank=>"6", :suit=>"Diamonds")
       card_arr = [[card.rank, card.suit]]
