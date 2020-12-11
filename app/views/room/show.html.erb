@@ -4,26 +4,26 @@
 <!--<h3><%#= "Welcome, #{session[:player]['name']} to game room ##{session[:room_id]}!" %></h3>-->
 <%#= button_to "Leave Game", {:room_id=>session[:room_id], :controller=>"room", :action=>"leave"}, :method => :get %>
 
-<% unless @piles.empty? %>
-  <div>
+<%# unless @piles.empty? %>
+<!--  <div>-->
 <!--    <div>-->
 <!--      <h3>Player <%#= @player1[:name] %> : <%#= @room.game_hands.find(@player1[:id]).display_hand %> </h3>-->
 <!--      <h3>Amount of Cards in <%#=@player1[:name] %>'s Hand: <%#= @room.game_hands.find(@player1[:id]).card_amount %></h3>-->
 <!--    </div>-->
-    <% @piles.each do |pile|   %>
-      <%= button_to "New Deck in Pile #{pile.id}", room_pile_deck_path(params[:id],pile.id), :method => :post %>
-      <% unless pile.decks.empty? %>
-        <div>
-          <%= button_to "Draw 1 Card from Pile #{pile.id}", room_deck_draw_path(params[:id], :deck_id => pile.decks.first.id), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
-        </div>
-        <div>
-          <h3>DECKS IN PILE: <%= pile.decks.all.length %></h3>
-          <h3>CARDS IN FIRST DECK: <%= pile.decks.first.card_amount %></h3>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
+    <%# @piles.each do |pile|   %>
+      <%#= button_to "New Deck in Pile #{pile.id}", room_pile_deck_path(params[:id],pile.id), :method => :post %>
+      <%# unless pile.decks.empty? %>
+<!--        <div>-->
+          <%#= button_to "Draw 1 Card from Pile #{pile.id}", room_deck_draw_path(params[:id], :deck_id => pile.decks.first.id), method: :get,:class => 'btn btn-primary', id: 'draw_card'%>
+<!--        </div>-->
+<!--        <div>-->
+<!--          <h3>DECKS IN PILE: <%#= pile.decks.all.length %></h3>-->
+<!--          <h3>CARDS IN FIRST DECK: <%#= pile.decks.first.card_amount %></h3>-->
+<!--        </div>-->
+      <%# end %>
+    <%# end %>
+<!--  </div>-->
+<%# end %>
 <div>
   <%= button_to "New Pile", room_pile_index_path(params[:id]), :method => :post %>
 </div>
@@ -53,5 +53,6 @@
     piles: @room.get_piles_and_cards,
     create_deck_urls: room_pile_deck_url(session[:room_id], "__pile_id__"),
     roomId: session[:room_id],
-    players: @player_info
+    players: @player_info,
+    draw_multiple: room_draw_multiple_url(params[:id])
 } ) %>
