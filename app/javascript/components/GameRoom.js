@@ -53,9 +53,7 @@ class GameRoom extends React.Component {
                         'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
                     },
                     body: body,
-                }).then((response) => {
-                    console.log(response)
-                })
+                }).then((response) => {console.log(response)})
             }
             else if(result.source.droppableId.includes('pile') && result.destination.droppableId.includes('hand')){
                 console.log("draw card");
@@ -66,6 +64,22 @@ class GameRoom extends React.Component {
                 this.setState({
                     hand: reorderedHand,
                 })
+                const hand_id = result.destination.droppableId.split("hand")[1]
+                const card_id = result.draggableId.split("card")[1]
+                const body = JSON.stringify( {
+                    room_id: this.props.room_id,
+                    card_id: card_id,
+                    hand_id: hand_id
+                })
+                const url = window.location.href + "/card/" + card_id + "/to_hand/" + hand_id
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+                    },
+                    body: body,
+                }).then((response) => {console.log(response)})
             }
             else if(result.source.droppableId !== result.destination.droppableId && result.source.droppableId.includes('pile') && result.destination.droppableId.includes('pile')){
                 console.log("move card between pile");

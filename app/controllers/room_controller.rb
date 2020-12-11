@@ -96,7 +96,7 @@ class RoomController < ApplicationController
     card = Card.find(params[:card_id])
     if params.has_key?(:deck_id) then card.move_to(Deck.find(params[:deck_id]))
     elsif params.has_key?(:pile_id) then card.move_to(Pile.find(params[:pile_id]))
-    elsif params.has_key?(:gamehand_id) then card.move_to(GameHand.find(params[:gamehand_id]))
+    elsif params.has_key?(:hand_id) then card.move_to(GameHand.find(params[:hand_id]))
     end
   end
 end
