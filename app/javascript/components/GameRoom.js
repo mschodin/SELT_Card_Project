@@ -17,12 +17,22 @@ class GameRoom extends React.Component {
         super(props);
         this.state = {
             hand: props.playerHand,
-            piles: {}
+            piles: {},
+            isDragging: false
         }
         this.props.piles.forEach(pile => this.state.piles[pile[0]]=pile[1])
     }
 
+    handleDragStart = () =>{
+        this.setState({
+            isDragging: true
+        })
+    }
+
     onDragEnd = (result) => {
+        this.setState({
+            isDragging: false
+        })
         if(result.destination != null) {
             if(result.source.droppableId === result.destination.droppableId && result.destination.droppableId.includes('hand')){
                 const reorderedHand = Array.from(this.state.hand);
@@ -40,9 +50,26 @@ class GameRoom extends React.Component {
                 this.state.piles[pile_id].splice(0, 0, removed);
                 this.setState({
                     hand: reorderedHand,
-                })            }
+                })
+                const card_id = result.draggableId.split("card")[1]
+                const body = JSON.stringify( {
+                    room_id: this.props.room_id,
+                    card_id: card_id,
+                    pile_id: pile_id
+                })
+                const url = window.location.href + "/card/" + card_id
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+                    },
+                    body: body,
+                }).then((response) => {console.log(response)})
+            }
             else if(result.source.droppableId.includes('pile') && result.destination.droppableId.includes('hand')){
                 console.log("draw card");
+                console.log(result)
                 const reorderedHand = Array.from(this.state.hand);
                 const pile_id = result.source.droppableId.split("pile")[1]
                 const [draw] = this.state.piles[pile_id].splice(0, 1)
@@ -50,10 +77,26 @@ class GameRoom extends React.Component {
                 this.setState({
                     hand: reorderedHand,
                 })
+                const hand_id = result.destination.droppableId.split("hand")[1]
+                const card_id = result.draggableId.split("card")[1]
+                const body = JSON.stringify( {
+                    room_id: this.props.room_id,
+                    card_id: card_id,
+                    hand_id: hand_id
+                })
+                const url = window.location.href + "/card/" + card_id
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+                    },
+                    body: body,
+                }).then((response) => {console.log(response)})
             }
             else if(result.source.droppableId !== result.destination.droppableId && result.source.droppableId.includes('pile') && result.destination.droppableId.includes('pile')){
                 console.log("move card between pile");
-                console.log(result)//
+                console.log(result)//test
             }
         }
     };
@@ -64,11 +107,11 @@ class GameRoom extends React.Component {
                 <CssBaseline />
                 <React.Fragment>
                     <Box className={'room'}>
-                        <DragDropContext onDragEnd={this.onDragEnd}>
+                        <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.handleDragStart}>
                             <Grid container spacing={3}>
                                 <Grid item xs={2}><PlayerList players={this.props.players}/></Grid>
                                 <Grid item xs={8}>
-                                    <GameTable piles={this.props.piles}/>
+                                  <GameTable piles={this.props.piles} create_deck={this.props.create_deck_urls} roomId={this.props.roomId} isDragging={this.state.isDragging}/>
                                 </Grid>
                                 <Grid item xs={2}/>
                             </Grid>
@@ -86,6 +129,7 @@ class GameRoom extends React.Component {
 }
 
 GameRoom.propTypes = {
+    roomId: PropTypes.number,
     handId: PropTypes.number,
     playerHand: PropTypes.array,
     piles: PropTypes.array,
