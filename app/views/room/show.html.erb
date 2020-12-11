@@ -3,9 +3,12 @@
 <!--<br>-->
 <!--<h3><%#= "Welcome, #{session[:player]['name']} to game room ##{session[:room_id]}!" %></h3>-->
 <%#= button_to "Leave Game", {:room_id=>session[:room_id], :controller=>"room", :action=>"leave"}, :method => :get %>
-<% if @piles.empty? %>>
-  <%  @room.add_pile %>>
-  <% end %>
+<% if @piles.empty? %>
+  <%  @room.add_pile %>
+  <%  @room.add_pile %>
+  <%  @room.add_pile %>
+  <%  @room.add_pile %>
+<% end %>
 
 <% unless @piles.empty? %>
   <div>
