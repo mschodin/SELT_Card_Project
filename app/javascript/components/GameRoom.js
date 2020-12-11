@@ -38,7 +38,26 @@ class GameRoom extends React.Component {
                 this.state.piles[pile_id].splice(0, 0, removed);
                 this.setState({
                     hand: reorderedHand,
-                })            }
+                })
+                const card_id = result.draggableId.split("card")[1]
+                const body = JSON.stringify( {
+                    room_id: this.props.room_id,
+                    card_id: card_id,
+                    pile_id: pile_id
+                })
+                const url = window.location.href + "/card/" + card_id + "/to_pile/" + pile_id
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+                    },
+                    body: body,
+                }).then((response) => {
+                    console.log(response)
+                    window.location.reload(true)
+                })
+            }
             else if(result.source.droppableId.includes('pile') && result.destination.droppableId.includes('hand')){
                 console.log("draw card");
                 const reorderedHand = Array.from(this.state.hand);
