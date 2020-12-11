@@ -23,19 +23,6 @@ class GameHand < ApplicationRecord
     real_symbol(holder)
   end
 
-  #Using the draw method in RubyCards::Hand to draw from a specific deck for a specific amount
-  def draw_card(game_deck, draw_amt)
-    @hand.draw(game_deck, draw_amt)
-  end
-
-  def hand_correction
-    holder = []
-    @hand.cards.each do |card|
-      holder << [card.to_i,card.suit]
-    end
-    real_symbol(holder)
-  end
-
   def real_symbol(handy)
     handy.each do |card|
       if card[1].eql?("Diamonds")
