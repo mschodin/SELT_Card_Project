@@ -40,9 +40,9 @@ class RoomAppBar extends React.Component {
     async handleEndGame(e){
         e.preventDefault();
         console.log(this.state);
-        let leave_url = '/room'
-        fetch(leave_url, {
-            method: 'delete',
+        let end_url = '/room/'+this.props.room_id + '/destroy'
+        fetch(end_url, {
+            method: 'get',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
@@ -107,6 +107,6 @@ class RoomAppBar extends React.Component {
 RoomAppBar.propTypes = {
   greeting: PropTypes.string,
   room_passcode: PropTypes.string,
-  room_id: PropTypes.number
+  room_id: PropTypes.number,
 };
 export default RoomAppBar
