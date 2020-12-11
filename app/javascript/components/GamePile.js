@@ -243,7 +243,7 @@ class GamePile extends React.Component {
                         }}
                     >
                         <div style={{width: '200px'}}>
-                            <div style={{justifyContent: 'center', alignContent: 'center', display: 'flex'}}>
+                            <div style={{justifyContent: 'center', alignContent: 'center', display: 'flex', padding: '5%'}}>
                                 <Typography>
                                     Cards in Deck: {this.props.pileCards.length}
                                 </Typography>
@@ -255,9 +255,9 @@ class GamePile extends React.Component {
                                     <Button onClick={this.handleIncrement}>+</Button>
                                 </ButtonGroup>
                             </div>
-                            <div>
-                                <Button onClick={this.submitDraw} style={{width: '50%'}}>Confirm</Button>
-                                <Button onClick={this.closeDrawMenu} style={{width: '50%'}}>Cancel</Button>
+                            <div style={{justifyContent: 'center', alignContent: 'center', padding: '5%', display: 'flex'}}>
+                                <Button variant="contained" color={"primary"} onClick={this.submitDraw} style={{width: '40%', justifyContent: 'center', alignContent: 'center', marginRight: '10px'}}>Confirm</Button>
+                                <Button variant="contained" color={"secondary"} onClick={this.closeDrawMenu} style={{width: '40%', justifyContent: 'center', marginLeft: '10px'}}>Cancel</Button>
                             </div>
                         </div>
                     </Popover>
