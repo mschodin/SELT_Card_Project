@@ -117,3 +117,7 @@ And /^I should see the room code$/ do
   div = find('[data-react-class="RoomAppBar"]') #gets react component RoomAppBar
   div[:'data-react-props'].should have_content('Room-code: ' + code)
 end
+
+When(/^I click End Game$/) do
+  click_button('End Game')
+end
