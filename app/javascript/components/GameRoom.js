@@ -45,7 +45,7 @@ class GameRoom extends React.Component {
                     card_id: card_id,
                     pile_id: pile_id
                 })
-                const url = window.location.href + "/card/" + card_id + "/to_pile/" + pile_id
+                const url = window.location.href + "/card/" + card_id
                 fetch(url, {
                     method: 'POST',
                     headers: {
@@ -71,7 +71,7 @@ class GameRoom extends React.Component {
                     card_id: card_id,
                     hand_id: hand_id
                 })
-                const url = window.location.href + "/card/" + card_id + "/to_hand/" + hand_id
+                const url = window.location.href + "/card/" + card_id
                 fetch(url, {
                     method: 'POST',
                     headers: {
