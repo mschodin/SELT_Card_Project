@@ -89,6 +89,7 @@ class RoomController < ApplicationController
     else
       redirect_to room_index_path, notice: "Room does not exist, please try again"
     end
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
 
   def leave
@@ -96,6 +97,7 @@ class RoomController < ApplicationController
     session[:room_id] = nil
     session[:player] = nil
     redirect_to room_index_path, notice: "Thank you for playing!"
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
 
   def move_card
@@ -104,6 +106,25 @@ class RoomController < ApplicationController
     elsif params.has_key?(:pile_id) then card.move_to(Pile.find(params[:pile_id]))
     elsif params.has_key?(:hand_id) then card.move_to(GameHand.find(params[:hand_id]))
     end
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+  end
+
+  def draw_multiple
+    pileId = params[:pileId]
+    pileId.slice! "pile"
+    room = Room.find(params[:roomId])
+    all_piles = room.get_piles_and_cards
+    pile = nil
+    all_piles.each do |piles|
+      pile = piles if piles[0].to_s == pileId
+    end
+    counter = 0
+    params[:count].times do
+      card = Card.find(pile[1][counter][2])
+      card.move_to(GameHand.find(params[:handId]))
+      counter += 1
+    end
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
 
   def destroy
