@@ -83,7 +83,8 @@ class GamePile extends React.Component {
         event.preventDefault();
         console.log(this.props.deckId)
         let body = JSON.stringify({count: this.state.quantity})
-        fetch(this.props.draw_multiple, {
+        let url = this.props.draw_multiple.replace("DECK", this.props.deckId)
+        fetch(url, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
