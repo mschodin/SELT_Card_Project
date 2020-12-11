@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :room do
+    get 'destroy', to: 'room#destroy'
     get 'leave', to:'room#leave'
     post 'card/:card_id', to:'room#move_card'
     post 'draw_multiple', to:'room#draw_multiple'
