@@ -31,6 +31,10 @@ Things you may want to cover:
 3. To install all gems and npm libraries specified in gem file and package.json use:
 `yarn install`\
 `bundle install`
-4. Commands to run the server:
+4. Install redis
+`sudo apt install redis-server`
+ then run a redis server to control the cables
+`redis-server`
+5. Commands to run the server:
  * Run the server: `bundle exec rails server`
  * To see JS changes automatically get packed by webpack run: `./bin/webpack-dev-server`
