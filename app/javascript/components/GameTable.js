@@ -23,6 +23,8 @@ class GameTable extends React.Component {
                             pileCards={pile[1]}
                             create_deck={this.props.create_deck.replace("__pile_id__", pile[0])}
                             isDragging={this.props.isDragging}
+                            draw_multiple={this.props.draw_multiple}
+                            handId={this.props.handId}
                         />
                     ))}
                 </Box>

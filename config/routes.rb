@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :room do
     get 'leave', to:'room#leave'
     post 'card/:card_id', to:'room#move_card'
+    post 'card/draw_multiple', to:'room#draw_multiple'
 
     resources :pile do
       post 'deck', to:'deck#create'

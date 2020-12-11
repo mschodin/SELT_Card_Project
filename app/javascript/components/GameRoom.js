@@ -111,7 +111,7 @@ class GameRoom extends React.Component {
                             <Grid container spacing={3}>
                                 <Grid item xs={2}><PlayerList players={this.props.players}/></Grid>
                                 <Grid item xs={8}>
-                                  <GameTable piles={this.props.piles} create_deck={this.props.create_deck_urls} roomId={this.props.roomId} isDragging={this.state.isDragging}/>
+                                  <GameTable piles={this.props.piles} create_deck={this.props.create_deck_urls} roomId={this.props.roomId} isDragging={this.state.isDragging} draw_multiple={this.props.draw_multiple} handId={this.props.handId}/>
                                 </Grid>
                                 <Grid item xs={2}/>
                             </Grid>

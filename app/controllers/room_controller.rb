@@ -99,4 +99,17 @@ class RoomController < ApplicationController
     elsif params.has_key?(:hand_id) then card.move_to(GameHand.find(params[:hand_id]))
     end
   end
+
+  def draw_multiple
+    puts "**********************"
+    puts "Draw multiple"
+    puts "**********************"
+    pile = Pile.find(params[:pileId]).cards
+    counter = 0
+    params[:count].times do
+      card = Card.find(pile[counter].id)
+      card.move_to(GameHand.find(params[:handId]))
+      counter += 1
+    end
+  end
 end

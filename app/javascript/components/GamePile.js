@@ -121,9 +121,13 @@ class GamePile extends React.Component {
 
     submitDraw = (event) => {
         event.preventDefault();
-        let body = JSON.stringify({count: this.state.quantity})
-        // let url = TODO:
-        fetch(url, {
+        let body = JSON.stringify({
+            count: this.state.quantity,
+            roomId: this.props.roomId,
+            pileId: this.props.pileId,
+            handId: this.props.handId,
+        })
+        fetch(this.props.draw_multiple, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
