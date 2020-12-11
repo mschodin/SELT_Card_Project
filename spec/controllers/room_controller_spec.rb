@@ -168,4 +168,21 @@ describe RoomController do
       expect(response).to redirect_to(room_index_path)
     end
   end
+  describe 'end a game' do
+    before(:each) do
+      Room.destroy_all
+      Pile.destroy_all
+      Player.destroy_all
+      Room.create!(:id=>1)
+      Player.create!(:id=>"1", :name=>"John", :room_id=>"1")
+    end
+    it 'should destroy the room when the game is ended' do
+      get :destroy, params: {:action=>"destroy", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(Room.exists?(1)).to be_falsy
+    end
+    it 'should redirects to the landing page when the game is ended' do
+      get :destroy, params: {:action=>"destroy", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(response).to redirect_to(room_index_path)
+    end
+  end
 end
