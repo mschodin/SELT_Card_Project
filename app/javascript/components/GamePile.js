@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import GameCard from "./GameCard";
 import Box from "@material-ui/core/Box";
 import Popover from '@material-ui/core/Popover';
-import { Typography, ButtonGroup, Button, Dialog } from "@material-ui/core";
+import { Typography, ButtonGroup, Button } from "@material-ui/core";
 import theme from "../styles/theme";
 import {ThemeProvider} from "@material-ui/core/styles";
 import {AddBoxOutlined} from "@material-ui/icons";
@@ -34,7 +34,7 @@ class GamePile extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.pileCards.length == 0) {
+        if (this.props.pileCards.length === 0) {
             this.setState({
                 hidden: false
             });
@@ -52,7 +52,7 @@ class GamePile extends React.Component {
             pile_id: this.props.numId
         })
 
-        if (this.props.pileCards.length == 0){
+        if (this.props.pileCards.length === 0){
             fetch(url,{
                 method: 'POST',
                 headers: {
@@ -196,6 +196,9 @@ class GamePile extends React.Component {
                     </Box>
                     <Popover
                         id="mouse-over-popover"
+                        classes={{
+                            paper: classes.paper,
+                        }}
                         style={{pointerEvents: 'none', padding: 100}}
                         open={this.state.showInfo}
                         anchorEl={this.state.anchorEl}
@@ -223,6 +226,9 @@ class GamePile extends React.Component {
                         id="mouse-click-popover"
                         open={this.state.showMenu}
                         anchorEl={this.state.anchorEl}
+                        classes={{
+                            paper: classes.paper,
+                        }}
                         anchorOrigin={{
                             vertical: 'bottom',
                             horizontal: 'left',
