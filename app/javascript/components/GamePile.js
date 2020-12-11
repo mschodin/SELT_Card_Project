@@ -81,9 +81,8 @@ class GamePile extends React.Component {
 
     submitDraw = (event) => {
         event.preventDefault();
-        console.log(this.props.deckId)
         let body = JSON.stringify({count: this.state.quantity})
-        let url = this.props.draw_multiple.replace("DECK", this.props.deckId)
+        // let url = TODO: 
         fetch(url, {
             method: 'post',
             headers: {

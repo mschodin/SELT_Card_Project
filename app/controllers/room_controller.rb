@@ -38,7 +38,6 @@ class RoomController < ApplicationController
       @piles = @room.piles.all
       @room_items = {}
       @room_items = get_room_items(@piles) unless @piles.empty?
-      @piles_and_decks = get_deck_pile_ids(@piles) unless @piles.empty?
     end
   end
 
@@ -62,17 +61,6 @@ class RoomController < ApplicationController
       end
     end
     @room_items
-  end
-
-  def get_deck_pile_ids(piles)
-    piles_and_decks = []
-    piles.each do |pile|
-      decks = pile.decks.all
-      decks.each do |deck|
-        piles_and_decks << [pile.id, deck.id]
-      end
-    end
-    piles_and_decks
   end
 
   def join

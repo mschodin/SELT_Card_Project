@@ -50,7 +50,7 @@ describe DeckController do
       expect(del_card.deck_id).to eq(nil)
     end
   end
-  
+
   describe 'creating deck' do
     before(:each) do
       Room.destroy_all
