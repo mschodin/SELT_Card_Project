@@ -1,13 +1,19 @@
 require 'date'
 require 'rubycards'
+
 class RoomController < ApplicationController
+  respond_to :json, :js, :html
+  skip_before_action :verify_authenticity_token
 
   def index
     session[:room_id] = nil
     session[:player] = nil
+    flash.keep(:notice)
+    # render component: 'Home', props: {}, class: 'Home'
   end
 
   def create
+    flash.discard
     if /\W/ =~ params[:name] || params[:name].length.eql?(0)
       redirect_to room_index_path, notice: "Name is invalid, please try again"
     else
@@ -64,6 +70,7 @@ class RoomController < ApplicationController
   end
 
   def join
+    flash.discard
     if /\W/ =~ params[:name] || params[:name].length.eql?(0)
       redirect_to room_index_path, notice: "Name is invalid, please try again"
     elsif /\D/ =~ params[:room_id] || params[:room_id].length.eql?(0)
@@ -71,10 +78,14 @@ class RoomController < ApplicationController
     elsif Player.exists?(room_id: params[:room_id], name: params[:name])
       redirect_to room_index_path, notice: "Player with name " + params[:name] + " already exists in room " + params[:room_id]
     elsif Room.exists?(id: params[:room_id])
-      session[:room_id] = params[:room_id]
-      room = get_room
-      session[:player] = room.add_player(params[:name])
-      redirect_to(room_path(params[:room_id]))
+      if Room.exists?(id: params[:room_id], code: params[:room_code])
+        session[:room_id] = params[:room_id]
+        room = get_room
+        session[:player] = room.add_player(params[:name])
+        redirect_to(room_path(params[:room_id]))
+      else
+        redirect_to room_index_path, notice: "Room code invalid, please try again"
+      end
     else
       redirect_to room_index_path, notice: "Room does not exist, please try again"
     end
@@ -84,7 +95,7 @@ class RoomController < ApplicationController
     Player.find(session[:player]["id"]).destroy
     session[:room_id] = nil
     session[:player] = nil
-    redirect_to room_index_path
+    redirect_to room_index_path, notice: "Thank you for playing!"
   end
 
   def destroy
