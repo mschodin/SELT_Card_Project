@@ -25,5 +25,33 @@ RSpec.describe Deck, type: :model do
       hand = room.game_hands.find(1)
       expect(hand.display_hand_with_id).to eq([["2", "S", 1]])
     end
+    it 'returns the correct diamonds symbol' do
+      card = Card.create!(:rank=>"6", :suit=>"Diamonds")
+      card_arr = [[card.rank, card.suit]]
+      hand = GameHand.create!({:player_id=>1})
+      hand.real_symbol(card_arr)
+      expect(card_arr[0][1]).to eq(RubyCards::Card::DIAMOND)
+    end
+    it 'returns the correct spades symbol' do
+      card = Card.create!(:rank=>"6", :suit=>"Spades")
+      card_arr = [[card.rank, card.suit]]
+      hand = GameHand.create!({:player_id=>1})
+      hand.real_symbol(card_arr)
+      expect(card_arr[0][1]).to eq(RubyCards::Card::SPADE)
+    end
+    it 'returns the correct clubs symbol' do
+      card = Card.create!(:rank=>"6", :suit=>"Clubs")
+      card_arr = [[card.rank, card.suit]]
+      hand = GameHand.create!({:player_id=>1})
+      hand.real_symbol(card_arr)
+      expect(card_arr[0][1]).to eq(RubyCards::Card::CLUB)
+    end
+    it 'returns the correct hearts symbol' do
+      card = Card.create!(:rank=>"6", :suit=>"Hearts")
+      card_arr = [[card.rank, card.suit]]
+      hand = GameHand.create!({:player_id=>1})
+      hand.real_symbol(card_arr)
+      expect(card_arr[0][1]).to eq(RubyCards::Card::HEART)
+    end
   end
 end
