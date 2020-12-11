@@ -251,7 +251,7 @@ class GamePile extends React.Component {
                             <div style={{justifyContent: 'center', alignContent: 'center', display: 'flex'}}>
                                 <ButtonGroup>
                                     <Button onClick={this.handleDecrement}>-</Button>
-                                    <Button disabled>{this.state.quantity}</Button>
+                                    <Button disabled style={{color: "black"}}>{this.state.quantity}</Button>
                                     <Button onClick={this.handleIncrement}>+</Button>
                                 </ButtonGroup>
                             </div>
