@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     end
     resources :deck do
       get 'draw', to:'deck#draw'
-      post 'draw_multiple', to:'deck#draw_multiple'
     end
   end
   root :to => redirect('/room')

@@ -50,42 +50,7 @@ describe DeckController do
       expect(del_card.deck_id).to eq(nil)
     end
   end
-
-  describe 'drawing multiple cards' do
-    before(:each) do
-      Room.destroy_all
-      Pile.destroy_all
-      Player.destroy_all
-      @room = Room.create!(:id=>1)
-      @unique_id = "1"
-      Pile.create!({:room_id => @unique_id})
-      Player.create!({:id=>1, :room_id=>@unique_id, :name=>"UniqueName"})
-      @pile_id = "1"
-      GameHand.create!({:player_id=>1})
-    end
-    it 'increases hand size to cards drawn' do
-      get :create, params: {"room_id"=>@unique_id, "pile_id"=>@pile_id}
-      cards = @room.cards.all
-      get :draw_multiple, params: {:deck_id=>"1", :room_id=>@unique_id, :count=>5}, session: {:room_id=>@unique_id, :player=>Player.find(1)}
-      allow(controller).to receive(:get_room_items).with(cards)
-      hand = @room.game_hands.find(1)
-      expect(hand.display_hand_with_id.length).to eq(5)
-    end
-    it 'draws the top cards when drawing multiple' do
-      get :create, params: {"room_id"=>@unique_id, "pile_id"=>@pile_id}
-      cards = @room.cards.all
-      get :draw_multiple, params: {:deck_id=>"1", :room_id=>@unique_id, :count=>5}, session: {:room_id=>@unique_id, :player=>Player.find(1)}
-      allow(controller).to receive(:get_room_items).with(cards)
-      items = assigns(:room_items)
-      draw_cards = items[1]
-      hand = @room.game_hands.find(1)
-      draw_cards.shift
-      hand.display_hand.each do |card|
-        expect(draw_cards).to_not include(card)
-      end
-    end
-  end
-
+  
   describe 'creating deck' do
     before(:each) do
       Room.destroy_all

@@ -17,15 +17,6 @@ class DeckController < ApplicationController
     @del_card.update('deck_id': nil, 'game_hand_id': @player1.game_hand.id)#, 'gamehand_id': player.game_hand.id)
   end
 
-  def draw_multiple
-    puts "**********************************"
-    puts "DRAW MULTIPLE"
-    puts "**********************************"
-    params['count'].to_i.times do
-      draw
-    end
-  end
-
   def show
   end
 
