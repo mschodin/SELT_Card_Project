@@ -17,8 +17,6 @@ class DeckController < ApplicationController
     @del_card.update('deck_id': nil, 'game_hand_id': @player1.game_hand.id)#, 'gamehand_id': player.game_hand.id)
     ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
 
-
-
   end
 
   def show

@@ -101,4 +101,21 @@ class RoomController < ApplicationController
     end
     ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
+
+  def draw_multiple
+    pileId = params[:pileId]
+    pileId.slice! "pile"
+    room = Room.find(params[:roomId])
+    all_piles = room.get_piles_and_cards
+    pile = nil
+    all_piles.each do |piles|
+      pile = piles if piles[0].to_s == pileId
+    end
+    counter = 0
+    params[:count].times do
+      card = Card.find(pile[1][counter][2])
+      card.move_to(GameHand.find(params[:handId]))
+      counter += 1
+    end
+  end
 end
