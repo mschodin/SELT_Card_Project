@@ -25,7 +25,7 @@ class GameHand < ApplicationRecord
 
   def display_hand
     holder = []
-    self.cards.all.each do |card|
+    self.hand.cards.each do |card|
       holder << [card.rank,card.suit]
     end
     real_symbol(holder)
