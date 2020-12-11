@@ -98,6 +98,14 @@ class RoomController < ApplicationController
     redirect_to room_index_path, notice: "Thank you for playing!"
   end
 
+  def move_card
+    card = Card.find(params[:card_id])
+    if params.has_key?(:deck_id) then card.move_to(Deck.find(params[:deck_id]))
+    elsif params.has_key?(:pile_id) then card.move_to(Pile.find(params[:pile_id]))
+    elsif params.has_key?(:hand_id) then card.move_to(GameHand.find(params[:hand_id]))
+    end
+  end
+
   def destroy
     redirect_to room_index_path
     Room.find(session[:player]['room_id']).destroy

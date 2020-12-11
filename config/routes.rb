@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :room do
     get 'destroy', to: 'room#destroy'
     get 'leave', to:'room#leave'
+    post 'card/:card_id', to:'room#move_card'
+
     resources :pile do
       post 'deck', to:'deck#create'
     end
