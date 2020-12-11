@@ -98,5 +98,6 @@ class RoomController < ApplicationController
     elsif params.has_key?(:pile_id) then card.move_to(Pile.find(params[:pile_id]))
     elsif params.has_key?(:hand_id) then card.move_to(GameHand.find(params[:hand_id]))
     end
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
 end
