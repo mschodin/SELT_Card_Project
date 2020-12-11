@@ -18,6 +18,9 @@ class DeckController < ApplicationController
   end
 
   def draw_multiple
+    puts "**********************************"
+    puts "DRAW MULTIPLE"
+    puts "**********************************"
     params['count'].to_i.times do
       draw
     end

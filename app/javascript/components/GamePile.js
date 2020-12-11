@@ -72,7 +72,27 @@ class GamePile extends React.Component {
     }
 
     closeDrawMenu = () => {
-        
+        this.setState({
+            showMenu: false,
+            anchorEl: null,
+            quantity: 0,
+        })
+    }
+
+    submitDraw = (event) => {
+        event.preventDefault();
+        console.log(this.props.deckId)
+        let body = JSON.stringify({count: this.state.quantity})
+        fetch(this.props.draw_multiple, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+            },
+            body: body,
+        }).then((response) => {
+            this.closeDrawMenu();
+        })
     }
 
     render () {
@@ -93,10 +113,6 @@ class GamePile extends React.Component {
                     <Popover
                         id="mouse-over-popover"
                         style={{pointerEvents: 'none', padding: 100}}
-                        // className={classes.popover}
-                        // classes={{
-                        //     paper: classes.paper,
-                        // }}
                         open={this.state.showInfo}
                         anchorEl={this.state.anchorEl}
                         anchorOrigin={{
@@ -119,8 +135,6 @@ class GamePile extends React.Component {
                             </Typography>
                         </div>
                     </Popover>
-
-
                     <Popover
                         id="mouse-click-popover"
                         open={this.state.showMenu}
@@ -148,8 +162,8 @@ class GamePile extends React.Component {
                                 </ButtonGroup>
                             </div>
                             <div>
-                                <Button style={{width: '50%'}}>Confirm</Button>
-                                <Button style={{width: '50%'}}>Cancel</Button>
+                                <Button onClick={this.submitDraw} style={{width: '50%'}}>Confirm</Button>
+                                <Button onClick={this.closeDrawMenu} style={{width: '50%'}}>Cancel</Button>
                             </div>
                         </div>
                     </Popover>
