@@ -11,24 +11,8 @@ class GameHand < ApplicationRecord
     @hand = RubyCards::Hand.new
   end
 
-  def deck_shuffle(game_deck)
-    game_deck.shuffle!
-  end
-
-  def display_cards
-    hand_correction
-  end
-
   def card_amount
     cards.all.length
-  end
-
-  def display_hand
-    holder = []
-    self.cards.all.each do |card|
-      holder << [card.rank,card.suit]
-    end
-    real_symbol(holder)
   end
 
   def display_hand_with_id
