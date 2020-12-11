@@ -156,8 +156,9 @@ describe RoomController do
       Room.destroy_all
       Pile.destroy_all
       Player.destroy_all
-      Room.create!(:id=>1)
-      Player.create!(:id=>"1", :name=>"John", :room_id=>"1")
+      GameHand.destroy_all
+      room = Room.create!(:id=>1)
+      room.add_player("TestPlayer")
     end
     it 'destroys player model when a player leaves' do
       get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
@@ -166,6 +167,23 @@ describe RoomController do
     it 'redirects to the landing page when a player leaves' do
       get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
       expect(response).to redirect_to(room_index_path)
+    end
+    it 'dumps cards in an empty pile if there is one' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1}) # empty pile
+      Card.create!(:game_hand_id=>"1")
+      get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(pile.cards.empty?).to be_falsey
+    end
+    it 'dumps cards in a new pile if there are no empty piles' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1}) # empty pile
+      Card.create!(:pile_id=>"1")
+      Card.create!(:game_hand_id=>"1")
+      get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(pile.cards.count).to equal(1)
+      expect(room.piles.count).to equal(2)
+      expect(Pile.find(2).cards.count).to equal(1)
     end
   end
 end
