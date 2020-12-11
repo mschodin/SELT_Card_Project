@@ -130,6 +130,7 @@ class RoomController < ApplicationController
   def destroy
     redirect_to room_index_path
     Room.find(session[:player]['room_id']).destroy
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
 
 end
