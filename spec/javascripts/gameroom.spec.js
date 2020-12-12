@@ -10,7 +10,7 @@ test('Check that GameRoom populates with a table with piles', () => {
     const test_ptd = {0:[], 1:[]}
     const test_players = {"Juan":0 }
     const test_player = {"name": "Juan" }
-    const { getAllByRole, getByText, getByLabelText, getByTestId} = render(
+    const { getAllByRole } = render(
         <GameRoom
             handId={0}
             playerHand={test_hand}
@@ -33,7 +33,7 @@ test('Displays player name on screen', () => {
     const test_ptd = {0:[], 1:[]}
     const test_players = {"Juan":0 }
     const test_player = {"name": "Juan" }
-    const { getAllByRole } = render(
+    const { getAllByText } = render(
         <GameRoom
             handId={0}
             playerHand={test_hand}
