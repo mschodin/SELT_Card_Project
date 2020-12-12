@@ -47,6 +47,9 @@ class RoomController < ApplicationController
     end
 
     8.times { @room.add_pile } if @piles.empty?
+
+    @piles_to_deck = {}
+    @piles.each { |pile| @piles_to_deck[pile.id] = pile.decks.pluck("id")}
   end
 
   def get_room
