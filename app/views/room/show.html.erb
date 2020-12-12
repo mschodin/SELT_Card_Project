@@ -1,3 +1,5 @@
+<!-- update id tag is used for the ActionCable refresh page response DONT DELETE -->
+<div id = 'update'><div>
 <%= react_component("GameRoom", {
     handId: @room.game_hands.find(@player1[:id]).id,
     playerHand: @room.game_hands.find(@player1[:id]).display_hand_with_id,
