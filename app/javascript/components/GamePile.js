@@ -34,12 +34,12 @@ class GamePile extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.pileCards.length === 0) {
+        //if not a deck, set hidden to false (set to face-up)
+        if (this.props.deck.length === 0) {
             this.setState({
                 hidden: false
             });
         }
-
     }
 
     async handleAddDeck(e){
