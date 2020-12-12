@@ -12,27 +12,23 @@ class GameTable extends React.Component {
         return (
             <Box
                 pb={10}
-                className={"centered"}
+                className={"centeredTable"}
             >
                 <Box role="table" className={"tableStyle"} bgcolor={"primary.main"} boxShadow={5}>
-                    <Grid container spacing={10} alignContent={"center"}>
-                        {this.props.piles.map((pile, idx) => (
-                            <Grid container item xs={3} key={"grid_pile" + pile[0]}>
-                                <GamePile
-                                    pileId={"pile" + pile[0]}
-                                    numId={pile[0]}
-                                    roomId={this.props.roomId}
-                                    key={"pile" + pile[0]}
-                                    pileCards={pile[1]}
-                                    create_deck={this.props.create_deck.replace("__pile_id__", pile[0])}
-                                    isDragging={this.props.isDragging}
-                                    draw_multiple={this.props.draw_multiple}
-                                    handId={this.props.handId}
-                                    deck={this.props.pilesToDeck[pile[0]]}
-                                />
-                            </Grid>
-                        ))}
-                    </Grid>
+                    {this.props.piles.map((pile, idx) => (
+                        <GamePile
+                            pileId={"pile" + pile[0]}
+                            numId={pile[0]}
+                            roomId={this.props.roomId}
+                            key={"pile" + pile[0]}
+                            pileCards={pile[1]}
+                            create_deck={this.props.create_deck.replace("__pile_id__", pile[0])}
+                            isDragging={this.props.isDragging}
+                            draw_multiple={this.props.draw_multiple}
+                            handId={this.props.handId}
+                            deck={this.props.pilesToDeck[pile[0]]}
+                        />
+                    ))}
                 </Box>
             </Box>
         );

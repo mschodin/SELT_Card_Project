@@ -42,14 +42,15 @@ class RoomController < ApplicationController
         @room_items = {}
         @room_items = get_room_items(@piles) unless @piles.empty?
       end
+
+      8.times { @room.add_pile } if @piles.empty?
+      @piles_to_deck = {}
+      @piles.each { |pile| @piles_to_deck[pile.id] = pile.decks.pluck("id")}
     else
       redirect_to room_index_path
     end
 
-    8.times { @room.add_pile } if @piles.empty?
 
-    @piles_to_deck = {}
-    @piles.each { |pile| @piles_to_deck[pile.id] = pile.decks.pluck("id")}
   end
 
   def get_room
@@ -94,7 +95,7 @@ class RoomController < ApplicationController
     else
       redirect_to room_index_path, notice: "Room does not exist, please try again"
     end
-    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+    ActionCable.server.broadcast "activity_channel_#{session[:room_id]}" , update: "<script> location.reload() </script>"
   end
 
   def leave
@@ -111,7 +112,7 @@ class RoomController < ApplicationController
     Player.find(session[:player]["id"]).destroy
     session[:room_id] = nil
     session[:player] = nil
-    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+    ActionCable.server.broadcast "activity_channel_#{session[:room_id]}" , update: "<script> location.reload() </script>"
     redirect_to room_index_path, notice: "Thank you for playing!"
   end
 
@@ -121,7 +122,7 @@ class RoomController < ApplicationController
     elsif params.has_key?(:pile_id) then card.move_to(Pile.find(params[:pile_id]))
     elsif params.has_key?(:hand_id) then card.move_to(GameHand.find(params[:hand_id]))
     end
-    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+    ActionCable.server.broadcast "activity_channel_#{session[:room_id]}" , update: "<script> location.reload() </script>"
   end
 
   def draw_multiple
@@ -139,13 +140,13 @@ class RoomController < ApplicationController
       card.move_to(GameHand.find(params[:hand_id]))
       counter += 1
     end
-    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+    ActionCable.server.broadcast "activity_channel_#{session[:room_id]}" , update: "<script> location.reload() </script>"
   end
 
   def destroy
     redirect_to room_index_path
     Room.find(session[:player]['room_id']).destroy
-    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+    ActionCable.server.broadcast "activity_channel_#{session[:room_id]}" , update: "<script> location.reload() </script>"
   end
 
 end
