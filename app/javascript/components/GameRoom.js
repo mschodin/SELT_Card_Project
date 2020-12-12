@@ -102,6 +102,22 @@ class GameRoom extends React.Component {
                 const destination_pile_id = result.destination.droppableId.split("pile")[1]
                 const [removed] = this.state.piles[source_pile_id].splice(0, 1)
                 this.state.piles[destination_pile_id].splice(0, 0, removed);
+                const card_id = result.draggableId.split("card")[1]
+                const body = JSON.stringify( {
+                    room_id: this.props.room_id,
+                    card_id: card_id,
+                    pile_id: destination_pile_id
+                })
+                const url = window.location.href + "/card/" + card_id
+                console.log(url)
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+                    },
+                    body: body,
+                }).then((response) => {console.log(response)})
             }
         }
     };
