@@ -85,6 +85,7 @@ class GameRoom extends React.Component {
                     hand_id: hand_id
                 })
                 const url = window.location.href + "/card/" + card_id
+                console.log(url)
                 fetch(url, {
                     method: 'POST',
                     headers: {
@@ -96,7 +97,11 @@ class GameRoom extends React.Component {
             }
             else if(result.source.droppableId !== result.destination.droppableId && result.source.droppableId.includes('pile') && result.destination.droppableId.includes('pile')){
                 console.log("move card between pile");
-                console.log(result)//test
+                console.log(result)
+                const source_pile_id = result.source.droppableId.split("pile")[1]
+                const destination_pile_id = result.destination.droppableId.split("pile")[1]
+                const [removed] = this.state.piles[source_pile_id].splice(0, 1)
+                this.state.piles[destination_pile_id].splice(0, 0, removed);
             }
         }
     };
@@ -111,7 +116,7 @@ class GameRoom extends React.Component {
                             <Grid container spacing={3}>
                                 <Grid item xs={2}><PlayerList players={this.props.players}/></Grid>
                                 <Grid item xs={8}>
-                                  <GameTable piles={this.props.piles} create_deck={this.props.create_deck_urls} roomId={this.props.roomId} isDragging={this.state.isDragging}/>
+                                  <GameTable piles={this.props.piles} create_deck={this.props.create_deck_urls} roomId={this.props.roomId} isDragging={this.state.isDragging} draw_multiple={this.props.draw_multiple} handId={this.props.handId}/>
                                 </Grid>
                                 <Grid item xs={2}/>
                             </Grid>
