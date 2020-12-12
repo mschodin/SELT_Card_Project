@@ -12,7 +12,7 @@ class GameTable extends React.Component {
         return (
             <Box
                 pb={10}
-                className={"centered"}
+                className={"centeredTable"}
             >
                 <Box role="table" className={"tableStyle"} bgcolor={"primary.main"} boxShadow={5}>
                     <Grid container spacing={10} alignContent={"center"}>
