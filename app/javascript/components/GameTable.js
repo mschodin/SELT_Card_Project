@@ -25,6 +25,7 @@ class GameTable extends React.Component {
                             isDragging={this.props.isDragging}
                             draw_multiple={this.props.draw_multiple}
                             handId={this.props.handId}
+                            deck={this.props.pilesToDeck[pile[0]]}
                         />
                     ))}
                 </Box>
@@ -36,7 +37,8 @@ class GameTable extends React.Component {
 GameTable.propTypes = {
     numId: PropTypes.number,
     roomId: PropTypes.number,
-    isDragging: PropTypes.bool
+    isDragging: PropTypes.bool,
+    piles_to_deck: PropTypes.object
     // pileCards: PropTypes.array
 };
 export default GameTable
