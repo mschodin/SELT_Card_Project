@@ -35,6 +35,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 4vw;
+    margin-right: 4vw;
 }
 
 .handStyle{
