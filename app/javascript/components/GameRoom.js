@@ -125,7 +125,7 @@ class GameRoom extends React.Component {
     render () {
         return (
             <ThemeProvider theme={theme}>
-                <CssBaseline />
+                {/*<CssBaseline />*/}
                 <React.Fragment>
                     <Box className={'room'}>
                         <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.handleDragStart}>
