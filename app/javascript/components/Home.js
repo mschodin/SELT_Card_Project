@@ -8,24 +8,9 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import HomeAppBar from "./HomeAppBar";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import "fontsource-roboto"
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FlashMessage from "./FlashMessage";
-
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: "#00695c"// blueish
-        },
-        secondary: {
-            main: "#aed581" // greenish
-        },
-        background: {
-            default: "floralwhite"
-        }
-    },
-    fontFamily: "Roboto",
-});
+import theme from '../styles/theme'
 
 class Home extends React.Component {
      // Add these variables to your component to track the state
