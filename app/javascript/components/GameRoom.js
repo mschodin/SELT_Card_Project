@@ -127,6 +127,7 @@ class GameRoom extends React.Component {
         console.log(this.props.piles_to_deck)
         return (
             <ThemeProvider theme={theme}>
+                <CssBaseline/>
                 <React.Fragment>
                     <RoomAppBar
                         room_id={this.props.roomId}
