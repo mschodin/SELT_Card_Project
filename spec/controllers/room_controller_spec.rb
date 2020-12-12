@@ -156,8 +156,9 @@ describe RoomController do
       Room.destroy_all
       Pile.destroy_all
       Player.destroy_all
-      Room.create!(:id=>1)
-      Player.create!(:id=>"1", :name=>"John", :room_id=>"1")
+      GameHand.destroy_all
+      room = Room.create!(:id=>1)
+      room.add_player("TestPlayer")
     end
     it 'destroys player model when a player leaves' do
       get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
@@ -166,6 +167,91 @@ describe RoomController do
     it 'redirects to the landing page when a player leaves' do
       get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
       expect(response).to redirect_to(room_index_path)
+    end
+    it 'dumps cards in an empty pile if there is one' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1}) # empty pile
+      Card.create!(:game_hand_id=>"1")
+      get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(pile.cards.empty?).to be_falsey
+    end
+    it 'dumps cards in a new pile if there are no empty piles' do
+      room = Room.find(1)
+      pile = room.piles.create({:room_id=>1}) # empty pile
+      Card.create!(:pile_id=>"1")
+      Card.create!(:game_hand_id=>"1")
+      get :leave, params: {:action=>"leave", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(pile.cards.count).to equal(1)
+      expect(room.piles.count).to equal(2)
+      expect(Pile.find(2).cards.count).to equal(1)
+    end
+  end
+  describe 'draw multiple cards' do
+    before(:each) do
+      Room.destroy_all
+      Player.destroy_all
+      Pile.destroy_all
+      GameHand.destroy_all
+      Deck.destroy_all
+      @room = Room.create!(:id=>1)
+      @room.add_player("TestPlayer")
+      @hand = GameHand.create!({:player_id=>1})
+      pile = Pile.create!({:room_id => 1})
+      @room.add_deck(pile)
+    end
+    it 'should move the requested number of cards to the player hand' do
+      post :draw_multiple, :params => {:count => "5", :room_id => "1", :pile_id => "1", :hand_id => @hand.id}
+      expect(@hand.display_hand_with_id.length).to eq(5)
+    end
+  end
+  describe 'end a game' do
+    before(:each) do
+      Room.destroy_all
+      Pile.destroy_all
+      Player.destroy_all
+      Room.create!(:id=>1)
+      Player.create!(:id=>"1", :name=>"John", :room_id=>"1")
+    end
+    it 'should destroy the room when the game is ended' do
+      get :destroy, params: {:action=>"destroy", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(Room.exists?(1)).to be_falsy
+    end
+    it 'should redirects to the landing page when the game is ended' do
+      get :destroy, params: {:action=>"destroy", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
+      expect(response).to redirect_to(room_index_path)
+    end
+  end
+  describe 'moving cards' do
+    before(:each) do
+      Room.destroy_all
+      Pile.destroy_all
+      Player.destroy_all
+      room = Room.create!(:id=>1)
+      room.add_player("TestPlayer")
+    end
+    it 'should move the card to a deck if a deck_id is given' do
+      hand = Player.find(1).game_hand
+      card = Card.create!(:game_hand_id=>hand.id)
+      deck = Room.find(1).piles.create!(:room_id=>"1").decks.create!(:pile_id=>"1")
+      post :move_card, :params => {:room_id => "1", :card_id => card.id, :deck_id => deck.id}
+      expect(deck.cards.count).to equal(1)
+      expect(hand.cards.count).to equal(0)
+    end
+    it 'should move the card to a pile if a pile_id is given' do
+      hand = Player.find(1).game_hand
+      card = Card.create!(:game_hand_id=>hand.id)
+      pile = Room.find(1).piles.create!(:room_id=>"1")
+      post :move_card, :params => {:room_id => "1", :card_id => card.id, :pile_id => pile.id}
+      expect(pile.cards.count).to equal(1)
+      expect(hand.cards.count).to equal(0)
+    end
+    it 'should move the card to a hand if a hand_id is given' do
+      hand = Player.find(1).game_hand
+      pile = Room.find(1).piles.create!(:room_id=>"1")
+      card = Card.create!(:pile_id=>pile.id)
+      post :move_card, :params => {:room_id => "1", :card_id => card.id, :hand_id => hand.id}
+      expect(hand.cards.count).to equal(1)
+      expect(pile.cards.count).to equal(0)
     end
   end
 end

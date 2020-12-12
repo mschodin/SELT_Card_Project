@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
 function ListPlayers(props) {
     const players = props.players;
     const listItems = Object.entries(players).map(([name,count])=>
-        <ListItem className="listItemStyle">
-            <ListItemIcon>
-                <PersonOutline />
+        <ListItem className="listItemStyle" key={count}>
+            <ListItemIcon key={count}>
+                <PersonOutline key={count} />
             </ListItemIcon>
             <ListItemText primary= {name.toString() + ": " + count.toString() + " card(s)"} />
         </ListItem>

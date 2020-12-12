@@ -51,6 +51,21 @@ class GameRoom extends React.Component {
                 this.setState({
                     hand: reorderedHand,
                 })
+                const card_id = result.draggableId.split("card")[1]
+                const body = JSON.stringify( {
+                    room_id: this.props.room_id,
+                    card_id: card_id,
+                    pile_id: pile_id
+                })
+                const url = window.location.href + "/card/" + card_id
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+                    },
+                    body: body,
+                }).then((response) => {console.log(response)})
             }
             else if(result.source.droppableId.includes('pile') && result.destination.droppableId.includes('hand')){
                 console.log("draw card");
@@ -62,10 +77,47 @@ class GameRoom extends React.Component {
                 this.setState({
                     hand: reorderedHand,
                 })
+                const hand_id = result.destination.droppableId.split("hand")[1]
+                const card_id = result.draggableId.split("card")[1]
+                const body = JSON.stringify( {
+                    room_id: this.props.room_id,
+                    card_id: card_id,
+                    hand_id: hand_id
+                })
+                const url = window.location.href + "/card/" + card_id
+                console.log(url)
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+                    },
+                    body: body,
+                }).then((response) => {console.log(response)})
             }
             else if(result.source.droppableId !== result.destination.droppableId && result.source.droppableId.includes('pile') && result.destination.droppableId.includes('pile')){
                 console.log("move card between pile");
-                console.log(result)//test
+                console.log(result)
+                const source_pile_id = result.source.droppableId.split("pile")[1]
+                const destination_pile_id = result.destination.droppableId.split("pile")[1]
+                const [removed] = this.state.piles[source_pile_id].splice(0, 1)
+                this.state.piles[destination_pile_id].splice(0, 0, removed);
+                const card_id = result.draggableId.split("card")[1]
+                const body = JSON.stringify( {
+                    room_id: this.props.room_id,
+                    card_id: card_id,
+                    pile_id: destination_pile_id
+                })
+                const url = window.location.href + "/card/" + card_id
+                console.log(url)
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+                    },
+                    body: body,
+                }).then((response) => {console.log(response)})
             }
         }
     };
@@ -80,7 +132,7 @@ class GameRoom extends React.Component {
                             <Grid container spacing={3}>
                                 <Grid item xs={2}><PlayerList players={this.props.players}/></Grid>
                                 <Grid item xs={8}>
-                                  <GameTable piles={this.props.piles} create_deck={this.props.create_deck_urls} roomId={this.props.roomId} isDragging={this.state.isDragging}/>
+                                  <GameTable piles={this.props.piles} create_deck={this.props.create_deck_urls} roomId={this.props.roomId} isDragging={this.state.isDragging} draw_multiple={this.props.draw_multiple} handId={this.props.handId}/>
                                 </Grid>
                                 <Grid item xs={2}/>
                             </Grid>

@@ -19,4 +19,14 @@ RSpec.describe Deck, type: :model do
       expect(deck).to all(have_key(:suit))
     end
   end
+
+  describe 'shuffling a deck' do
+    it 'should change the order of the deck' do
+      deck = Deck.create_deck
+      deck2 = Deck.create_deck
+      expect(deck).to eq(deck2)
+      deck.shuffle!
+      expect(deck).to_not eq(deck2)
+    end
+  end
 end
