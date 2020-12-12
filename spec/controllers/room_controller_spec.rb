@@ -186,6 +186,24 @@ describe RoomController do
       expect(Pile.find(2).cards.count).to equal(1)
     end
   end
+  describe 'draw multiple cards' do
+    before(:each) do
+      Room.destroy_all
+      Player.destroy_all
+      Pile.destroy_all
+      GameHand.destroy_all
+      Deck.destroy_all
+      @room = Room.create!(:id=>1)
+      @room.add_player("TestPlayer")
+      @hand = GameHand.create!({:player_id=>1})
+      pile = Pile.create!({:room_id => 1})
+      @room.add_deck(pile)
+    end
+    it 'should move the requested number of cards to the player hand' do
+      post :draw_multiple, :params => {:count => "5", :room_id => "1", :pile_id => "1", :hand_id => @hand.id}
+      expect(@hand.display_hand_with_id.length).to eq(5)
+    end
+  end
   describe 'end a game' do
     before(:each) do
       Room.destroy_all
@@ -201,6 +219,39 @@ describe RoomController do
     it 'should redirects to the landing page when the game is ended' do
       get :destroy, params: {:action=>"destroy", :controller=>"room", :room_id=>"1"}, session: {:room_id=>"1", :player=>Player.find(1)}
       expect(response).to redirect_to(room_index_path)
+    end
+  end
+  describe 'moving cards' do
+    before(:each) do
+      Room.destroy_all
+      Pile.destroy_all
+      Player.destroy_all
+      room = Room.create!(:id=>1)
+      room.add_player("TestPlayer")
+    end
+    it 'should move the card to a deck if a deck_id is given' do
+      hand = Player.find(1).game_hand
+      card = Card.create!(:game_hand_id=>hand.id)
+      deck = Room.find(1).piles.create!(:room_id=>"1").decks.create!(:pile_id=>"1")
+      post :move_card, :params => {:room_id => "1", :card_id => card.id, :deck_id => deck.id}
+      expect(deck.cards.count).to equal(1)
+      expect(hand.cards.count).to equal(0)
+    end
+    it 'should move the card to a pile if a pile_id is given' do
+      hand = Player.find(1).game_hand
+      card = Card.create!(:game_hand_id=>hand.id)
+      pile = Room.find(1).piles.create!(:room_id=>"1")
+      post :move_card, :params => {:room_id => "1", :card_id => card.id, :pile_id => pile.id}
+      expect(pile.cards.count).to equal(1)
+      expect(hand.cards.count).to equal(0)
+    end
+    it 'should move the card to a hand if a hand_id is given' do
+      hand = Player.find(1).game_hand
+      pile = Room.find(1).piles.create!(:room_id=>"1")
+      card = Card.create!(:pile_id=>pile.id)
+      post :move_card, :params => {:room_id => "1", :card_id => card.id, :hand_id => hand.id}
+      expect(hand.cards.count).to equal(1)
+      expect(pile.cards.count).to equal(0)
     end
   end
 end

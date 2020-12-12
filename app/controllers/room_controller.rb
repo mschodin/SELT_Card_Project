@@ -122,18 +122,18 @@ class RoomController < ApplicationController
   end
 
   def draw_multiple
-    pileId = params[:pileId]
+    pileId = params[:pile_id]
     pileId.slice! "pile"
-    room = Room.find(params[:roomId])
+    room = Room.find(params[:room_id])
     all_piles = room.get_piles_and_cards
     pile = nil
     all_piles.each do |piles|
       pile = piles if piles[0].to_s == pileId
     end
     counter = 0
-    params[:count].times do
+    params[:count].to_i.times do
       card = Card.find(pile[1][counter][2])
-      card.move_to(GameHand.find(params[:handId]))
+      card.move_to(GameHand.find(params[:hand_id]))
       counter += 1
     end
     ActionCable.server.broadcast "activity_channel_#{session[:room_id]}" , update: "<script> location.reload() </script>"
