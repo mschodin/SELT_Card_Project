@@ -126,7 +126,7 @@ class GameRoom extends React.Component {
         console.log(this.props.piles_to_deck)
         return (
             <ThemeProvider theme={theme}>
-                <CssBaseline />
+                {/*<CssBaseline />*/}
                 <React.Fragment>
                     <Box className={'room'}>
                         <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.handleDragStart}>
