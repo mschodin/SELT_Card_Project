@@ -6,6 +6,8 @@ class RoomController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
+    session[:room_id] = nil
+    session[:player] = nil
     flash.keep(:notice)
     # render component: 'Home', props: {}, class: 'Home'
   end
@@ -24,21 +26,27 @@ class RoomController < ApplicationController
   end
 
   def show
-    @room = get_room
-    @name = session[:player]['name']
-    @player1 = @room.players.find(session[:player]['id'])
-    @player_info = {}
-    @room.players.ids.each do |player_id|
-      name = @room.players.find(player_id).name
-      @player_info[name] = @room.game_hands.find(player_id).card_amount
-    end
-    if @room.nil?
+    if Room.exists?(session[:room_id])
+      @room = get_room
+      @name = session[:player]['name']
+      @player1 = @room.players.find(session[:player]['id'])
+      @player_info = {}
+      @room.players.ids.each do |player_id|
+        name = @room.players.find(player_id).name
+        @player_info[name] = @room.game_hands.find(player_id).card_amount
+      end
+      if @room.nil?
 
+      else
+        @piles = @room.piles.all
+        @room_items = {}
+        @room_items = get_room_items(@piles) unless @piles.empty?
+      end
     else
-      @piles = @room.piles.all
-      @room_items = {}
-      @room_items = get_room_items(@piles) unless @piles.empty?
+      redirect_to room_index_path
     end
+
+    8.times { @room.add_pile } if @piles.empty?
   end
 
   def get_room
@@ -87,11 +95,21 @@ class RoomController < ApplicationController
   end
 
   def leave
+    room = get_room
+    dump_pile = ''
+    room.piles.each do |pile| # Check if there are any empty piles
+      if pile.decks.empty? && pile.cards.empty? then dump_pile = pile end
+    end
+    if dump_pile.blank? then dump_pile = room.add_pile end # if there's no empty piles make a new pile
+    Player.find(session[:player]["id"]).cards.each do |card| # dump player cards in the pile
+      card.move_to(dump_pile)
+    end
+
     Player.find(session[:player]["id"]).destroy
     session[:room_id] = nil
     session[:player] = nil
-    redirect_to room_index_path, notice: "Thank you for playing!"
     ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+    redirect_to room_index_path, notice: "Thank you for playing!"
   end
 
   def move_card
@@ -120,4 +138,11 @@ class RoomController < ApplicationController
     end
     ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
+
+  def destroy
+    redirect_to room_index_path
+    Room.find(session[:player]['room_id']).destroy
+    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+  end
+
 end

@@ -22,6 +22,7 @@ class RoomAppBar extends React.Component {
         this.handleLeaveGame = this.handleLeaveGame.bind(this);
         this.handleMenuClick = this.handleMenuClick.bind(this);
         this.handleMenuClose = this.handleMenuClose.bind(this);
+        this.handleEndGame = this.handleEndGame.bind(this);
     }
 
     async handleLeaveGame(e){
@@ -29,6 +30,18 @@ class RoomAppBar extends React.Component {
         console.log(this.state);
         let leave_url = '/room/'+ this.props.room_id + '/leave';
         fetch(leave_url, {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
+            },
+        }).then((response) => { window.location.href = response.url })
+    }
+    async handleEndGame(e){
+        e.preventDefault();
+        console.log(this.state);
+        let end_url = '/room/'+this.props.room_id + '/destroy'
+        fetch(end_url, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -79,7 +92,7 @@ class RoomAppBar extends React.Component {
                                         onClose={this.handleMenuClose}
                                     >
                                         <MenuItem type="submit" onClick={this.handleLeaveGame}>Leave Game</MenuItem>
-                                        <MenuItem type="submit" onClick={this.handleLeaveGame}>End Game</MenuItem>
+                                        <MenuItem type="submit" onClick={this.handleEndGame}>End Game</MenuItem>
                                     </Menu>
                                 </Grid>
                             </Grid>
@@ -94,6 +107,6 @@ class RoomAppBar extends React.Component {
 RoomAppBar.propTypes = {
   greeting: PropTypes.string,
   room_passcode: PropTypes.string,
-  room_id: PropTypes.number
+  room_id: PropTypes.number,
 };
 export default RoomAppBar

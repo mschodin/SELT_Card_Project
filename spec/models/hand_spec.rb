@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'rubycards'
+include RubyCards
 
 RSpec.describe Deck, type: :model do
   describe 'getting hand contents' do
