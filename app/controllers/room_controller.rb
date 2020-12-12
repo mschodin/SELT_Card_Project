@@ -42,14 +42,15 @@ class RoomController < ApplicationController
         @room_items = {}
         @room_items = get_room_items(@piles) unless @piles.empty?
       end
+
+      8.times { @room.add_pile } if @piles.empty?
+      @piles_to_deck = {}
+      @piles.each { |pile| @piles_to_deck[pile.id] = pile.decks.pluck("id")}
     else
       redirect_to room_index_path
     end
 
-    8.times { @room.add_pile } if @piles.empty?
 
-    @piles_to_deck = {}
-    @piles.each { |pile| @piles_to_deck[pile.id] = pile.decks.pluck("id")}
   end
 
   def get_room
