@@ -1,7 +1,9 @@
 import * as React from "react";
 import GamePile from "../../app/javascript/components/GamePile";
-import {DragDropContext, Droppable} from "react-beautiful-dnd";
+import {DragDropContext} from "react-beautiful-dnd";
 import {cleanup, render} from "@testing-library/react";
+
+afterEach(cleanup);
 
 describe('Check the gamepile exists', () => {
     it('renders the gamepile', () => {
