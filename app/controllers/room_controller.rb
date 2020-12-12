@@ -45,6 +45,8 @@ class RoomController < ApplicationController
     else
       redirect_to room_index_path
     end
+
+    8.times { @room.add_pile } if @piles.empty?
   end
 
   def get_room
@@ -97,7 +99,6 @@ class RoomController < ApplicationController
     session[:room_id] = nil
     session[:player] = nil
     redirect_to room_index_path, notice: "Thank you for playing!"
-    ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
   end
 
   def move_card
