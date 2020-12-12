@@ -5,9 +5,13 @@ import { Card } from 'react-casino'
 
 const cardStyle = (draggableStyle) => ({
     padding: '2px',
-    height: '108px',
-    width: '75px',
-    display: 'inline-flex',
+    // height: '108px',
+    // width: '75px',
+    maxHeight: '108px',
+    maxWidth: '75px',
+    height: '12vh',
+    width: '8vh',
+    display: 'inline-block',
     ...draggableStyle,
 });
 
