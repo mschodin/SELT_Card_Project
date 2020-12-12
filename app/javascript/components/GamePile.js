@@ -123,9 +123,9 @@ class GamePile extends React.Component {
         event.preventDefault();
         let body = JSON.stringify({
             count: this.state.quantity,
-            roomId: this.props.roomId,
-            pileId: this.props.pileId,
-            handId: this.props.handId,
+            room_id: this.props.roomId,
+            pile_id: this.props.pileId,
+            hand_id: this.props.handId,
         })
         fetch(this.props.draw_multiple, {
             method: 'post',

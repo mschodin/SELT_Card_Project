@@ -186,6 +186,24 @@ describe RoomController do
       expect(Pile.find(2).cards.count).to equal(1)
     end
   end
+  describe 'draw multiple cards' do
+    before(:each) do
+      Room.destroy_all
+      Player.destroy_all
+      Pile.destroy_all
+      GameHand.destroy_all
+      Deck.destroy_all
+      @room = Room.create!(:id=>1)
+      @room.add_player("TestPlayer")
+      @hand = GameHand.create!({:player_id=>1})
+      pile = Pile.create!({:room_id => 1})
+      @room.add_deck(pile)
+    end
+    it 'should move the requested number of cards to the player hand' do
+      post :draw_multiple, :params => {:count => "5", :room_id => "1", :pile_id => "1", :hand_id => @hand.id}
+      expect(@hand.display_hand_with_id.length).to eq(5)
+    end
+  end
   describe 'end a game' do
     before(:each) do
       Room.destroy_all
