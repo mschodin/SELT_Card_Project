@@ -11,13 +11,9 @@
     "@testing-library/dom": "^7.28.1",
     "@testing-library/react": "^11.2.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-<<<<<<< HEAD
     "enzyme": "^3.11.0",
     "fontsource-roboto": "^3.1.5",
-=======
-    "fontsource-roboto": "^3.0.3",
     "jquery": "^3.5.1",
->>>>>>> d39a8227236852ea2c8ed5c3b7f40f622ff6e104
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",
