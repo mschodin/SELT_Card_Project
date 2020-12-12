@@ -46,6 +46,10 @@ body {
     flex-wrap: wrap;
 }
 
+.appbar_spacing{
+    height: 4vh;
+}
+
 .room{
     padding-bottom: 5%;
     justify-content: center;
