@@ -11,11 +11,12 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+
 class RoomAppBar extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             setAnchorEl: false,
             anchorMenu: false
         }
@@ -25,48 +26,52 @@ class RoomAppBar extends React.Component {
         this.handleEndGame = this.handleEndGame.bind(this);
     }
 
-    async handleLeaveGame(e){
+    async handleLeaveGame(e) {
         e.preventDefault();
         console.log(this.state);
-        let leave_url = '/room/'+ this.props.room_id + '/leave';
+        let leave_url = '/room/' + this.props.room_id + '/leave';
         fetch(leave_url, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
             },
-        }).then((response) => { window.location.href = response.url })
+        }).then((response) => {
+            window.location.href = response.url
+        })
     }
-    async handleEndGame(e){
+
+    async handleEndGame(e) {
         e.preventDefault();
         console.log(this.state);
-        let end_url = '/room/'+this.props.room_id + '/destroy'
+        let end_url = '/room/' + this.props.room_id + '/destroy'
         fetch(end_url, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'text/html, application/json, application/xhtml+xml, application/xml'
             },
-        }).then((response) => { window.location.href = response.url })
+        }).then((response) => {
+            window.location.href = response.url
+        })
     }
 
-    async handleMenuClick(e){
-        this.setState( {['anchorMenu']: e.currentTarget});
+    async handleMenuClick(e) {
+        this.setState({['anchorMenu']: e.currentTarget});
     };
 
-    async handleMenuClose(e){
-        this.setState( {['anchorMenu']: null});
+    async handleMenuClose(e) {
+        this.setState({['anchorMenu']: null});
     };
 
 
-  render () {
+    render() {
         return (
-            <ThemeProvider theme={theme}>
-                <React.Fragment>
-                    <AppBar position="relative" style={{ margin: 0}}>
-                        <Toolbar className={"toolbarStyle"}>
-                            <Grid container spacing={3}>
-                                <Grid item xs={5} className="greetingStyle">
+            <React.Fragment>
+                <AppBar position="relative" style={{margin: 0}}>
+                    <Toolbar className={"toolbarStyle"}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={5} className="greetingStyle">
                                 <IconButton edge="start" color="inherit">
                                     <MouseRounded/>
                                     <CasinoRounded/>
@@ -77,36 +82,35 @@ class RoomAppBar extends React.Component {
                             </Grid>
                             <Grid item xs={4} className="greetingStyle">
                                 <Typography variant="h5">
-                                    {this.props.room_passcode}
+                                    Room Code: {this.props.room_passcode}
                                 </Typography>
                             </Grid>
-                                <Grid item xs={4} className="leaveButtonStyle">
-                                    <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleMenuClick}>
-                                        <ExitToApp style={{ color: "white" }}/>
-                                    </Button>
-                                    <Menu
-                                        id="simple-menu"
-                                        anchorEl={this.state.anchorMenu}
-                                        keepMounted
-                                        open={Boolean(this.state.anchorMenu)}
-                                        onClose={this.handleMenuClose}
-                                    >
-                                        <MenuItem type="submit" onClick={this.handleLeaveGame}>Leave Game</MenuItem>
-                                        <MenuItem type="submit" onClick={this.handleEndGame}>End Game</MenuItem>
-                                    </Menu>
-                                </Grid>
+                            <Grid item className="leaveButtonStyle">
+                                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleMenuClick}>
+                                    <ExitToApp style={{color: "white"}}/>
+                                </Button>
+                                <Menu
+                                    id="simple-menu"
+                                    anchorEl={this.state.anchorMenu}
+                                    keepMounted
+                                    open={Boolean(this.state.anchorMenu)}
+                                    onClose={this.handleMenuClose}
+                                >
+                                    <MenuItem type="submit" onClick={this.handleLeaveGame}>Leave Game</MenuItem>
+                                    <MenuItem type="submit" onClick={this.handleEndGame}>End Game</MenuItem>
+                                </Menu>
                             </Grid>
-                        </Toolbar>
-                    </AppBar>
-                </React.Fragment>
-            </ThemeProvider>
+                        </Grid>
+                    </Toolbar>
+                </AppBar>
+            </React.Fragment>
         );
     }
 }
 
 RoomAppBar.propTypes = {
-  greeting: PropTypes.string,
-  room_passcode: PropTypes.string,
-  room_id: PropTypes.number,
+    greeting: PropTypes.string,
+    room_passcode: PropTypes.string,
+    room_id: PropTypes.number,
 };
 export default RoomAppBar

@@ -35,6 +35,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 4vw;
+    margin-right: 4vw;
 }
 
 .handStyle{
@@ -54,6 +56,10 @@ body {
     width: 100%;
     height: 100%;
     flex-wrap: wrap;
+}
+
+.appbar_spacing{
+    height: 4vh;
 }
 
 .room{
