@@ -45,6 +45,8 @@ class RoomController < ApplicationController
     else
       redirect_to room_index_path
     end
+
+    8.times { @room.add_pile } if @piles.empty?
   end
 
   def get_room
@@ -93,11 +95,21 @@ class RoomController < ApplicationController
   end
 
   def leave
+    room = get_room
+    dump_pile = ''
+    room.piles.each do |pile| # Check if there are any empty piles
+      if pile.decks.empty? && pile.cards.empty? then dump_pile = pile end
+    end
+    if dump_pile.blank? then dump_pile = room.add_pile end # if there's no empty piles make a new pile
+    Player.find(session[:player]["id"]).cards.each do |card| # dump player cards in the pile
+      card.move_to(dump_pile)
+    end
+
     Player.find(session[:player]["id"]).destroy
     session[:room_id] = nil
     session[:player] = nil
-    redirect_to room_index_path, notice: "Thank you for playing!"
     ActionCable.server.broadcast 'activity_channel' , update: "<script> location.reload() </script>"
+    redirect_to room_index_path, notice: "Thank you for playing!"
   end
 
   def move_card
