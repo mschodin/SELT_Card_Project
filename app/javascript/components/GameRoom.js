@@ -11,6 +11,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from '../styles/theme'
 import PlayerList from "./PlayerList";
 import Grid from "@material-ui/core/Grid";
+import RoomAppBar from "./RoomAppBar";
 
 class GameRoom extends React.Component {
     constructor(props) {
@@ -126,8 +127,14 @@ class GameRoom extends React.Component {
         console.log(this.props.piles_to_deck)
         return (
             <ThemeProvider theme={theme}>
-                <CssBaseline />
+                <CssBaseline/>
                 <React.Fragment>
+                    <RoomAppBar
+                        room_id={this.props.roomId}
+                        greeting={`Welcome, ${this.props.player["name"]} to room #${this.props.roomId}`}
+                        room_passcode={this.props.room_passcode}
+                    />
+                    <div className={"appbar_spacing"}/>
                     <Box className={'room'}>
                         <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.handleDragStart}>
                             <Grid container spacing={3}>
@@ -145,11 +152,11 @@ class GameRoom extends React.Component {
                                 </Grid>
                                 <Grid item xs={2}/>
                             </Grid>
-                            <Typography component={"div"} className={"centered"}>
+                            <div className={"centered"}>
                                 <Box className={"handStyle"} bgcolor={"primary.main"} boxShadow={5}>
                                     <GameHand handId={"hand" + this.props.handId} playerHand={this.state.hand} />
                                 </Box>
-                            </Typography>
+                            </div>
                         </DragDropContext>
                     </Box>
                 </React.Fragment>
