@@ -97,7 +97,11 @@ class GameRoom extends React.Component {
             }
             else if(result.source.droppableId !== result.destination.droppableId && result.source.droppableId.includes('pile') && result.destination.droppableId.includes('pile')){
                 console.log("move card between pile");
-                console.log(result)//test
+                console.log(result)
+                const source_pile_id = result.source.droppableId.split("pile")[1]
+                const destination_pile_id = result.destination.droppableId.split("pile")[1]
+                const [removed] = this.state.piles[source_pile_id].splice(0, 1)
+                this.state.piles[destination_pile_id].splice(0, 0, removed);
             }
         }
     };
