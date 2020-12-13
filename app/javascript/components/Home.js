@@ -116,7 +116,7 @@ class Home extends React.Component {
                                                placeholder= 'Enter Name' />
                                 </Box>
                                 <Box pb={1} pt={1}>
-                                    <Button disabled={disable_create} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Create Game</Button>
+                                    <Button disabled={disable_create} fullwidth={"true"} variant="contained" color='secondary' aria-label='submit' type='submit'>Create Game</Button>
                                 </Box>
                             </form>
                         </Box>
@@ -158,7 +158,7 @@ class Home extends React.Component {
                                    }}
                                 />
                                 <Box pb={1} pt={1}>
-                                    <Button disabled={disable_join} fullwidth={"true"} variant="contained" color='secondary' type='submit'>Join Game</Button>
+                                    <Button disabled={disable_join} fullwidth={"true"} variant="contained" color='secondary' aria-label='submit' type='submit'>Join Game</Button>
                                 </Box>
                          </form>
                         </Box>
