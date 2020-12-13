@@ -1,25 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+Relavent information:
 
 * Ruby version
-
-* System dependencies
-
-* Configuration
-
+   - 2.6.6
+   
 * Database creation
-
-* Database initialization
+   - `bundle exec rake db:migrate`
 
 * How to run the test suite
+   - `bundle exec rspec`
+   - `yarn test`
 
 * Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+### Deploying Branches to Heroku Steps
+(steps for creating an app and initializing it are in HW4 these are for pushing a branch and changing app refs)
+
+`heroku git:remote -a app-name`    // connect to app you want to deploy to \
+`git remote -v`    // shows that heroku is using the right app \
+`git push -f heroku branch-name:main`  // pushes branch to main of Heroku app 
 
 ### Commands to run in development
 1. When working with JavaScript we are using yarn to install our packages. Install Yarn with: 
