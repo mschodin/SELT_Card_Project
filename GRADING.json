@@ -1,0 +1,8 @@
+{
+  "GROUP": "G006",
+  "ALL_SPRINTS": {
+    "SPRINT1_URL": "https://selt2020-sprint1.herokuapp.com/",
+    "SPRINT2_URL": "https://selt2020-sprint2.herokuapp.com/",
+    "SPRINT3_URL": "https://team05-testing.herokuapp.com/room/"
+  }
+}
