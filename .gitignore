@@ -1,7 +1,6 @@
 tmp/*
 .idea/
 log/
-coverage/
 Gemfile.lock
 ./bundle/
 db/*.sqlite3
