@@ -86,7 +86,7 @@ class RoomAppBar extends React.Component {
                                 </Typography>
                             </Grid>
                             <Grid item className="leaveButtonStyle">
-                                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleMenuClick}>
+                                <Button aria-label="simple-menu" aria-haspopup="true" onClick={this.handleMenuClick}>
                                     <ExitToApp style={{color: "white"}}/>
                                 </Button>
                                 <Menu
