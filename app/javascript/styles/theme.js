@@ -9,7 +9,7 @@ const theme = createMuiTheme({
             main: "#aed581" // greenish
         },
         background: {
-            default: "#fffaf0"
+            default: "floralwhite"
         }
     },
     fontFamily: "Roboto",

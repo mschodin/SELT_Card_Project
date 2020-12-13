@@ -8,9 +8,12 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@material/top-app-bar": "^8.0.0",
     "@rails/webpacker": "5.2.1",
+    "@testing-library/dom": "^7.28.1",
     "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.5.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "fontsource-roboto": "^3.0.3",
+    "enzyme": "^3.11.0",
+    "fontsource-roboto": "^3.1.5",
     "jquery": "^3.5.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -20,6 +23,7 @@
     "react_ujs": "^2.6.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.6",
     "jest": "^26.6.3",
     "webpack-dev-server": "^3.11.0"
   },
